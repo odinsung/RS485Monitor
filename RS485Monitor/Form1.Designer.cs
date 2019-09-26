@@ -32,8 +32,8 @@
             this.buttonTRSOpen = new System.Windows.Forms.Button();
             this.buttonTRSClose = new System.Windows.Forms.Button();
             this.panelTRS = new System.Windows.Forms.Panel();
-            this.labelTRS = new System.Windows.Forms.Label();
             this.textBoxTRSMsg = new System.Windows.Forms.TextBox();
+            this.labelTRS = new System.Windows.Forms.Label();
             this.labelPISC = new System.Windows.Forms.Label();
             this.panelPISC = new System.Windows.Forms.Panel();
             this.textBoxPISCMsg = new System.Windows.Forms.TextBox();
@@ -62,6 +62,7 @@
             this.buttonTRSOpen.TabIndex = 1;
             this.buttonTRSOpen.Text = "Open";
             this.buttonTRSOpen.UseVisualStyleBackColor = true;
+            this.buttonTRSOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // buttonTRSClose
             // 
@@ -72,6 +73,7 @@
             this.buttonTRSClose.TabIndex = 1;
             this.buttonTRSClose.Text = "Close";
             this.buttonTRSClose.UseVisualStyleBackColor = true;
+            this.buttonTRSClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // panelTRS
             // 
@@ -85,16 +87,6 @@
             this.panelTRS.Size = new System.Drawing.Size(631, 588);
             this.panelTRS.TabIndex = 2;
             // 
-            // labelTRS
-            // 
-            this.labelTRS.AutoSize = true;
-            this.labelTRS.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelTRS.Location = new System.Drawing.Point(12, 9);
-            this.labelTRS.Name = "labelTRS";
-            this.labelTRS.Size = new System.Drawing.Size(46, 21);
-            this.labelTRS.TabIndex = 3;
-            this.labelTRS.Text = "TRS";
-            // 
             // textBoxTRSMsg
             // 
             this.textBoxTRSMsg.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -105,6 +97,17 @@
             this.textBoxTRSMsg.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxTRSMsg.Size = new System.Drawing.Size(601, 147);
             this.textBoxTRSMsg.TabIndex = 2;
+            this.textBoxTRSMsg.DoubleClick += new System.EventHandler(this.textBoxMsg_DoubleClick);
+            // 
+            // labelTRS
+            // 
+            this.labelTRS.AutoSize = true;
+            this.labelTRS.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelTRS.Location = new System.Drawing.Point(12, 9);
+            this.labelTRS.Name = "labelTRS";
+            this.labelTRS.Size = new System.Drawing.Size(46, 21);
+            this.labelTRS.TabIndex = 3;
+            this.labelTRS.Text = "TRS";
             // 
             // labelPISC
             // 
@@ -138,6 +141,7 @@
             this.textBoxPISCMsg.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxPISCMsg.Size = new System.Drawing.Size(601, 147);
             this.textBoxPISCMsg.TabIndex = 2;
+            this.textBoxPISCMsg.DoubleClick += new System.EventHandler(this.textBoxMsg_DoubleClick);
             // 
             // comboBoxPISCPort
             // 
@@ -157,6 +161,7 @@
             this.buttonPISCClose.TabIndex = 1;
             this.buttonPISCClose.Text = "Close";
             this.buttonPISCClose.UseVisualStyleBackColor = true;
+            this.buttonPISCClose.Click += new System.EventHandler(this.buttonClose_Click);
             // 
             // buttonPISCOpen
             // 
@@ -167,6 +172,7 @@
             this.buttonPISCOpen.TabIndex = 1;
             this.buttonPISCOpen.Text = "Open";
             this.buttonPISCOpen.UseVisualStyleBackColor = true;
+            this.buttonPISCOpen.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // Form1
             // 
