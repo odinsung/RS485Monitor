@@ -26,6 +26,30 @@ namespace RS485Monitor
         {
             InitializeComponent();
             ComPortItemInit();
+            gTRS.ReceiveDone += GTRS_ReceiveDone;
+            gTRS.ErrorOccur += GTRS_ErrorOccur;
+            gPISC.ReceiveDone += GPISC_ReceiveDone;
+            gPISC.ErrorOccur += GPISC_ErrorOccur;
+        }
+
+        private void GPISC_ErrorOccur(object sender, PICom.ErrorEventArgs e)
+        {
+            Msg(e.ErrorMessage, Role.PISC);
+        }
+
+        private void GPISC_ReceiveDone(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void GTRS_ErrorOccur(object sender, PICom.ErrorEventArgs e)
+        {
+            Msg(e.ErrorMessage, Role.TRS);
+        }
+
+        private void GTRS_ReceiveDone(object sender, EventArgs e)
+        {
+            
         }
         #region Msg Functions
         private void Msg(String str, Role role)
@@ -75,11 +99,7 @@ namespace RS485Monitor
             Button btn = (Button)sender;
             Role r = btn == buttonTRSOpen ? Role.TRS : Role.PISC;
             String portName = r == Role.TRS ? comboBoxTRSPort.Text : comboBoxPISCPort.Text;
-            if (!(r == Role.TRS? gTRS.Open(portName) : gPISC.Open(portName)))
-            {
-                Msg(r == Role.TRS ? gTRS.Message : gPISC.Message, r);
-            }
-            else
+            if ((r == Role.TRS? gTRS.Open(portName) : gPISC.Open(portName)))
             {
                 Msg("開啟成功!", r);
             }

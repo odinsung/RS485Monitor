@@ -84,7 +84,7 @@
             this.panelTRS.Controls.Add(this.buttonTRSOpen);
             this.panelTRS.Location = new System.Drawing.Point(12, 33);
             this.panelTRS.Name = "panelTRS";
-            this.panelTRS.Size = new System.Drawing.Size(631, 588);
+            this.panelTRS.Size = new System.Drawing.Size(648, 610);
             this.panelTRS.TabIndex = 2;
             // 
             // textBoxTRSMsg
@@ -97,6 +97,7 @@
             this.textBoxTRSMsg.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxTRSMsg.Size = new System.Drawing.Size(601, 147);
             this.textBoxTRSMsg.TabIndex = 2;
+            this.textBoxTRSMsg.Text = "雙擊滑鼠清除訊息";
             this.textBoxTRSMsg.DoubleClick += new System.EventHandler(this.textBoxMsg_DoubleClick);
             // 
             // labelTRS
@@ -113,7 +114,7 @@
             // 
             this.labelPISC.AutoSize = true;
             this.labelPISC.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelPISC.Location = new System.Drawing.Point(659, 9);
+            this.labelPISC.Location = new System.Drawing.Point(662, 9);
             this.labelPISC.Name = "labelPISC";
             this.labelPISC.Size = new System.Drawing.Size(52, 21);
             this.labelPISC.TabIndex = 3;
@@ -126,9 +127,9 @@
             this.panelPISC.Controls.Add(this.comboBoxPISCPort);
             this.panelPISC.Controls.Add(this.buttonPISCClose);
             this.panelPISC.Controls.Add(this.buttonPISCOpen);
-            this.panelPISC.Location = new System.Drawing.Point(663, 33);
+            this.panelPISC.Location = new System.Drawing.Point(666, 33);
             this.panelPISC.Name = "panelPISC";
-            this.panelPISC.Size = new System.Drawing.Size(631, 588);
+            this.panelPISC.Size = new System.Drawing.Size(657, 610);
             this.panelPISC.TabIndex = 2;
             // 
             // textBoxPISCMsg
@@ -141,6 +142,7 @@
             this.textBoxPISCMsg.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxPISCMsg.Size = new System.Drawing.Size(601, 147);
             this.textBoxPISCMsg.TabIndex = 2;
+            this.textBoxPISCMsg.Text = "雙擊滑鼠清除訊息";
             this.textBoxPISCMsg.DoubleClick += new System.EventHandler(this.textBoxMsg_DoubleClick);
             // 
             // comboBoxPISCPort
@@ -178,7 +180,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1325, 637);
+            this.ClientSize = new System.Drawing.Size(1360, 655);
             this.Controls.Add(this.labelPISC);
             this.Controls.Add(this.labelTRS);
             this.Controls.Add(this.panelPISC);
