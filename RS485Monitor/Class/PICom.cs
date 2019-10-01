@@ -198,9 +198,9 @@ namespace RS485Monitor.Class
 
     public class TRS : PICom
     {
-        private bool IsAnyOneTalking = false;
-        private int CallingPEHCount = 0;
-        private List<String> CallingPEH = new List<String>();
+        private bool TRSIFCallPickUpStatus = false;
+        private int EmergencyDeviceCount = 0;
+        private List<String> AlarmDevice = new List<String>();
 
         public TRS()
         {
@@ -208,22 +208,22 @@ namespace RS485Monitor.Class
             ReceiveDone += TRS_ReceiveDone;
         }
 
-        public bool IsTalking()
+        public bool GetTRSIFCallPickUpStatus()
         {
-            return IsAnyOneTalking;
+            return TRSIFCallPickUpStatus;
         }
-        public int GetCallingPEHCount()
+        public int GetEmergencyDeviceCount()
         {
-            return CallingPEHCount;
+            return EmergencyDeviceCount;
         }
-        public String GetCallingPEHInfo(int index)
+        public String GetAlarmDevice(int index)
         {
-            String peh = String.Empty;
-            if (index < CallingPEHCount)
+            String devName = String.Empty;
+            if (index < EmergencyDeviceCount)
             {
-                peh = CallingPEH[index];
+                devName = AlarmDevice[index];
             }
-            return peh;
+            return devName;
         }
 
         public void SendResponse(bool IsTRSCalling, DateTime dateTime)
@@ -246,12 +246,12 @@ namespace RS485Monitor.Class
                 {
                     if (pehCnt <= 20 && AppData.Length == (5 + pehCnt * 6)) // Check parameter format and AppData length.
                     {
-                        IsAnyOneTalking = isTalking;
-                        CallingPEHCount = pehCnt;
-                        CallingPEH.Clear();
-                        for (int i = 0; i < CallingPEHCount; i++) // Get Calling PEH Information. (Ex: "C01D02")
+                        TRSIFCallPickUpStatus = isTalking;
+                        EmergencyDeviceCount = pehCnt;
+                        AlarmDevice.Clear();
+                        for (int i = 0; i < EmergencyDeviceCount; i++) // Get Calling PEH Information. (Ex: "C01D02")
                         {
-                            CallingPEH.Add(AppData.Substring(5 + i * 6, 6)); // Offset = i*6+5, Length=6
+                            AlarmDevice.Add(AppData.Substring(5 + i * 6, 6)); // Offset = i*6+5, Length=6
                         }
                         ThrowTRSIFRequestEvent();
                         return;
@@ -282,15 +282,95 @@ namespace RS485Monitor.Class
 
     public class PISC : PICom
     {
+        private int AudioVolume = 0;
+        private int EmergencyDeviceCount = 0;
+        private List<String> AlarmDevice = new List<String>();
+        private int[] PEIStatus = new int[4];
+        private int DeviceErrorCount = 0;
+        private List<String> PEHStatus = new List<String>();
+
         public PISC()
         {
             // PICom 丟出的 ReceiveDone 事件，觸發處理函式 PISC_ReceiveDone()
             ReceiveDone += PISC_ReceiveDone;
         }
 
+        public int GetAudioVolume()
+        {
+            return AudioVolume;
+        }
+        public int GetEmergencyDeviceCount()
+        {
+            return EmergencyDeviceCount;
+        }
+        public String GetAlarmDevice(int index)
+        {
+            String devName = String.Empty;
+            if (index < EmergencyDeviceCount)
+            {
+                devName = AlarmDevice[index];
+            }
+            return devName;
+        }
+        public int GetPEIStatus(int index)
+        {
+            return index < 4 ? PEIStatus[index] : -1;
+        }
+        public int GetDeviceErrorCount()
+        {
+            return DeviceErrorCount;
+        }
+        public String GetPEHStatus(int index)
+        {
+            String peh = String.Empty;
+            if (index < DeviceErrorCount)
+            {
+                peh = PEHStatus[index];
+            }
+            return peh;
+        }
+
+
         private void PISC_ReceiveDone(object sender, EventArgs e)
         {
-            
+            int vol = 0;
+            int emgCnt = 0;
+            int devErrCnt = 0;
+            int[] peiSta = new int[4];
+            String str = String.Empty;
+            if (AppData.Substring(0, 2) != "40")                                 { ThrowErrorEvent("Message Type Error");               return; }
+            if (!int.TryParse(AppData.Substring(2, 2), out vol))                 { ThrowErrorEvent("Audio Volume Parsing Error");       return; }
+            if (!int.TryParse(AppData.Substring(4, 2), out emgCnt))              { ThrowErrorEvent("Calling PEH Parsing Error");        return; }
+            if (emgCnt > 20)                                                     { ThrowErrorEvent("Calling PEH Count Error");          return; }
+            if (!int.TryParse(AppData.Substring(10+emgCnt*6, 2), out devErrCnt)) { ThrowErrorEvent("Device Error Count Parsing Error"); return; }
+            if (devErrCnt > 65)                                                  { ThrowErrorEvent("Device Error Count Error");         return; }
+            if (AppData.Length != (12 + 6 * emgCnt + 6 * devErrCnt))             { ThrowErrorEvent("App Data Length Error");            return; }
+            str = AppData.Substring(6 + 6 * emgCnt, 4);
+            for(int i=0; i<4; i++)
+            {
+                if (!int.TryParse(AppData.Substring(6 + 6 * emgCnt + i, 1), out peiSta[i]))
+                {
+                    ThrowErrorEvent("PEI Status Error");
+                    return;
+                }
+            }
+            AudioVolume = vol; //----------------------------------------------------- (1) Audio Volume
+            EmergencyDeviceCount = emgCnt; //----------------------------------------- (2) Calling PEH Count
+            AlarmDevice.Clear(); //--------------------------------------------------- (3) Calling PEH
+            str = AppData.Substring(6, emgCnt * 6);
+            for(int i=0; i<EmergencyDeviceCount; i++)
+            {
+                AlarmDevice.Add(str.Substring(i * 6, 6));
+            }
+            Array.Copy(peiSta, PEIStatus, 4); //-------------------------------------- (4) PEI Status
+            DeviceErrorCount = devErrCnt; //------------------------------------------ (5) Device Error Count
+            PEHStatus.Clear(); //----------------------------------------------------- (6) PEH Status
+            str = AppData.Substring(12 + 6 * emgCnt, devErrCnt * 6);
+            for(int i=0; i<devErrCnt; i++)
+            {
+                PEHStatus.Add(str.Substring(i * 6, 6));
+            }
+            ThrowReportISStatusEvent();
         }
 
         public event EventHandler<EventArgs> ReportISStatus;
