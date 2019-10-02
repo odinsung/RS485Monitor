@@ -330,6 +330,11 @@ namespace RS485Monitor.Class
             return peh;
         }
 
+        public void SendResponse(int setAudioVolume)
+        {
+            String data = setAudioVolume >= 1 && setAudioVolume <= 16 ? setAudioVolume.ToString("D2") : "FF";
+            Port_SendPacket("C0", data);
+        }
 
         private void PISC_ReceiveDone(object sender, EventArgs e)
         {

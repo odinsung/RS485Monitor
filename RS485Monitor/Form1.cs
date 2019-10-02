@@ -26,31 +26,39 @@ namespace RS485Monitor
         {
             InitializeComponent();
             ComPortItemInit();
-            gTRS.ReceiveDone += GTRS_ReceiveDone;
+            gTRS.TRSIFRequest += GTRS_TRSIFRequest;
             gTRS.ErrorOccur += GTRS_ErrorOccur;
-            gPISC.ReceiveDone += GPISC_ReceiveDone;
+            gPISC.ReportISStatus += GPISC_ReportISStatus;
             gPISC.ErrorOccur += GPISC_ErrorOccur;
+            labelDateTimeNow.Text = System.DateTime.Now.ToString();
+            timerShowDateTime.Enabled = true;
+            WindowState = FormWindowState.Maximized;
         }
 
-        private void GPISC_ErrorOccur(object sender, PICom.ErrorEventArgs e)
-        {
-            Msg(e.ErrorMessage, Role.PISC);
-        }
-
-        private void GPISC_ReceiveDone(object sender, EventArgs e)
+        private void GTRS_TRSIFRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
             
         }
 
-        private void GTRS_ErrorOccur(object sender, PICom.ErrorEventArgs e)
+        private void GTRS_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 TRS 發出的錯誤訊息之事件處理
         {
             Msg(e.ErrorMessage, Role.TRS);
         }
 
-        private void GTRS_ReceiveDone(object sender, EventArgs e)
+        private void GPISC_ReportISStatus(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
             
         }
+
+        private void GPISC_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 PISC 發出的錯誤訊息之事件處理
+        {
+            Msg(e.ErrorMessage, Role.PISC);
+        }
+
+        
+
+
+
         #region Msg Functions
         private void Msg(String str, Role role)
         {
@@ -118,6 +126,31 @@ namespace RS485Monitor
         {
             TextBox tb = (TextBox)sender;
             tb.Clear();
+        }
+
+        private void timerShowDateTime_Tick(object sender, EventArgs e)
+        {
+            labelDateTimeNow.Text = System.DateTime.Now.ToString();
+        }
+
+        private void radioButtonTRSCallPickUpStatus_Call_CheckedChanged(object sender, EventArgs e)
+        {
+            if (listBoxTRSAlmDev.Items.Count == 0)
+            {
+                //radioButtonTRSCallPickUpStatus_Call.Checked = false;
+                radioButtonTRSCallPickUpStatus_NotCall.Checked = true;
+            }
+        }
+
+        private void buttonAddFakeAlarmDev_Click(object sender, EventArgs e) // Debug: 增加假的候隊子機名單
+        {
+            listBoxTRSAlmDev.Items.Add("CXXDXX");
+        }
+
+        private void buttonDebugClearAlmDev_Click(object sender, EventArgs e) // Debug: 清除候隊子機清單
+        {
+            listBoxTRSAlmDev.Items.Clear();
+            radioButtonTRSCallPickUpStatus_NotCall.Checked = true;
         }
     }
 }
