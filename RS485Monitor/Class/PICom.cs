@@ -26,10 +26,28 @@ namespace RS485Monitor.Class
 
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e) // 接收資料的事件處理
         {
-            Byte c = 0;
-            while(Port.BytesToRead > 0)
+            Byte[] data = new Byte[256];
+            int length = 0;
+            if (Port.BytesToRead > 0)
             {
-                c = (Byte)Port.ReadByte();
+                length = Port.BytesToRead;
+                for(int i=0; i<length; i++)
+                {
+                    data[i] = (Byte)Port.ReadByte();
+                }
+                ReceivedDataHandler(data, length);
+            }
+        }
+        public void Fake_DataReceived(Byte[] fakeData, int length) // 用假資料來測試(模擬序列埠接收到資料)
+        {
+            ReceivedDataHandler(fakeData, length);
+        }
+        private void ReceivedDataHandler(Byte[] rxData, int length) // 接收資料解析 (Received Data Parsing)
+        {
+            Byte c = 0;
+            for(int i=0; i<length; i++)
+            {
+                c = rxData[i];
                 RawBuf[RawPtr++] = c;
                 switch (RxState)
                 {
@@ -75,7 +93,7 @@ namespace RS485Monitor.Class
                             else
                             {
                                 AppDataOverflow = true;
-                            }                            
+                            }
                             BCC ^= c;
                         }
                         break;
@@ -108,7 +126,8 @@ namespace RS485Monitor.Class
                 }
             }
         }
-        protected void Port_SendPacket(String messageType, String data)
+
+        protected void Port_SendPacket(String messageType, String data) // 送出回應封包
         {
             Byte bcc = 0;
             Byte[] buf = new Byte[256];
@@ -176,19 +195,20 @@ namespace RS485Monitor.Class
         }
 
         #region Event Related
+        // 事件[發生錯誤]的參數定義
         public class ErrorEventArgs : EventArgs
         {
             public String ErrorMessage { get; set; }
         }
-        public event EventHandler<ErrorEventArgs> ErrorOccur;
-        public event EventHandler<EventArgs> ReceiveDone;
-        protected virtual void ThrowErrorEvent(String errmsg)
+        public event EventHandler<ErrorEventArgs> ErrorOccur; // 事件[發生錯誤]:宣告
+        public event EventHandler<EventArgs> ReceiveDone; // 事件[接收完成]:宣告
+        protected virtual void ThrowErrorEvent(String errmsg) // 事件[發生錯誤]:丟出事件的函式
         {
             ErrorEventArgs e = new ErrorEventArgs();
             e.ErrorMessage = errmsg;
             ErrorOccur?.Invoke(this, e);
         }
-        protected virtual void ThrowReceiveDoneEvent()
+        protected virtual void ThrowReceiveDoneEvent() // 事件[接收完成]:丟出事件的函式
         {
             EventArgs e = new EventArgs();
             ReceiveDone?.Invoke(this, e);
