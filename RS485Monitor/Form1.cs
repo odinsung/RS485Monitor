@@ -60,22 +60,10 @@ namespace RS485Monitor
         {
             Byte[] pkt = r == Role.TRS ? gTRS.RawBuf : gPISC.RawBuf;
             int length = r == Role.TRS ? gTRS.RawPtr : gPISC.RawPtr;
-
             Msg(pkt, length, r);
-
-            //int length = r == Role.TRS? gTRS.RawPtr : gPISC.RawPtr;
-            //String str = "Received: ";
-            //for(int i=0; i<length; i++)
-            //{
-            //    str += r == Role.TRS ? gTRS.RawBuf[i].ToString("X2") : gPISC.RawBuf[i].ToString("X2");
-            //}
-
             // Reset Raw Buffer Pointer
             if (r == Role.TRS){ gTRS.RawPtr  = 0; }
             else              { gPISC.RawPtr = 0; }
-
-            // Dump to Msg window
-            //Msg(str, r);            
         }
 
         private void GTRS_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 TRS 發出的錯誤訊息之事件處理
@@ -143,7 +131,27 @@ namespace RS485Monitor
             TextBox tb = role == Role.TRS ? textBoxTRSMsg : textBoxPISCMsg;
             for(int i=0; i<length; i++)
             {
-                str += pkt[i] >= 0x20 && pkt[i] <= 0x7e ? System.Text.Encoding.ASCII.GetString(pkt, i, 1) : "[0x" + pkt[i].ToString("X2") + "]";
+                switch (pkt[i])
+                {
+                    case Byte b when i == (length - 1):
+                        str += "[0x" + b.ToString("X2") + "]";
+                        break;
+                    case Byte b when pkt[i] == 0x10:
+                        str += "[DLE]";
+                        break;
+                    case Byte b when pkt[i] == 0x02:
+                        str += "[STX]";
+                        break;
+                    case Byte b when pkt[i] == 0x03:
+                        str += "[ETX]";
+                        break;
+                    case Byte b when pkt[i] >= 0x20 && pkt[i] <= 0x7e:
+                        str += ((Char)b).ToString();
+                        break;
+                    default:
+                        str += "[0x" + pkt[i].ToString("X2") + "]";
+                        break;
+                }
             }
             tb.Text += str + Environment.NewLine;
         }
@@ -327,6 +335,18 @@ namespace RS485Monitor
                 default: str = "Unknown error"; break;
             }
             return str;
+        }
+
+        private void buttonClrMsg_Click(object sender, EventArgs e) // 清除訊息窗
+        {
+            if (((Button)sender).Name == "buttonClrTRSMsg")
+            {
+                textBoxTRSMsg.Clear();
+            }
+            else
+            {
+                textBoxPISCMsg.Clear();
+            }
         }
     }
 }
