@@ -35,6 +35,8 @@ namespace RS485Monitor
             labelDateTimeNow.Text = System.DateTime.Now.ToString();
             timerShowDateTime.Enabled = true;
             WindowState = FormWindowState.Maximized;
+            Msg("雙擊滑鼠以清除訊息", Role.TRS);
+            Msg("雙擊滑鼠以清除訊息", Role.PISC);
         }
 
         private void GTRS_TRSIFRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
@@ -56,17 +58,24 @@ namespace RS485Monitor
         }
         private void DumpReceivedPacket(Role r) // 將收到的封包內容顯示在訊息窗中
         {
-            int length = r == Role.TRS? gTRS.RawPtr : gPISC.RawPtr;
-            String str = "Received: ";
-            for(int i=0; i<length; i++)
-            {
-                str += r == Role.TRS ? gTRS.RawBuf[i].ToString("X2") : gPISC.RawBuf[i].ToString("X2");
-            }
+            Byte[] pkt = r == Role.TRS ? gTRS.RawBuf : gPISC.RawBuf;
+            int length = r == Role.TRS ? gTRS.RawPtr : gPISC.RawPtr;
+
+            Msg(pkt, length, r);
+
+            //int length = r == Role.TRS? gTRS.RawPtr : gPISC.RawPtr;
+            //String str = "Received: ";
+            //for(int i=0; i<length; i++)
+            //{
+            //    str += r == Role.TRS ? gTRS.RawBuf[i].ToString("X2") : gPISC.RawBuf[i].ToString("X2");
+            //}
+
             // Reset Raw Buffer Pointer
             if (r == Role.TRS){ gTRS.RawPtr  = 0; }
             else              { gPISC.RawPtr = 0; }
+
             // Dump to Msg window
-            Msg(str, r);            
+            //Msg(str, r);            
         }
 
         private void GTRS_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 TRS 發出的錯誤訊息之事件處理
@@ -81,18 +90,29 @@ namespace RS485Monitor
             int[] peiStatus = new int[4];
             int deviceErrorCount = 0;
             DumpReceivedPacket(Role.PISC);
+
+            // 取得 Request 中的各個參數
             audioVolume = gPISC.GetAudioVolume();
-            listBoxPISCAlmDev.Items.Clear();
-            for(int i=0; i<emergencyDeviceCount; i++)
-            {
-                listBoxPISCAlmDev.Items.Add(gPISC.GetAlarmDevice(i));
-            }
             emergencyDeviceCount = gPISC.GetEmergencyDeviceCount();
-            for(int i=0; i<4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 peiStatus[i] = gPISC.GetPEIStatus(i);
             }
             deviceErrorCount = gPISC.GetDeviceErrorCount();
+
+            // 顯示在 UI 上
+            textBoxAudioVolume.Text = audioVolume.ToString("D2");
+            textBoxPISCEmgDevCnt.Text = emergencyDeviceCount.ToString("D2");
+            listBoxPISCAlmDev.Items.Clear();
+            for (int i=0; i<emergencyDeviceCount; i++)
+            {
+                listBoxPISCAlmDev.Items.Add(gPISC.GetAlarmDevice(i));
+            }
+            textBoxPEIStatus0.Text = PEIStatusName(peiStatus[0]);
+            textBoxPEIStatus1.Text = PEIStatusName(peiStatus[1]);
+            textBoxPEIStatus2.Text = PEIStatusName(peiStatus[2]);
+            textBoxPEIStatus3.Text = PEIStatusName(peiStatus[3]);
+            textBoxDevErrCnt.Text = deviceErrorCount.ToString("D2");
             listBoxPEHStatus.Items.Clear();
             for(int i=0; i<deviceErrorCount; i++)
             {
@@ -112,29 +132,21 @@ namespace RS485Monitor
             Msg(e.ErrorMessage, Role.PISC);
         }
         
-        private void Msg(String str, Role role)
+        private void Msg(String str, Role role) // 顯示 Debug 訊息
         {
-            try
+            TextBox tb = role == Role.TRS ? textBoxTRSMsg : textBoxPISCMsg;
+            tb.Text += str + Environment.NewLine;
+        }
+        private void Msg(Byte[] pkt, int length, Role role) // 顯示封包內容
+        {
+            String str = "Packet: ";
+            TextBox tb = role == Role.TRS ? textBoxTRSMsg : textBoxPISCMsg;
+            for(int i=0; i<length; i++)
             {
-                if (role == Role.TRS)
-                {
-                    textBoxTRSMsg.Invoke(new EventHandler(delegate
-                    {
-                        textBoxTRSMsg.Text += str + Environment.NewLine;
-                    }));
-                }
-                else
-                {
-                    textBoxPISCMsg.Invoke(new EventHandler(delegate
-                    {
-                        textBoxPISCMsg.Text += str + Environment.NewLine;
-                    }));
-                }
+                str += pkt[i] >= 0x20 && pkt[i] <= 0x7e ? System.Text.Encoding.ASCII.GetString(pkt, i, 1) : "[0x" + pkt[i].ToString("X2") + "]";
             }
-            catch (InvalidOperationException)
-            {
-            }
-        } // 顯示 Debug 訊息
+            tb.Text += str + Environment.NewLine;
+        }
         
         private void ComPortItemInit() // 序列埠相關物件初始化
         {
@@ -266,6 +278,55 @@ namespace RS485Monitor
         private void comboBoxSetAudioVolume_SelectedIndexChanged(object sender, EventArgs e) // 改變欲設定的音量 (Set Audio Volume)
         {
             SetAudioVolume = comboBoxSetAudioVolume.SelectedIndex + 1;
+        }
+
+        private void buttonFakeData_Click(object sender, EventArgs e) // 模擬 TRSIF 資料傳入
+        {
+            Byte[] pkt = new Byte[256];
+            Byte bcc = 0;
+            int length = 0;
+            int ptr = 0;
+            String str = textBoxFakeAppData.Text;
+            length = str.Length;
+            if (length > 256)
+            {
+                Msg("資料長度太長！", Role.TRS);
+            }
+            else if (length != 0)
+            {
+                pkt[ptr++] = 0x10;
+                pkt[ptr++] = 0x02;
+                for(int i=0; i<length; i++)
+                {
+                    pkt[ptr++] = (Byte)str[i];
+                    bcc ^= (Byte)str[i];
+                }
+                pkt[ptr++] = 0x10;
+                pkt[ptr++] = 0x03;
+                pkt[ptr++] = bcc;
+                if (radioButtonFakeDataToTRS.Checked)
+                {
+                    gTRS.Fake_DataReceived(pkt, ptr);
+                }
+                else
+                {
+                    gPISC.Fake_DataReceived(pkt, ptr);
+                }
+            }
+
+        }
+
+        private String PEIStatusName(int peiStaCode)
+        {
+            String str = String.Empty;
+            switch (peiStaCode)
+            {
+                case 0: str = "Online"; break;
+                case 1: str = "Time out"; break;
+                case 2: str = "Other error"; break;
+                default: str = "Unknown error"; break;
+            }
+            return str;
         }
     }
 }

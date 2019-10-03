@@ -52,7 +52,7 @@
             this.textBoxPISCEmgDevCnt = new System.Windows.Forms.TextBox();
             this.listBoxPISCAlmDev = new System.Windows.Forms.ListBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxAudioVolume = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.radioButtonTRSCallPickUpStatus_Call = new System.Windows.Forms.RadioButton();
             this.radioButtonTRSCallPickUpStatus_NotCall = new System.Windows.Forms.RadioButton();
@@ -68,7 +68,7 @@
             this.textBoxPEIStatus0 = new System.Windows.Forms.TextBox();
             this.textBoxPEIStatus1 = new System.Windows.Forms.TextBox();
             this.textBoxPEIStatus2 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBoxPEIStatus3 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -81,8 +81,17 @@
             this.buttonDebugClearPEHStatus = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.comboBoxSetAudioVolume = new System.Windows.Forms.ComboBox();
+            this.textBoxFakeAppData = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.buttonFakeData = new System.Windows.Forms.Button();
+            this.groupBoxFakeDataTargetSel = new System.Windows.Forms.GroupBox();
+            this.radioButtonFakeDataToTRS = new System.Windows.Forms.RadioButton();
+            this.radioButtonFakeDataToPISC = new System.Windows.Forms.RadioButton();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.panelTRS.SuspendLayout();
             this.panelPISC.SuspendLayout();
+            this.groupBoxFakeDataTargetSel.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBoxTRSPort
@@ -128,6 +137,7 @@
             this.panelTRS.Controls.Add(this.textBoxTRSIFCallPickUpStatus);
             this.panelTRS.Controls.Add(this.label3);
             this.panelTRS.Controls.Add(this.label9);
+            this.panelTRS.Controls.Add(this.label19);
             this.panelTRS.Controls.Add(this.label2);
             this.panelTRS.Controls.Add(this.labelDateTimeNow);
             this.panelTRS.Controls.Add(this.label8);
@@ -139,13 +149,13 @@
             this.panelTRS.Controls.Add(this.buttonTRSOpen);
             this.panelTRS.Location = new System.Drawing.Point(12, 33);
             this.panelTRS.Name = "panelTRS";
-            this.panelTRS.Size = new System.Drawing.Size(648, 744);
+            this.panelTRS.Size = new System.Drawing.Size(648, 651);
             this.panelTRS.TabIndex = 2;
             // 
             // textBoxTRSMsg
             // 
             this.textBoxTRSMsg.BackColor = System.Drawing.Color.White;
-            this.textBoxTRSMsg.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxTRSMsg.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTRSMsg.Location = new System.Drawing.Point(13, 461);
             this.textBoxTRSMsg.Multiline = true;
             this.textBoxTRSMsg.Name = "textBoxTRSMsg";
@@ -153,7 +163,6 @@
             this.textBoxTRSMsg.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxTRSMsg.Size = new System.Drawing.Size(620, 173);
             this.textBoxTRSMsg.TabIndex = 2;
-            this.textBoxTRSMsg.Text = "雙擊滑鼠清除訊息";
             this.textBoxTRSMsg.DoubleClick += new System.EventHandler(this.textBoxMsg_DoubleClick);
             // 
             // labelTRS
@@ -188,11 +197,12 @@
             this.panelPISC.Controls.Add(this.listBoxPISCAlmDev);
             this.panelPISC.Controls.Add(this.textBoxDevErrCnt);
             this.panelPISC.Controls.Add(this.textBoxPISCEmgDevCnt);
-            this.panelPISC.Controls.Add(this.textBox4);
+            this.panelPISC.Controls.Add(this.label20);
+            this.panelPISC.Controls.Add(this.textBoxPEIStatus3);
             this.panelPISC.Controls.Add(this.textBoxPEIStatus2);
             this.panelPISC.Controls.Add(this.textBoxPEIStatus1);
             this.panelPISC.Controls.Add(this.textBoxPEIStatus0);
-            this.panelPISC.Controls.Add(this.textBox1);
+            this.panelPISC.Controls.Add(this.textBoxAudioVolume);
             this.panelPISC.Controls.Add(this.textBoxPISCMsg);
             this.panelPISC.Controls.Add(this.comboBoxPISCPort);
             this.panelPISC.Controls.Add(this.label17);
@@ -210,13 +220,13 @@
             this.panelPISC.Controls.Add(this.buttonPISCOpen);
             this.panelPISC.Location = new System.Drawing.Point(666, 33);
             this.panelPISC.Name = "panelPISC";
-            this.panelPISC.Size = new System.Drawing.Size(657, 744);
+            this.panelPISC.Size = new System.Drawing.Size(657, 651);
             this.panelPISC.TabIndex = 2;
             // 
             // textBoxPISCMsg
             // 
             this.textBoxPISCMsg.BackColor = System.Drawing.Color.White;
-            this.textBoxPISCMsg.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxPISCMsg.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPISCMsg.Location = new System.Drawing.Point(10, 461);
             this.textBoxPISCMsg.Multiline = true;
             this.textBoxPISCMsg.Name = "textBoxPISCMsg";
@@ -224,7 +234,6 @@
             this.textBoxPISCMsg.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxPISCMsg.Size = new System.Drawing.Size(627, 173);
             this.textBoxPISCMsg.TabIndex = 2;
-            this.textBoxPISCMsg.Text = "雙擊滑鼠清除訊息";
             this.textBoxPISCMsg.DoubleClick += new System.EventHandler(this.textBoxMsg_DoubleClick);
             // 
             // comboBoxPISCPort
@@ -374,17 +383,17 @@
             this.label6.TabIndex = 3;
             this.label6.Text = "Audio Volume";
             // 
-            // textBox1
+            // textBoxAudioVolume
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox1.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox1.Location = new System.Drawing.Point(185, 62);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(302, 23);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "16";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxAudioVolume.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxAudioVolume.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxAudioVolume.Location = new System.Drawing.Point(185, 62);
+            this.textBoxAudioVolume.Name = "textBoxAudioVolume";
+            this.textBoxAudioVolume.ReadOnly = true;
+            this.textBoxAudioVolume.Size = new System.Drawing.Size(302, 23);
+            this.textBoxAudioVolume.TabIndex = 4;
+            this.textBoxAudioVolume.Text = "16";
+            this.textBoxAudioVolume.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label7
             // 
@@ -548,17 +557,17 @@
             this.textBoxPEIStatus2.Text = "Online";
             this.textBoxPEIStatus2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox4
+            // textBoxPEIStatus3
             // 
-            this.textBox4.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox4.Location = new System.Drawing.Point(536, 242);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.ReadOnly = true;
-            this.textBox4.Size = new System.Drawing.Size(101, 27);
-            this.textBox4.TabIndex = 4;
-            this.textBox4.Text = "Online";
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxPEIStatus3.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxPEIStatus3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxPEIStatus3.Location = new System.Drawing.Point(536, 242);
+            this.textBoxPEIStatus3.Name = "textBoxPEIStatus3";
+            this.textBoxPEIStatus3.ReadOnly = true;
+            this.textBoxPEIStatus3.Size = new System.Drawing.Size(101, 27);
+            this.textBoxPEIStatus3.TabIndex = 4;
+            this.textBoxPEIStatus3.Text = "Online";
+            this.textBoxPEIStatus3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label11
             // 
@@ -669,7 +678,7 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label17.ForeColor = System.Drawing.Color.Blue;
-            this.label17.Location = new System.Drawing.Point(12, 434);
+            this.label17.Location = new System.Drawing.Point(12, 428);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(145, 19);
             this.label17.TabIndex = 3;
@@ -679,17 +688,107 @@
             // 
             this.comboBoxSetAudioVolume.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxSetAudioVolume.FormattingEnabled = true;
-            this.comboBoxSetAudioVolume.Location = new System.Drawing.Point(185, 427);
+            this.comboBoxSetAudioVolume.Location = new System.Drawing.Point(185, 421);
             this.comboBoxSetAudioVolume.Name = "comboBoxSetAudioVolume";
             this.comboBoxSetAudioVolume.Size = new System.Drawing.Size(157, 32);
             this.comboBoxSetAudioVolume.TabIndex = 8;
             this.comboBoxSetAudioVolume.SelectedIndexChanged += new System.EventHandler(this.comboBoxSetAudioVolume_SelectedIndexChanged);
             // 
+            // textBoxFakeAppData
+            // 
+            this.textBoxFakeAppData.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxFakeAppData.Location = new System.Drawing.Point(309, 715);
+            this.textBoxFakeAppData.Name = "textBoxFakeAppData";
+            this.textBoxFakeAppData.Size = new System.Drawing.Size(967, 30);
+            this.textBoxFakeAppData.TabIndex = 4;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label18.Location = new System.Drawing.Point(13, 687);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(148, 16);
+            this.label18.TabIndex = 5;
+            this.label18.Text = "Fake Application Data";
+            // 
+            // buttonFakeData
+            // 
+            this.buttonFakeData.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.buttonFakeData.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonFakeData.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.buttonFakeData.Location = new System.Drawing.Point(154, 715);
+            this.buttonFakeData.Name = "buttonFakeData";
+            this.buttonFakeData.Size = new System.Drawing.Size(149, 35);
+            this.buttonFakeData.TabIndex = 6;
+            this.buttonFakeData.Text = "模擬 TRSIF 資料";
+            this.buttonFakeData.UseVisualStyleBackColor = false;
+            this.buttonFakeData.Click += new System.EventHandler(this.buttonFakeData_Click);
+            // 
+            // groupBoxFakeDataTargetSel
+            // 
+            this.groupBoxFakeDataTargetSel.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.groupBoxFakeDataTargetSel.Controls.Add(this.radioButtonFakeDataToPISC);
+            this.groupBoxFakeDataTargetSel.Controls.Add(this.radioButtonFakeDataToTRS);
+            this.groupBoxFakeDataTargetSel.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.groupBoxFakeDataTargetSel.Location = new System.Drawing.Point(12, 715);
+            this.groupBoxFakeDataTargetSel.Name = "groupBoxFakeDataTargetSel";
+            this.groupBoxFakeDataTargetSel.Size = new System.Drawing.Size(136, 93);
+            this.groupBoxFakeDataTargetSel.TabIndex = 7;
+            this.groupBoxFakeDataTargetSel.TabStop = false;
+            this.groupBoxFakeDataTargetSel.Text = "傳送對象選擇";
+            // 
+            // radioButtonFakeDataToTRS
+            // 
+            this.radioButtonFakeDataToTRS.AutoSize = true;
+            this.radioButtonFakeDataToTRS.Checked = true;
+            this.radioButtonFakeDataToTRS.Location = new System.Drawing.Point(29, 32);
+            this.radioButtonFakeDataToTRS.Name = "radioButtonFakeDataToTRS";
+            this.radioButtonFakeDataToTRS.Size = new System.Drawing.Size(50, 17);
+            this.radioButtonFakeDataToTRS.TabIndex = 0;
+            this.radioButtonFakeDataToTRS.TabStop = true;
+            this.radioButtonFakeDataToTRS.Text = "TRS";
+            this.radioButtonFakeDataToTRS.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonFakeDataToPISC
+            // 
+            this.radioButtonFakeDataToPISC.AutoSize = true;
+            this.radioButtonFakeDataToPISC.Location = new System.Drawing.Point(29, 55);
+            this.radioButtonFakeDataToPISC.Name = "radioButtonFakeDataToPISC";
+            this.radioButtonFakeDataToPISC.Size = new System.Drawing.Size(55, 17);
+            this.radioButtonFakeDataToPISC.TabIndex = 0;
+            this.radioButtonFakeDataToPISC.Text = "PISC";
+            this.radioButtonFakeDataToPISC.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label19.Location = new System.Drawing.Point(405, 437);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(228, 16);
+            this.label19.TabIndex = 3;
+            this.label19.Text = "Double-click to clear Msg window.";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label20.Location = new System.Drawing.Point(409, 437);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(228, 16);
+            this.label20.TabIndex = 3;
+            this.label20.Text = "Double-click to clear Msg window.";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1360, 789);
+            this.ClientSize = new System.Drawing.Size(1360, 820);
+            this.Controls.Add(this.groupBoxFakeDataTargetSel);
+            this.Controls.Add(this.buttonFakeData);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.textBoxFakeAppData);
             this.Controls.Add(this.labelPISC);
             this.Controls.Add(this.labelTRS);
             this.Controls.Add(this.panelPISC);
@@ -700,6 +799,8 @@
             this.panelTRS.PerformLayout();
             this.panelPISC.ResumeLayout(false);
             this.panelPISC.PerformLayout();
+            this.groupBoxFakeDataTargetSel.ResumeLayout(false);
+            this.groupBoxFakeDataTargetSel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -727,7 +828,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ListBox listBoxPISCAlmDev;
         private System.Windows.Forms.TextBox textBoxPISCEmgDevCnt;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBoxAudioVolume;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -743,7 +844,7 @@
         private System.Windows.Forms.Button buttonPISCClearAlarmDev;
         private System.Windows.Forms.Button buttonPISCAddFakeAlarmDev;
         private System.Windows.Forms.TextBox textBoxDevErrCnt;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBoxPEIStatus3;
         private System.Windows.Forms.TextBox textBoxPEIStatus2;
         private System.Windows.Forms.TextBox textBoxPEIStatus1;
         private System.Windows.Forms.TextBox textBoxPEIStatus0;
@@ -759,6 +860,14 @@
         private System.Windows.Forms.Button buttonDebugAddFake;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox comboBoxSetAudioVolume;
+        private System.Windows.Forms.TextBox textBoxFakeAppData;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button buttonFakeData;
+        private System.Windows.Forms.GroupBox groupBoxFakeDataTargetSel;
+        private System.Windows.Forms.RadioButton radioButtonFakeDataToPISC;
+        private System.Windows.Forms.RadioButton radioButtonFakeDataToTRS;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
     }
 }
 

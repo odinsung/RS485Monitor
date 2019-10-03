@@ -159,7 +159,7 @@ namespace RS485Monitor.Class
             }
             else
             {
-                ThrowErrorEvent("Serial Port is Not Opened");
+                ThrowErrorEvent("Data is not sent. Serial Port is Not Opened");
             }
         }
 
