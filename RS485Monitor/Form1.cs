@@ -348,5 +348,15 @@ namespace RS485Monitor
                 textBoxPISCMsg.Clear();
             }
         }
+
+        private void buttonDemoFakeDataToTRS_Click(object sender, EventArgs e) // 測試資料: TO TRS
+        {
+            textBoxFakeAppData.Text = "30102C01D02C03D05";
+        }
+
+        private void buttonDemoFakeDataToPISC_Click(object sender, EventArgs e) // 測試資料: TO PISC
+        {
+            textBoxFakeAppData.Text = "401202C01D03C03D05102001C10D06";
+        }
     }
 }

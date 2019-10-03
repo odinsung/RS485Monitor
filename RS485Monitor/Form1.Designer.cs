@@ -89,6 +89,8 @@
             this.radioButtonFakeDataToPISC = new System.Windows.Forms.RadioButton();
             this.radioButtonFakeDataToTRS = new System.Windows.Forms.RadioButton();
             this.buttonClrPISCMsg = new System.Windows.Forms.Button();
+            this.buttonDemoFakeDataToTRS = new System.Windows.Forms.Button();
+            this.buttonDemoFakeDataToPISC = new System.Windows.Forms.Button();
             this.panelTRS.SuspendLayout();
             this.panelPISC.SuspendLayout();
             this.groupBoxFakeDataTargetSel.SuspendLayout();
@@ -781,11 +783,33 @@
             this.buttonClrPISCMsg.UseVisualStyleBackColor = true;
             this.buttonClrPISCMsg.Click += new System.EventHandler(this.buttonClrMsg_Click);
             // 
+            // buttonDemoFakeDataToTRS
+            // 
+            this.buttonDemoFakeDataToTRS.Location = new System.Drawing.Point(164, 770);
+            this.buttonDemoFakeDataToTRS.Name = "buttonDemoFakeDataToTRS";
+            this.buttonDemoFakeDataToTRS.Size = new System.Drawing.Size(121, 38);
+            this.buttonDemoFakeDataToTRS.TabIndex = 8;
+            this.buttonDemoFakeDataToTRS.Text = "測試資料(to TRS)";
+            this.buttonDemoFakeDataToTRS.UseVisualStyleBackColor = true;
+            this.buttonDemoFakeDataToTRS.Click += new System.EventHandler(this.buttonDemoFakeDataToTRS_Click);
+            // 
+            // buttonDemoFakeDataToPISC
+            // 
+            this.buttonDemoFakeDataToPISC.Location = new System.Drawing.Point(291, 770);
+            this.buttonDemoFakeDataToPISC.Name = "buttonDemoFakeDataToPISC";
+            this.buttonDemoFakeDataToPISC.Size = new System.Drawing.Size(121, 38);
+            this.buttonDemoFakeDataToPISC.TabIndex = 8;
+            this.buttonDemoFakeDataToPISC.Text = "測試資料(to PISC)";
+            this.buttonDemoFakeDataToPISC.UseVisualStyleBackColor = true;
+            this.buttonDemoFakeDataToPISC.Click += new System.EventHandler(this.buttonDemoFakeDataToPISC_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1360, 820);
+            this.Controls.Add(this.buttonDemoFakeDataToPISC);
+            this.Controls.Add(this.buttonDemoFakeDataToTRS);
             this.Controls.Add(this.groupBoxFakeDataTargetSel);
             this.Controls.Add(this.buttonFakeData);
             this.Controls.Add(this.label18);
@@ -869,6 +893,8 @@
         private System.Windows.Forms.RadioButton radioButtonFakeDataToTRS;
         private System.Windows.Forms.Button buttonClrTRSMsg;
         private System.Windows.Forms.Button buttonClrPISCMsg;
+        private System.Windows.Forms.Button buttonDemoFakeDataToTRS;
+        private System.Windows.Forms.Button buttonDemoFakeDataToPISC;
     }
 }
 
