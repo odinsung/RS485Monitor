@@ -148,6 +148,7 @@ namespace RS485Monitor.Class
             buf[4 + data.Length] = 0x10;
             buf[5 + data.Length] = 0x03;
             buf[6 + data.Length] = bcc;
+            ThrowDataSentEvent(buf, 6 + data.Length);
             if (Port.IsOpen)
             {
                 Port.DiscardOutBuffer();
@@ -200,8 +201,20 @@ namespace RS485Monitor.Class
         {
             public String ErrorMessage { get; set; }
         }
+        // 事件[送出資料]的參數定義 : (準備要送出的資料陣列, 資料陣列的長度)
+        public class DataSentEventArgs : EventArgs
+        {
+            public Byte[] DataSent;
+            public int DataSentLen = 0;
+            public DataSentEventArgs(Byte[] data, int length)
+            {
+                DataSent = data;
+                DataSentLen = length;
+            }
+        }
         public event EventHandler<ErrorEventArgs> ErrorOccur; // 事件[發生錯誤]:宣告
         public event EventHandler<EventArgs> ReceiveDone; // 事件[接收完成]:宣告
+        public event EventHandler<DataSentEventArgs> DataSent; // 事件[送出資料]:宣告
         protected virtual void ThrowErrorEvent(String errmsg) // 事件[發生錯誤]:丟出事件的函式
         {
             ErrorEventArgs e = new ErrorEventArgs();
@@ -212,6 +225,11 @@ namespace RS485Monitor.Class
         {
             EventArgs e = new EventArgs();
             ReceiveDone?.Invoke(this, e);
+        }
+        protected virtual void ThrowDataSentEvent(Byte[] data, int length) // 事件[送出資料]:丟出事件的函式
+        {
+            DataSentEventArgs e = new DataSentEventArgs(data, length);
+            DataSent?.Invoke(this, e);
         }
         #endregion
     }

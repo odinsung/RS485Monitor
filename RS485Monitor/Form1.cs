@@ -26,18 +26,25 @@ namespace RS485Monitor
         public Form1()
         {
             InitializeComponent();
-            ComPortItemInit();
+            ComPortItemInit(); // 掃描可用的序列埠，初始化下拉式選單等序列埠相關物件
+
+            // 註冊 TRS 事件處理函式
             gTRS.TRSIFRequest += GTRS_TRSIFRequest;
             gTRS.ErrorOccur += GTRS_ErrorOccur;
+            gTRS.DataSent += GTRS_DataSent;
+
+            // 註冊 PISC 事件處理函式
             gPISC.ReportISStatus += GPISC_ReportISStatus;
             gPISC.ErrorOccur += GPISC_ErrorOccur;
+            gPISC.DataSent += GPISC_DataSent;
+
             ComboBox_SetAudioVolume_Init();
             labelDateTimeNow.Text = System.DateTime.Now.ToString();
             timerShowDateTime.Enabled = true;
             WindowState = FormWindowState.Maximized;
-            Msg("雙擊滑鼠以清除訊息", Role.TRS);
-            Msg("雙擊滑鼠以清除訊息", Role.PISC);
-        }
+            //Msg("雙擊滑鼠以清除訊息", Role.TRS);
+            //Msg("雙擊滑鼠以清除訊息", Role.PISC);
+        }        
 
         private void GTRS_TRSIFRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
@@ -56,16 +63,10 @@ namespace RS485Monitor
             // 傳送 Response
             gTRS.SendResponse(radioButtonTRSCallPickUpStatus_Call.Checked, System.DateTime.Now);
         }
-        private void DumpReceivedPacket(Role r) // 將收到的封包內容顯示在訊息窗中
+        private void GTRS_DataSent(object sender, PICom.DataSentEventArgs e) // 收到來自 TRS 送出資料的事件，將送出的封包內容 Dump 出來
         {
-            Byte[] pkt = r == Role.TRS ? gTRS.RawBuf : gPISC.RawBuf;
-            int length = r == Role.TRS ? gTRS.RawPtr : gPISC.RawPtr;
-            Msg(pkt, length, r);
-            // Reset Raw Buffer Pointer
-            if (r == Role.TRS){ gTRS.RawPtr  = 0; }
-            else              { gPISC.RawPtr = 0; }
+            Msg("送出封包: ", e.DataSent, e.DataSentLen, Role.TRS);
         }
-
         private void GTRS_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 TRS 發出的錯誤訊息之事件處理
         {
             Msg(e.ErrorMessage, Role.TRS);
@@ -114,20 +115,33 @@ namespace RS485Monitor
             gPISC.SendResponse(SetAudioVolume);
             SetAudioVolume = -1; // 送給 TRSIF 之後，就清為 -1
         }
-
+        private void GPISC_DataSent(object sender, PICom.DataSentEventArgs e) // 收到來自 PISC 送出資料的事件，將送出的封包內容 Dump 出來
+        {
+            Msg("送出封包: ", e.DataSent, e.DataSentLen, Role.PISC);
+        }
         private void GPISC_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 PISC 發出的錯誤訊息之事件處理
         {
             Msg(e.ErrorMessage, Role.PISC);
         }
-        
+
+        private void DumpReceivedPacket(Role r) // 將收到的封包內容顯示在訊息窗中
+        {
+            Byte[] pkt = r == Role.TRS ? gTRS.RawBuf : gPISC.RawBuf;
+            int length = r == Role.TRS ? gTRS.RawPtr : gPISC.RawPtr;
+            Msg("收到封包: ", pkt, length, r);
+            // Reset Raw Buffer Pointer
+            if (r == Role.TRS) { gTRS.RawPtr = 0; }
+            else { gPISC.RawPtr = 0; }
+        }
+
         private void Msg(String str, Role role) // 顯示 Debug 訊息
         {
             TextBox tb = role == Role.TRS ? textBoxTRSMsg : textBoxPISCMsg;
             tb.Text += str + Environment.NewLine;
         }
-        private void Msg(Byte[] pkt, int length, Role role) // 顯示封包內容
+        private void Msg(String prefixString, Byte[] pkt, int length, Role role) // 顯示封包內容
         {
-            String str = "Packet: ";
+            String str = prefixString;
             TextBox tb = role == Role.TRS ? textBoxTRSMsg : textBoxPISCMsg;
             for(int i=0; i<length; i++)
             {
