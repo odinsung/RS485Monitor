@@ -232,9 +232,9 @@ namespace RS485Monitor
             labelDateTimeNow.Text = System.DateTime.Now.ToString();
         }
 
-        private void radioButtonTRSCallPickUpStatus_Call_CheckedChanged(object sender, EventArgs e) // 若候隊子機清單為空白，不可選擇「無線電已接聽」
+        private void radioButtonTRSCallPickUpStatus_Call_CheckedChanged(object sender, EventArgs e) // 若候隊子機清單為空白或已有通話正在進行中，不可選擇「無線電已接聽」
         {
-            if (listBoxTRSAlmDev.Items.Count == 0)
+            if (listBoxTRSAlmDev.Items.Count == 0 || textBoxTRSIFCallPickUpStatus.Text == "通話進行中")
             {
                 radioButtonTRSCallPickUpStatus_NotCall.Checked = true;
             }

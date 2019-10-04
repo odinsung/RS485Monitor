@@ -261,9 +261,9 @@
             this.label9.ForeColor = System.Drawing.Color.Blue;
             this.label9.Location = new System.Drawing.Point(458, 242);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(169, 33);
+            this.label9.Size = new System.Drawing.Size(169, 46);
             this.label9.TabIndex = 3;
-            this.label9.Text = "(若Alarm Device清單為空白，無法選擇「無線電接聽中」)";
+            this.label9.Text = "(若Alarm Device清單為空白或者已有通話正在進行中，無法選擇「無線電接聽中」)";
             // 
             // label2
             // 
