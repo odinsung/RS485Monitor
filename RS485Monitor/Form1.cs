@@ -44,6 +44,14 @@ namespace RS485Monitor
             WindowState = FormWindowState.Maximized;
             //Msg("雙擊滑鼠以清除訊息", Role.TRS);
             //Msg("雙擊滑鼠以清除訊息", Role.PISC);
+
+            // 隱藏 Debug buttons
+            buttonTRSDebugAddAlmDev.Visible = false;
+            buttonTRSDebugClrAlmDev.Visible = false;
+            buttonPISCDebugAddAlmDev.Visible = false;
+            buttonPISCDebugClrAlmDev.Visible = false;
+            buttonPISCDebugAddPEHSta.Visible = false;
+            buttonPISCDebugClrPEHSta.Visible = false;
         }        
 
         private void GTRS_TRSIFRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理

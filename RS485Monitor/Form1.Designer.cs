@@ -34,8 +34,8 @@
             this.buttonTRSClose = new System.Windows.Forms.Button();
             this.panelTRS = new System.Windows.Forms.Panel();
             this.buttonClrTRSMsg = new System.Windows.Forms.Button();
-            this.buttonDebugClearAlmDev = new System.Windows.Forms.Button();
-            this.buttonAddFakeAlarmDev = new System.Windows.Forms.Button();
+            this.buttonTRSDebugClrAlmDev = new System.Windows.Forms.Button();
+            this.buttonTRSDebugAddAlmDev = new System.Windows.Forms.Button();
             this.radioButtonTRSCallPickUpStatus_NotCall = new System.Windows.Forms.RadioButton();
             this.radioButtonTRSCallPickUpStatus_Call = new System.Windows.Forms.RadioButton();
             this.listBoxTRSAlmDev = new System.Windows.Forms.ListBox();
@@ -54,10 +54,10 @@
             this.panelPISC = new System.Windows.Forms.Panel();
             this.buttonClrPISCMsg = new System.Windows.Forms.Button();
             this.comboBoxSetAudioVolume = new System.Windows.Forms.ComboBox();
-            this.buttonDebugClearPEHStatus = new System.Windows.Forms.Button();
-            this.buttonDebugAddFake = new System.Windows.Forms.Button();
-            this.buttonPISCClearAlarmDev = new System.Windows.Forms.Button();
-            this.buttonPISCAddFakeAlarmDev = new System.Windows.Forms.Button();
+            this.buttonPISCDebugClrPEHSta = new System.Windows.Forms.Button();
+            this.buttonPISCDebugAddPEHSta = new System.Windows.Forms.Button();
+            this.buttonPISCDebugClrAlmDev = new System.Windows.Forms.Button();
+            this.buttonPISCDebugAddAlmDev = new System.Windows.Forms.Button();
             this.listBoxPEHStatus = new System.Windows.Forms.ListBox();
             this.listBoxPISCAlmDev = new System.Windows.Forms.ListBox();
             this.textBoxDevErrCnt = new System.Windows.Forms.TextBox();
@@ -131,8 +131,8 @@
             // 
             this.panelTRS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelTRS.Controls.Add(this.buttonClrTRSMsg);
-            this.panelTRS.Controls.Add(this.buttonDebugClearAlmDev);
-            this.panelTRS.Controls.Add(this.buttonAddFakeAlarmDev);
+            this.panelTRS.Controls.Add(this.buttonTRSDebugClrAlmDev);
+            this.panelTRS.Controls.Add(this.buttonTRSDebugAddAlmDev);
             this.panelTRS.Controls.Add(this.radioButtonTRSCallPickUpStatus_NotCall);
             this.panelTRS.Controls.Add(this.radioButtonTRSCallPickUpStatus_Call);
             this.panelTRS.Controls.Add(this.listBoxTRSAlmDev);
@@ -156,33 +156,33 @@
             // 
             // buttonClrTRSMsg
             // 
-            this.buttonClrTRSMsg.Location = new System.Drawing.Point(504, 428);
+            this.buttonClrTRSMsg.Location = new System.Drawing.Point(497, 428);
             this.buttonClrTRSMsg.Name = "buttonClrTRSMsg";
-            this.buttonClrTRSMsg.Size = new System.Drawing.Size(128, 24);
+            this.buttonClrTRSMsg.Size = new System.Drawing.Size(135, 24);
             this.buttonClrTRSMsg.TabIndex = 8;
             this.buttonClrTRSMsg.Text = "清除訊息";
             this.buttonClrTRSMsg.UseVisualStyleBackColor = true;
             this.buttonClrTRSMsg.Click += new System.EventHandler(this.buttonClrMsg_Click);
             // 
-            // buttonDebugClearAlmDev
+            // buttonTRSDebugClrAlmDev
             // 
-            this.buttonDebugClearAlmDev.Location = new System.Drawing.Point(498, 146);
-            this.buttonDebugClearAlmDev.Name = "buttonDebugClearAlmDev";
-            this.buttonDebugClearAlmDev.Size = new System.Drawing.Size(135, 21);
-            this.buttonDebugClearAlmDev.TabIndex = 7;
-            this.buttonDebugClearAlmDev.Text = "Debug: Clear Alarm Dev";
-            this.buttonDebugClearAlmDev.UseVisualStyleBackColor = true;
-            this.buttonDebugClearAlmDev.Click += new System.EventHandler(this.buttonDebugClearAlmDev_Click);
+            this.buttonTRSDebugClrAlmDev.Location = new System.Drawing.Point(497, 163);
+            this.buttonTRSDebugClrAlmDev.Name = "buttonTRSDebugClrAlmDev";
+            this.buttonTRSDebugClrAlmDev.Size = new System.Drawing.Size(135, 34);
+            this.buttonTRSDebugClrAlmDev.TabIndex = 7;
+            this.buttonTRSDebugClrAlmDev.Text = "Debug: Clear Alarm Dev";
+            this.buttonTRSDebugClrAlmDev.UseVisualStyleBackColor = true;
+            this.buttonTRSDebugClrAlmDev.Click += new System.EventHandler(this.buttonDebugClearAlmDev_Click);
             // 
-            // buttonAddFakeAlarmDev
+            // buttonTRSDebugAddAlmDev
             // 
-            this.buttonAddFakeAlarmDev.Location = new System.Drawing.Point(498, 120);
-            this.buttonAddFakeAlarmDev.Name = "buttonAddFakeAlarmDev";
-            this.buttonAddFakeAlarmDev.Size = new System.Drawing.Size(135, 21);
-            this.buttonAddFakeAlarmDev.TabIndex = 7;
-            this.buttonAddFakeAlarmDev.Text = "Debug: Add Alarm Dev";
-            this.buttonAddFakeAlarmDev.UseVisualStyleBackColor = true;
-            this.buttonAddFakeAlarmDev.Click += new System.EventHandler(this.buttonAddFakeAlarmDev_Click);
+            this.buttonTRSDebugAddAlmDev.Location = new System.Drawing.Point(498, 120);
+            this.buttonTRSDebugAddAlmDev.Name = "buttonTRSDebugAddAlmDev";
+            this.buttonTRSDebugAddAlmDev.Size = new System.Drawing.Size(135, 37);
+            this.buttonTRSDebugAddAlmDev.TabIndex = 7;
+            this.buttonTRSDebugAddAlmDev.Text = "Debug: Add Alarm Dev";
+            this.buttonTRSDebugAddAlmDev.UseVisualStyleBackColor = true;
+            this.buttonTRSDebugAddAlmDev.Click += new System.EventHandler(this.buttonAddFakeAlarmDev_Click);
             // 
             // radioButtonTRSCallPickUpStatus_NotCall
             // 
@@ -213,12 +213,13 @@
             // 
             // listBoxTRSAlmDev
             // 
+            this.listBoxTRSAlmDev.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listBoxTRSAlmDev.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxTRSAlmDev.FormattingEnabled = true;
             this.listBoxTRSAlmDev.ItemHeight = 22;
             this.listBoxTRSAlmDev.Location = new System.Drawing.Point(190, 120);
             this.listBoxTRSAlmDev.Name = "listBoxTRSAlmDev";
-            this.listBoxTRSAlmDev.Size = new System.Drawing.Size(302, 92);
+            this.listBoxTRSAlmDev.Size = new System.Drawing.Size(302, 90);
             this.listBoxTRSAlmDev.TabIndex = 5;
             // 
             // textBoxTRSEmgDevCnt
@@ -358,10 +359,10 @@
             this.panelPISC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelPISC.Controls.Add(this.buttonClrPISCMsg);
             this.panelPISC.Controls.Add(this.comboBoxSetAudioVolume);
-            this.panelPISC.Controls.Add(this.buttonDebugClearPEHStatus);
-            this.panelPISC.Controls.Add(this.buttonDebugAddFake);
-            this.panelPISC.Controls.Add(this.buttonPISCClearAlarmDev);
-            this.panelPISC.Controls.Add(this.buttonPISCAddFakeAlarmDev);
+            this.panelPISC.Controls.Add(this.buttonPISCDebugClrPEHSta);
+            this.panelPISC.Controls.Add(this.buttonPISCDebugAddPEHSta);
+            this.panelPISC.Controls.Add(this.buttonPISCDebugClrAlmDev);
+            this.panelPISC.Controls.Add(this.buttonPISCDebugAddAlmDev);
             this.panelPISC.Controls.Add(this.listBoxPEHStatus);
             this.panelPISC.Controls.Add(this.listBoxPISCAlmDev);
             this.panelPISC.Controls.Add(this.textBoxDevErrCnt);
@@ -393,9 +394,9 @@
             // 
             // buttonClrPISCMsg
             // 
-            this.buttonClrPISCMsg.Location = new System.Drawing.Point(509, 429);
+            this.buttonClrPISCMsg.Location = new System.Drawing.Point(499, 429);
             this.buttonClrPISCMsg.Name = "buttonClrPISCMsg";
-            this.buttonClrPISCMsg.Size = new System.Drawing.Size(128, 24);
+            this.buttonClrPISCMsg.Size = new System.Drawing.Size(138, 24);
             this.buttonClrPISCMsg.TabIndex = 8;
             this.buttonClrPISCMsg.Text = "清除訊息";
             this.buttonClrPISCMsg.UseVisualStyleBackColor = true;
@@ -407,70 +408,72 @@
             this.comboBoxSetAudioVolume.FormattingEnabled = true;
             this.comboBoxSetAudioVolume.Location = new System.Drawing.Point(185, 421);
             this.comboBoxSetAudioVolume.Name = "comboBoxSetAudioVolume";
-            this.comboBoxSetAudioVolume.Size = new System.Drawing.Size(157, 32);
+            this.comboBoxSetAudioVolume.Size = new System.Drawing.Size(101, 32);
             this.comboBoxSetAudioVolume.TabIndex = 8;
             this.comboBoxSetAudioVolume.SelectedIndexChanged += new System.EventHandler(this.comboBoxSetAudioVolume_SelectedIndexChanged);
             // 
-            // buttonDebugClearPEHStatus
+            // buttonPISCDebugClrPEHSta
             // 
-            this.buttonDebugClearPEHStatus.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.buttonDebugClearPEHStatus.Location = new System.Drawing.Point(497, 359);
-            this.buttonDebugClearPEHStatus.Name = "buttonDebugClearPEHStatus";
-            this.buttonDebugClearPEHStatus.Size = new System.Drawing.Size(142, 32);
-            this.buttonDebugClearPEHStatus.TabIndex = 7;
-            this.buttonDebugClearPEHStatus.Text = "Debug: Clear PEH Status";
-            this.buttonDebugClearPEHStatus.UseVisualStyleBackColor = true;
-            this.buttonDebugClearPEHStatus.Click += new System.EventHandler(this.buttonDebugClearPEHStatus_Click);
+            this.buttonPISCDebugClrPEHSta.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonPISCDebugClrPEHSta.Location = new System.Drawing.Point(498, 357);
+            this.buttonPISCDebugClrPEHSta.Name = "buttonPISCDebugClrPEHSta";
+            this.buttonPISCDebugClrPEHSta.Size = new System.Drawing.Size(142, 32);
+            this.buttonPISCDebugClrPEHSta.TabIndex = 7;
+            this.buttonPISCDebugClrPEHSta.Text = "Debug: Clear PEH Status";
+            this.buttonPISCDebugClrPEHSta.UseVisualStyleBackColor = true;
+            this.buttonPISCDebugClrPEHSta.Click += new System.EventHandler(this.buttonDebugClearPEHStatus_Click);
             // 
-            // buttonDebugAddFake
+            // buttonPISCDebugAddPEHSta
             // 
-            this.buttonDebugAddFake.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.buttonDebugAddFake.Location = new System.Drawing.Point(497, 321);
-            this.buttonDebugAddFake.Name = "buttonDebugAddFake";
-            this.buttonDebugAddFake.Size = new System.Drawing.Size(142, 32);
-            this.buttonDebugAddFake.TabIndex = 7;
-            this.buttonDebugAddFake.Text = "Debug: Add PEH Status";
-            this.buttonDebugAddFake.UseVisualStyleBackColor = true;
-            this.buttonDebugAddFake.Click += new System.EventHandler(this.buttonDebugAddFake_Click);
+            this.buttonPISCDebugAddPEHSta.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonPISCDebugAddPEHSta.Location = new System.Drawing.Point(497, 319);
+            this.buttonPISCDebugAddPEHSta.Name = "buttonPISCDebugAddPEHSta";
+            this.buttonPISCDebugAddPEHSta.Size = new System.Drawing.Size(142, 32);
+            this.buttonPISCDebugAddPEHSta.TabIndex = 7;
+            this.buttonPISCDebugAddPEHSta.Text = "Debug: Add PEH Status";
+            this.buttonPISCDebugAddPEHSta.UseVisualStyleBackColor = true;
+            this.buttonPISCDebugAddPEHSta.Click += new System.EventHandler(this.buttonDebugAddFake_Click);
             // 
-            // buttonPISCClearAlarmDev
+            // buttonPISCDebugClrAlmDev
             // 
-            this.buttonPISCClearAlarmDev.Location = new System.Drawing.Point(499, 146);
-            this.buttonPISCClearAlarmDev.Name = "buttonPISCClearAlarmDev";
-            this.buttonPISCClearAlarmDev.Size = new System.Drawing.Size(141, 24);
-            this.buttonPISCClearAlarmDev.TabIndex = 6;
-            this.buttonPISCClearAlarmDev.Text = "Debug: Clear Alarm Dev";
-            this.buttonPISCClearAlarmDev.UseVisualStyleBackColor = true;
-            this.buttonPISCClearAlarmDev.Click += new System.EventHandler(this.buttonPISCClearAlarmDev_Click);
+            this.buttonPISCDebugClrAlmDev.Location = new System.Drawing.Point(498, 163);
+            this.buttonPISCDebugClrAlmDev.Name = "buttonPISCDebugClrAlmDev";
+            this.buttonPISCDebugClrAlmDev.Size = new System.Drawing.Size(141, 34);
+            this.buttonPISCDebugClrAlmDev.TabIndex = 6;
+            this.buttonPISCDebugClrAlmDev.Text = "Debug: Clear Alarm Dev";
+            this.buttonPISCDebugClrAlmDev.UseVisualStyleBackColor = true;
+            this.buttonPISCDebugClrAlmDev.Click += new System.EventHandler(this.buttonPISCClearAlarmDev_Click);
             // 
-            // buttonPISCAddFakeAlarmDev
+            // buttonPISCDebugAddAlmDev
             // 
-            this.buttonPISCAddFakeAlarmDev.Location = new System.Drawing.Point(499, 120);
-            this.buttonPISCAddFakeAlarmDev.Name = "buttonPISCAddFakeAlarmDev";
-            this.buttonPISCAddFakeAlarmDev.Size = new System.Drawing.Size(141, 24);
-            this.buttonPISCAddFakeAlarmDev.TabIndex = 6;
-            this.buttonPISCAddFakeAlarmDev.Text = "Debug: Add Alarm Dev";
-            this.buttonPISCAddFakeAlarmDev.UseVisualStyleBackColor = true;
-            this.buttonPISCAddFakeAlarmDev.Click += new System.EventHandler(this.buttonPISCAddFakeAlarmDev_Click);
+            this.buttonPISCDebugAddAlmDev.Location = new System.Drawing.Point(499, 120);
+            this.buttonPISCDebugAddAlmDev.Name = "buttonPISCDebugAddAlmDev";
+            this.buttonPISCDebugAddAlmDev.Size = new System.Drawing.Size(141, 37);
+            this.buttonPISCDebugAddAlmDev.TabIndex = 6;
+            this.buttonPISCDebugAddAlmDev.Text = "Debug: Add Alarm Dev";
+            this.buttonPISCDebugAddAlmDev.UseVisualStyleBackColor = true;
+            this.buttonPISCDebugAddAlmDev.Click += new System.EventHandler(this.buttonPISCAddFakeAlarmDev_Click);
             // 
             // listBoxPEHStatus
             // 
+            this.listBoxPEHStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listBoxPEHStatus.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxPEHStatus.FormattingEnabled = true;
             this.listBoxPEHStatus.ItemHeight = 22;
             this.listBoxPEHStatus.Location = new System.Drawing.Point(185, 319);
             this.listBoxPEHStatus.Name = "listBoxPEHStatus";
-            this.listBoxPEHStatus.Size = new System.Drawing.Size(302, 92);
+            this.listBoxPEHStatus.Size = new System.Drawing.Size(302, 90);
             this.listBoxPEHStatus.TabIndex = 5;
             // 
             // listBoxPISCAlmDev
             // 
+            this.listBoxPISCAlmDev.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.listBoxPISCAlmDev.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxPISCAlmDev.FormattingEnabled = true;
             this.listBoxPISCAlmDev.ItemHeight = 22;
             this.listBoxPISCAlmDev.Location = new System.Drawing.Point(185, 120);
             this.listBoxPISCAlmDev.Name = "listBoxPISCAlmDev";
-            this.listBoxPISCAlmDev.Size = new System.Drawing.Size(302, 92);
+            this.listBoxPISCAlmDev.Size = new System.Drawing.Size(302, 90);
             this.listBoxPISCAlmDev.TabIndex = 5;
             // 
             // textBoxDevErrCnt
@@ -685,10 +688,10 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label15.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label15.Location = new System.Drawing.Point(13, 284);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(130, 16);
+            this.label15.Size = new System.Drawing.Size(152, 19);
             this.label15.TabIndex = 3;
             this.label15.Text = "Device Error Count";
             // 
@@ -722,7 +725,7 @@
             // 
             this.textBoxFakeAppData.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoxFakeAppData.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFakeAppData.Location = new System.Drawing.Point(309, 715);
+            this.textBoxFakeAppData.Location = new System.Drawing.Point(307, 715);
             this.textBoxFakeAppData.Name = "textBoxFakeAppData";
             this.textBoxFakeAppData.Size = new System.Drawing.Size(967, 30);
             this.textBoxFakeAppData.TabIndex = 4;
@@ -731,11 +734,11 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label18.Location = new System.Drawing.Point(13, 687);
+            this.label18.Location = new System.Drawing.Point(13, 694);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(148, 16);
+            this.label18.Size = new System.Drawing.Size(346, 16);
             this.label18.TabIndex = 5;
-            this.label18.Text = "Fake Application Data";
+            this.label18.Text = "測試資料: 模擬 TRSIF 傳送給 TRS 或 PISC 的資料";
             // 
             // buttonFakeData
             // 
@@ -744,9 +747,9 @@
             this.buttonFakeData.ForeColor = System.Drawing.SystemColors.InfoText;
             this.buttonFakeData.Location = new System.Drawing.Point(154, 715);
             this.buttonFakeData.Name = "buttonFakeData";
-            this.buttonFakeData.Size = new System.Drawing.Size(149, 35);
+            this.buttonFakeData.Size = new System.Drawing.Size(149, 49);
             this.buttonFakeData.TabIndex = 6;
-            this.buttonFakeData.Text = "模擬 TRSIF 資料";
+            this.buttonFakeData.Text = "傳送測試資料";
             this.buttonFakeData.UseVisualStyleBackColor = false;
             this.buttonFakeData.Click += new System.EventHandler(this.buttonFakeData_Click);
             // 
@@ -787,21 +790,21 @@
             // 
             // buttonDemoFakeDataToTRS
             // 
-            this.buttonDemoFakeDataToTRS.Location = new System.Drawing.Point(164, 770);
+            this.buttonDemoFakeDataToTRS.Location = new System.Drawing.Point(154, 770);
             this.buttonDemoFakeDataToTRS.Name = "buttonDemoFakeDataToTRS";
-            this.buttonDemoFakeDataToTRS.Size = new System.Drawing.Size(121, 38);
+            this.buttonDemoFakeDataToTRS.Size = new System.Drawing.Size(149, 38);
             this.buttonDemoFakeDataToTRS.TabIndex = 8;
-            this.buttonDemoFakeDataToTRS.Text = "測試資料(to TRS)";
+            this.buttonDemoFakeDataToTRS.Text = "產生測試資料(to TRS)";
             this.buttonDemoFakeDataToTRS.UseVisualStyleBackColor = true;
             this.buttonDemoFakeDataToTRS.Click += new System.EventHandler(this.buttonDemoFakeDataToTRS_Click);
             // 
             // buttonDemoFakeDataToPISC
             // 
-            this.buttonDemoFakeDataToPISC.Location = new System.Drawing.Point(291, 770);
+            this.buttonDemoFakeDataToPISC.Location = new System.Drawing.Point(309, 770);
             this.buttonDemoFakeDataToPISC.Name = "buttonDemoFakeDataToPISC";
-            this.buttonDemoFakeDataToPISC.Size = new System.Drawing.Size(121, 38);
+            this.buttonDemoFakeDataToPISC.Size = new System.Drawing.Size(149, 38);
             this.buttonDemoFakeDataToPISC.TabIndex = 8;
-            this.buttonDemoFakeDataToPISC.Text = "測試資料(to PISC)";
+            this.buttonDemoFakeDataToPISC.Text = "產生測試資料(to PISC)";
             this.buttonDemoFakeDataToPISC.UseVisualStyleBackColor = true;
             this.buttonDemoFakeDataToPISC.Click += new System.EventHandler(this.buttonDemoFakeDataToPISC_Click);
             // 
@@ -821,7 +824,7 @@
             this.Controls.Add(this.panelPISC);
             this.Controls.Add(this.panelTRS);
             this.Name = "Form1";
-            this.Text = "CEMU600 - TRS & PISC RS485 Monitor";
+            this.Text = "CEMU600 - TRS & PISC RS485 Monitor - Baudrate = 19200, n, 8, 1";
             this.panelTRS.ResumeLayout(false);
             this.panelTRS.PerformLayout();
             this.panelPISC.ResumeLayout(false);
@@ -866,10 +869,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Timer timerShowDateTime;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonAddFakeAlarmDev;
-        private System.Windows.Forms.Button buttonDebugClearAlmDev;
-        private System.Windows.Forms.Button buttonPISCClearAlarmDev;
-        private System.Windows.Forms.Button buttonPISCAddFakeAlarmDev;
+        private System.Windows.Forms.Button buttonTRSDebugAddAlmDev;
+        private System.Windows.Forms.Button buttonTRSDebugClrAlmDev;
+        private System.Windows.Forms.Button buttonPISCDebugClrAlmDev;
+        private System.Windows.Forms.Button buttonPISCDebugAddAlmDev;
         private System.Windows.Forms.TextBox textBoxDevErrCnt;
         private System.Windows.Forms.TextBox textBoxPEIStatus3;
         private System.Windows.Forms.TextBox textBoxPEIStatus2;
@@ -883,8 +886,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ListBox listBoxPEHStatus;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Button buttonDebugClearPEHStatus;
-        private System.Windows.Forms.Button buttonDebugAddFake;
+        private System.Windows.Forms.Button buttonPISCDebugClrPEHSta;
+        private System.Windows.Forms.Button buttonPISCDebugAddPEHSta;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox comboBoxSetAudioVolume;
         private System.Windows.Forms.TextBox textBoxFakeAppData;
