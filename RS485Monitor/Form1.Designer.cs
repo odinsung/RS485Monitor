@@ -322,7 +322,7 @@
             // textBoxTRSMsg
             // 
             this.textBoxTRSMsg.BackColor = System.Drawing.Color.White;
-            this.textBoxTRSMsg.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTRSMsg.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxTRSMsg.Location = new System.Drawing.Point(13, 461);
             this.textBoxTRSMsg.Multiline = true;
             this.textBoxTRSMsg.Name = "textBoxTRSMsg";
@@ -560,7 +560,7 @@
             // textBoxPISCMsg
             // 
             this.textBoxPISCMsg.BackColor = System.Drawing.Color.White;
-            this.textBoxPISCMsg.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPISCMsg.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPISCMsg.Location = new System.Drawing.Point(10, 461);
             this.textBoxPISCMsg.Multiline = true;
             this.textBoxPISCMsg.Name = "textBoxPISCMsg";

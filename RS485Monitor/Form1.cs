@@ -137,13 +137,16 @@ namespace RS485Monitor
         private void Msg(String str, Role role) // 顯示 Debug 訊息
         {
             TextBox tb = role == Role.TRS ? textBoxTRSMsg : textBoxPISCMsg;
-            tb.Text += str + Environment.NewLine;
+            DateTime t = System.DateTime.Now;
+            tb.Text += "[" + t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "]  " + 
+                       str + Environment.NewLine;
         }
         private void Msg(String prefixString, Byte[] pkt, int length, Role role) // 顯示封包內容
         {
             String str = prefixString;
             TextBox tb = role == Role.TRS ? textBoxTRSMsg : textBoxPISCMsg;
-            for(int i=0; i<length; i++)
+            DateTime t = System.DateTime.Now;
+            for (int i=0; i<length; i++)
             {
                 switch (pkt[i])
                 {
@@ -167,7 +170,8 @@ namespace RS485Monitor
                         break;
                 }
             }
-            tb.Text += str + Environment.NewLine;
+            tb.Text += "[" + t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "]  " +
+                       str + Environment.NewLine;
         }
         
         private void ComPortItemInit() // 序列埠相關物件初始化
