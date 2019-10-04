@@ -200,6 +200,10 @@ namespace RS485Monitor.Class
         public class ErrorEventArgs : EventArgs
         {
             public String ErrorMessage { get; set; }
+            public ErrorEventArgs(String errmsg)
+            {
+                ErrorMessage = errmsg;
+            }
         }
         // 事件[送出資料]的參數定義 : (準備要送出的資料陣列, 資料陣列的長度)
         public class DataSentEventArgs : EventArgs
@@ -217,8 +221,7 @@ namespace RS485Monitor.Class
         public event EventHandler<DataSentEventArgs> DataSent; // 事件[送出資料]:宣告
         protected virtual void ThrowErrorEvent(String errmsg) // 事件[發生錯誤]:丟出事件的函式
         {
-            ErrorEventArgs e = new ErrorEventArgs();
-            e.ErrorMessage = errmsg;
+            ErrorEventArgs e = new ErrorEventArgs(errmsg);
             ErrorOccur?.Invoke(this, e);
         }
         protected virtual void ThrowReceiveDoneEvent() // 事件[接收完成]:丟出事件的函式
