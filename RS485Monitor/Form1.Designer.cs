@@ -52,6 +52,7 @@
             this.labelTRS = new System.Windows.Forms.Label();
             this.labelPISC = new System.Windows.Forms.Label();
             this.panelPISC = new System.Windows.Forms.Panel();
+            this.buttonClrPISCMsg = new System.Windows.Forms.Button();
             this.comboBoxSetAudioVolume = new System.Windows.Forms.ComboBox();
             this.buttonDebugClearPEHStatus = new System.Windows.Forms.Button();
             this.buttonDebugAddFake = new System.Windows.Forms.Button();
@@ -88,7 +89,6 @@
             this.groupBoxFakeDataTargetSel = new System.Windows.Forms.GroupBox();
             this.radioButtonFakeDataToPISC = new System.Windows.Forms.RadioButton();
             this.radioButtonFakeDataToTRS = new System.Windows.Forms.RadioButton();
-            this.buttonClrPISCMsg = new System.Windows.Forms.Button();
             this.buttonDemoFakeDataToTRS = new System.Windows.Forms.Button();
             this.buttonDemoFakeDataToPISC = new System.Windows.Forms.Button();
             this.panelTRS.SuspendLayout();
@@ -330,6 +330,7 @@
             this.textBoxTRSMsg.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxTRSMsg.Size = new System.Drawing.Size(620, 173);
             this.textBoxTRSMsg.TabIndex = 2;
+            this.textBoxTRSMsg.TextChanged += new System.EventHandler(this.textBoxMsg_TextChanged);
             this.textBoxTRSMsg.DoubleClick += new System.EventHandler(this.textBoxMsg_DoubleClick);
             // 
             // labelTRS
@@ -389,6 +390,16 @@
             this.panelPISC.Name = "panelPISC";
             this.panelPISC.Size = new System.Drawing.Size(657, 651);
             this.panelPISC.TabIndex = 2;
+            // 
+            // buttonClrPISCMsg
+            // 
+            this.buttonClrPISCMsg.Location = new System.Drawing.Point(509, 429);
+            this.buttonClrPISCMsg.Name = "buttonClrPISCMsg";
+            this.buttonClrPISCMsg.Size = new System.Drawing.Size(128, 24);
+            this.buttonClrPISCMsg.TabIndex = 8;
+            this.buttonClrPISCMsg.Text = "清除訊息";
+            this.buttonClrPISCMsg.UseVisualStyleBackColor = true;
+            this.buttonClrPISCMsg.Click += new System.EventHandler(this.buttonClrMsg_Click);
             // 
             // comboBoxSetAudioVolume
             // 
@@ -557,6 +568,7 @@
             this.textBoxPISCMsg.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBoxPISCMsg.Size = new System.Drawing.Size(627, 173);
             this.textBoxPISCMsg.TabIndex = 2;
+            this.textBoxPISCMsg.TextChanged += new System.EventHandler(this.textBoxMsg_TextChanged);
             this.textBoxPISCMsg.DoubleClick += new System.EventHandler(this.textBoxMsg_DoubleClick);
             // 
             // comboBoxPISCPort
@@ -772,16 +784,6 @@
             this.radioButtonFakeDataToTRS.TabStop = true;
             this.radioButtonFakeDataToTRS.Text = "TRS";
             this.radioButtonFakeDataToTRS.UseVisualStyleBackColor = true;
-            // 
-            // buttonClrPISCMsg
-            // 
-            this.buttonClrPISCMsg.Location = new System.Drawing.Point(509, 429);
-            this.buttonClrPISCMsg.Name = "buttonClrPISCMsg";
-            this.buttonClrPISCMsg.Size = new System.Drawing.Size(128, 24);
-            this.buttonClrPISCMsg.TabIndex = 8;
-            this.buttonClrPISCMsg.Text = "清除訊息";
-            this.buttonClrPISCMsg.UseVisualStyleBackColor = true;
-            this.buttonClrPISCMsg.Click += new System.EventHandler(this.buttonClrMsg_Click);
             // 
             // buttonDemoFakeDataToTRS
             // 

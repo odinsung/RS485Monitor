@@ -372,5 +372,12 @@ namespace RS485Monitor
         {
             textBoxFakeAppData.Text = "401202C01D03C03D05102001C10D06";
         }
+
+        private void textBoxMsg_TextChanged(object sender, EventArgs e) // 讓訊息窗的游標位置始終保持在最後面
+        {
+            TextBox msg = (TextBox)sender;
+            msg.SelectionStart = msg.TextLength;
+            msg.ScrollToCaret();
+        }
     }
 }
