@@ -52,13 +52,33 @@ namespace RS485Monitor
             buttonPISCDebugClrAlmDev.Visible = false;
             buttonPISCDebugAddPEHSta.Visible = false;
             buttonPISCDebugClrPEHSta.Visible = false;
+
+            labelTRSWait.Visible = false;
+            labelPISCWait.Visible = false;
         }        
 
         private void GTRS_TRSIFRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
+            DumpReceivedPacket(Role.TRS);
+            panelTRS.Enabled = false;
+            labelTRSWait.Visible = true;
+            timerTRSRspDelay.Enabled = true; // Send response after delay time.
+        }
+        private void buttonTRSSendRsp_Click(object sender, EventArgs e) // TRS 主動傳送回覆封包 (Response)
+        {
+            TRS_SendResponse();
+        }
+        private void timerTRSRspDelay_Tick(object sender, EventArgs e) // TRS 傳送回覆封包 (Response) 延遲時間到: 開始傳送!
+        {
+            TRS_SendResponse();
+            labelTRSWait.Visible = false;
+            panelTRS.Enabled = true;
+            timerTRSRspDelay.Enabled = false;
+        }
+        private void TRS_SendResponse()
+        {
             bool trsifCallPickUpStatus = false;
             int emergencyDeviceCount = 0;
-            DumpReceivedPacket(Role.TRS);
             trsifCallPickUpStatus = gTRS.GetTRSIFCallPickUpStatus();
             textBoxTRSIFCallPickUpStatus.Text = trsifCallPickUpStatus ? "通話進行中" : "無任何通話進行中";
             emergencyDeviceCount = gTRS.GetEmergencyDeviceCount();
@@ -82,11 +102,28 @@ namespace RS485Monitor
 
         private void GPISC_ReportISStatus(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
+            DumpReceivedPacket(Role.PISC);
+            panelPISC.Enabled = false;
+            labelPISCWait.Visible = true;
+            timerPISCRspDelay.Enabled = true;            
+        }
+        private void buttonPISCSendRsp_Click(object sender, EventArgs e) // PISC 主動傳送回覆封包 (Response)
+        {
+            PISC_SendResponse();
+        }
+        private void timerPISCRspDelay_Tick(object sender, EventArgs e) // PISC 傳送回覆封包 (Response) 延遲時間到: 開始傳送!
+        {
+            PISC_SendResponse();
+            labelPISCWait.Visible = false;
+            panelPISC.Enabled = true;
+            timerPISCRspDelay.Enabled = false;
+        }
+        private void PISC_SendResponse()
+        {
             int audioVolume = 0;
             int emergencyDeviceCount = 0;
             int[] peiStatus = new int[4];
             int deviceErrorCount = 0;
-            DumpReceivedPacket(Role.PISC);
 
             // 取得 Request 中的各個參數
             audioVolume = gPISC.GetAudioVolume();
@@ -101,7 +138,7 @@ namespace RS485Monitor
             textBoxAudioVolume.Text = audioVolume.ToString("D2");
             textBoxPISCEmgDevCnt.Text = emergencyDeviceCount.ToString("D2");
             listBoxPISCAlmDev.Items.Clear();
-            for (int i=0; i<emergencyDeviceCount; i++)
+            for (int i = 0; i < emergencyDeviceCount; i++)
             {
                 listBoxPISCAlmDev.Items.Add(gPISC.GetAlarmDevice(i));
             }
@@ -111,7 +148,7 @@ namespace RS485Monitor
             textBoxPEIStatus3.Text = PEIStatusName(peiStatus[3]);
             textBoxDevErrCnt.Text = deviceErrorCount.ToString("D2");
             listBoxPEHStatus.Items.Clear();
-            for(int i=0; i<deviceErrorCount; i++)
+            for (int i = 0; i < deviceErrorCount; i++)
             {
                 listBoxPEHStatus.Items.Add(gPISC.GetPEHStatus(i));
             }
@@ -123,6 +160,7 @@ namespace RS485Monitor
             gPISC.SendResponse(SetAudioVolume);
             SetAudioVolume = -1; // 送給 TRSIF 之後，就清為 -1
         }
+        
         private void GPISC_DataSent(object sender, PICom.DataSentEventArgs e) // 收到來自 PISC 送出資料的事件，將送出的封包內容 Dump 出來
         {
             Msg("送出封包: ", e.DataSent, e.DataSentLen, Role.PISC);
@@ -391,5 +429,43 @@ namespace RS485Monitor
             msg.SelectionStart = msg.TextLength;
             msg.ScrollToCaret();
         }
+
+        private void textBoxTRSRspDelayMs_TextChanged(object sender, EventArgs e) // 設定 TRS 傳送回覆封包延遲時間(ms)
+        {
+            int delayMs = 0;
+            try
+            {
+                delayMs = Convert.ToInt32(textBoxTRSRspDelayMs.Text);
+                if (delayMs >= 5000)
+                {
+                    textBoxTRSRspDelayMs.Text = "5000";
+                    delayMs = 5000;
+                }
+                timerTRSRspDelay.Interval = delayMs;
+            }catch(Exception ex)
+            {
+                Msg(ex.Message, Role.TRS);
+            }
+        }
+
+        private void textBoxPISCRspDelayMs_TextChanged(object sender, EventArgs e) // 設定 PISC 傳送回覆封包延遲時間(ms)
+        {
+            int delayMs = 0;
+            try
+            {
+                delayMs = Convert.ToInt32(textBoxPISCRspDelayMs.Text);
+                if (delayMs >= 5000)
+                {
+                    textBoxPISCRspDelayMs.Text = "5000";
+                    delayMs = 5000;
+                }
+                timerPISCRspDelay.Interval = delayMs;
+            }catch(Exception ex)
+            {
+                Msg(ex.Message, Role.PISC);
+            }
+        }
+
+        
     }
 }

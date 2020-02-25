@@ -33,6 +33,9 @@
             this.buttonTRSOpen = new System.Windows.Forms.Button();
             this.buttonTRSClose = new System.Windows.Forms.Button();
             this.panelTRS = new System.Windows.Forms.Panel();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBoxTRSRspDelayMs = new System.Windows.Forms.TextBox();
+            this.buttonTRSSendRsp = new System.Windows.Forms.Button();
             this.buttonClrTRSMsg = new System.Windows.Forms.Button();
             this.buttonTRSDebugClrAlmDev = new System.Windows.Forms.Button();
             this.buttonTRSDebugAddAlmDev = new System.Windows.Forms.Button();
@@ -52,6 +55,9 @@
             this.labelTRS = new System.Windows.Forms.Label();
             this.labelPISC = new System.Windows.Forms.Label();
             this.panelPISC = new System.Windows.Forms.Panel();
+            this.label20 = new System.Windows.Forms.Label();
+            this.buttonPISCSendRsp = new System.Windows.Forms.Button();
+            this.textBoxPISCRspDelayMs = new System.Windows.Forms.TextBox();
             this.buttonClrPISCMsg = new System.Windows.Forms.Button();
             this.comboBoxSetAudioVolume = new System.Windows.Forms.ComboBox();
             this.buttonPISCDebugClrPEHSta = new System.Windows.Forms.Button();
@@ -91,6 +97,10 @@
             this.radioButtonFakeDataToTRS = new System.Windows.Forms.RadioButton();
             this.buttonDemoFakeDataToTRS = new System.Windows.Forms.Button();
             this.buttonDemoFakeDataToPISC = new System.Windows.Forms.Button();
+            this.timerTRSRspDelay = new System.Windows.Forms.Timer(this.components);
+            this.timerPISCRspDelay = new System.Windows.Forms.Timer(this.components);
+            this.labelTRSWait = new System.Windows.Forms.Label();
+            this.labelPISCWait = new System.Windows.Forms.Label();
             this.panelTRS.SuspendLayout();
             this.panelPISC.SuspendLayout();
             this.groupBoxFakeDataTargetSel.SuspendLayout();
@@ -130,6 +140,10 @@
             // panelTRS
             // 
             this.panelTRS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTRS.Controls.Add(this.labelTRSWait);
+            this.panelTRS.Controls.Add(this.label19);
+            this.panelTRS.Controls.Add(this.textBoxTRSRspDelayMs);
+            this.panelTRS.Controls.Add(this.buttonTRSSendRsp);
             this.panelTRS.Controls.Add(this.buttonClrTRSMsg);
             this.panelTRS.Controls.Add(this.buttonTRSDebugClrAlmDev);
             this.panelTRS.Controls.Add(this.buttonTRSDebugAddAlmDev);
@@ -151,12 +165,44 @@
             this.panelTRS.Controls.Add(this.buttonTRSOpen);
             this.panelTRS.Location = new System.Drawing.Point(12, 33);
             this.panelTRS.Name = "panelTRS";
-            this.panelTRS.Size = new System.Drawing.Size(648, 651);
+            this.panelTRS.Size = new System.Drawing.Size(648, 823);
             this.panelTRS.TabIndex = 2;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label19.Location = new System.Drawing.Point(219, 571);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(164, 16);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "延遲回覆時間(毫秒ms)";
+            // 
+            // textBoxTRSRspDelayMs
+            // 
+            this.textBoxTRSRspDelayMs.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxTRSRspDelayMs.Location = new System.Drawing.Point(219, 590);
+            this.textBoxTRSRspDelayMs.Name = "textBoxTRSRspDelayMs";
+            this.textBoxTRSRspDelayMs.Size = new System.Drawing.Size(127, 27);
+            this.textBoxTRSRspDelayMs.TabIndex = 10;
+            this.textBoxTRSRspDelayMs.Text = "1000";
+            this.textBoxTRSRspDelayMs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxTRSRspDelayMs.TextChanged += new System.EventHandler(this.textBoxTRSRspDelayMs_TextChanged);
+            // 
+            // buttonTRSSendRsp
+            // 
+            this.buttonTRSSendRsp.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonTRSSendRsp.Location = new System.Drawing.Point(15, 546);
+            this.buttonTRSSendRsp.Name = "buttonTRSSendRsp";
+            this.buttonTRSSendRsp.Size = new System.Drawing.Size(198, 71);
+            this.buttonTRSSendRsp.TabIndex = 9;
+            this.buttonTRSSendRsp.Text = "主動傳送Response";
+            this.buttonTRSSendRsp.UseVisualStyleBackColor = true;
+            this.buttonTRSSendRsp.Click += new System.EventHandler(this.buttonTRSSendRsp_Click);
             // 
             // buttonClrTRSMsg
             // 
-            this.buttonClrTRSMsg.Location = new System.Drawing.Point(497, 428);
+            this.buttonClrTRSMsg.Location = new System.Drawing.Point(497, 603);
             this.buttonClrTRSMsg.Name = "buttonClrTRSMsg";
             this.buttonClrTRSMsg.Size = new System.Drawing.Size(135, 24);
             this.buttonClrTRSMsg.TabIndex = 8;
@@ -324,7 +370,7 @@
             // 
             this.textBoxTRSMsg.BackColor = System.Drawing.Color.White;
             this.textBoxTRSMsg.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxTRSMsg.Location = new System.Drawing.Point(13, 461);
+            this.textBoxTRSMsg.Location = new System.Drawing.Point(13, 633);
             this.textBoxTRSMsg.Multiline = true;
             this.textBoxTRSMsg.Name = "textBoxTRSMsg";
             this.textBoxTRSMsg.ReadOnly = true;
@@ -357,6 +403,10 @@
             // panelPISC
             // 
             this.panelPISC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPISC.Controls.Add(this.labelPISCWait);
+            this.panelPISC.Controls.Add(this.label20);
+            this.panelPISC.Controls.Add(this.buttonPISCSendRsp);
+            this.panelPISC.Controls.Add(this.textBoxPISCRspDelayMs);
             this.panelPISC.Controls.Add(this.buttonClrPISCMsg);
             this.panelPISC.Controls.Add(this.comboBoxSetAudioVolume);
             this.panelPISC.Controls.Add(this.buttonPISCDebugClrPEHSta);
@@ -389,12 +439,44 @@
             this.panelPISC.Controls.Add(this.buttonPISCOpen);
             this.panelPISC.Location = new System.Drawing.Point(666, 33);
             this.panelPISC.Name = "panelPISC";
-            this.panelPISC.Size = new System.Drawing.Size(657, 651);
+            this.panelPISC.Size = new System.Drawing.Size(657, 823);
             this.panelPISC.TabIndex = 2;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label20.Location = new System.Drawing.Point(217, 571);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(164, 16);
+            this.label20.TabIndex = 13;
+            this.label20.Text = "延遲回覆時間(毫秒ms)";
+            // 
+            // buttonPISCSendRsp
+            // 
+            this.buttonPISCSendRsp.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonPISCSendRsp.Location = new System.Drawing.Point(13, 546);
+            this.buttonPISCSendRsp.Name = "buttonPISCSendRsp";
+            this.buttonPISCSendRsp.Size = new System.Drawing.Size(198, 71);
+            this.buttonPISCSendRsp.TabIndex = 12;
+            this.buttonPISCSendRsp.Text = "主動傳送Response";
+            this.buttonPISCSendRsp.UseVisualStyleBackColor = true;
+            this.buttonPISCSendRsp.Click += new System.EventHandler(this.buttonPISCSendRsp_Click);
+            // 
+            // textBoxPISCRspDelayMs
+            // 
+            this.textBoxPISCRspDelayMs.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxPISCRspDelayMs.Location = new System.Drawing.Point(218, 590);
+            this.textBoxPISCRspDelayMs.Name = "textBoxPISCRspDelayMs";
+            this.textBoxPISCRspDelayMs.Size = new System.Drawing.Size(125, 27);
+            this.textBoxPISCRspDelayMs.TabIndex = 11;
+            this.textBoxPISCRspDelayMs.Text = "1000";
+            this.textBoxPISCRspDelayMs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxPISCRspDelayMs.TextChanged += new System.EventHandler(this.textBoxPISCRspDelayMs_TextChanged);
             // 
             // buttonClrPISCMsg
             // 
-            this.buttonClrPISCMsg.Location = new System.Drawing.Point(499, 429);
+            this.buttonClrPISCMsg.Location = new System.Drawing.Point(502, 603);
             this.buttonClrPISCMsg.Name = "buttonClrPISCMsg";
             this.buttonClrPISCMsg.Size = new System.Drawing.Size(138, 24);
             this.buttonClrPISCMsg.TabIndex = 8;
@@ -564,7 +646,7 @@
             // 
             this.textBoxPISCMsg.BackColor = System.Drawing.Color.White;
             this.textBoxPISCMsg.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPISCMsg.Location = new System.Drawing.Point(10, 461);
+            this.textBoxPISCMsg.Location = new System.Drawing.Point(13, 633);
             this.textBoxPISCMsg.Multiline = true;
             this.textBoxPISCMsg.Name = "textBoxPISCMsg";
             this.textBoxPISCMsg.ReadOnly = true;
@@ -725,7 +807,7 @@
             // 
             this.textBoxFakeAppData.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoxFakeAppData.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxFakeAppData.Location = new System.Drawing.Point(307, 715);
+            this.textBoxFakeAppData.Location = new System.Drawing.Point(307, 895);
             this.textBoxFakeAppData.Name = "textBoxFakeAppData";
             this.textBoxFakeAppData.Size = new System.Drawing.Size(967, 30);
             this.textBoxFakeAppData.TabIndex = 4;
@@ -734,7 +816,7 @@
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label18.Location = new System.Drawing.Point(13, 694);
+            this.label18.Location = new System.Drawing.Point(13, 874);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(346, 16);
             this.label18.TabIndex = 5;
@@ -745,7 +827,7 @@
             this.buttonFakeData.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.buttonFakeData.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.buttonFakeData.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.buttonFakeData.Location = new System.Drawing.Point(154, 715);
+            this.buttonFakeData.Location = new System.Drawing.Point(154, 895);
             this.buttonFakeData.Name = "buttonFakeData";
             this.buttonFakeData.Size = new System.Drawing.Size(149, 49);
             this.buttonFakeData.TabIndex = 6;
@@ -759,7 +841,7 @@
             this.groupBoxFakeDataTargetSel.Controls.Add(this.radioButtonFakeDataToPISC);
             this.groupBoxFakeDataTargetSel.Controls.Add(this.radioButtonFakeDataToTRS);
             this.groupBoxFakeDataTargetSel.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBoxFakeDataTargetSel.Location = new System.Drawing.Point(12, 715);
+            this.groupBoxFakeDataTargetSel.Location = new System.Drawing.Point(12, 895);
             this.groupBoxFakeDataTargetSel.Name = "groupBoxFakeDataTargetSel";
             this.groupBoxFakeDataTargetSel.Size = new System.Drawing.Size(136, 93);
             this.groupBoxFakeDataTargetSel.TabIndex = 7;
@@ -790,7 +872,7 @@
             // 
             // buttonDemoFakeDataToTRS
             // 
-            this.buttonDemoFakeDataToTRS.Location = new System.Drawing.Point(154, 770);
+            this.buttonDemoFakeDataToTRS.Location = new System.Drawing.Point(154, 950);
             this.buttonDemoFakeDataToTRS.Name = "buttonDemoFakeDataToTRS";
             this.buttonDemoFakeDataToTRS.Size = new System.Drawing.Size(149, 38);
             this.buttonDemoFakeDataToTRS.TabIndex = 8;
@@ -800,7 +882,7 @@
             // 
             // buttonDemoFakeDataToPISC
             // 
-            this.buttonDemoFakeDataToPISC.Location = new System.Drawing.Point(309, 770);
+            this.buttonDemoFakeDataToPISC.Location = new System.Drawing.Point(309, 950);
             this.buttonDemoFakeDataToPISC.Name = "buttonDemoFakeDataToPISC";
             this.buttonDemoFakeDataToPISC.Size = new System.Drawing.Size(149, 38);
             this.buttonDemoFakeDataToPISC.TabIndex = 8;
@@ -808,11 +890,41 @@
             this.buttonDemoFakeDataToPISC.UseVisualStyleBackColor = true;
             this.buttonDemoFakeDataToPISC.Click += new System.EventHandler(this.buttonDemoFakeDataToPISC_Click);
             // 
+            // timerTRSRspDelay
+            // 
+            this.timerTRSRspDelay.Interval = 1000;
+            this.timerTRSRspDelay.Tick += new System.EventHandler(this.timerTRSRspDelay_Tick);
+            // 
+            // timerPISCRspDelay
+            // 
+            this.timerPISCRspDelay.Interval = 1000;
+            this.timerPISCRspDelay.Tick += new System.EventHandler(this.timerPISCRspDelay_Tick);
+            // 
+            // labelTRSWait
+            // 
+            this.labelTRSWait.AutoSize = true;
+            this.labelTRSWait.Font = new System.Drawing.Font("新細明體", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelTRSWait.Location = new System.Drawing.Point(184, 412);
+            this.labelTRSWait.Name = "labelTRSWait";
+            this.labelTRSWait.Size = new System.Drawing.Size(225, 35);
+            this.labelTRSWait.TabIndex = 12;
+            this.labelTRSWait.Text = "請等待延遲…";
+            // 
+            // labelPISCWait
+            // 
+            this.labelPISCWait.AutoSize = true;
+            this.labelPISCWait.Font = new System.Drawing.Font("新細明體", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelPISCWait.Location = new System.Drawing.Point(235, 477);
+            this.labelPISCWait.Name = "labelPISCWait";
+            this.labelPISCWait.Size = new System.Drawing.Size(225, 35);
+            this.labelPISCWait.TabIndex = 14;
+            this.labelPISCWait.Text = "請等待延遲…";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1360, 820);
+            this.ClientSize = new System.Drawing.Size(1360, 1014);
             this.Controls.Add(this.buttonDemoFakeDataToPISC);
             this.Controls.Add(this.buttonDemoFakeDataToTRS);
             this.Controls.Add(this.groupBoxFakeDataTargetSel);
@@ -900,6 +1012,16 @@
         private System.Windows.Forms.Button buttonClrPISCMsg;
         private System.Windows.Forms.Button buttonDemoFakeDataToTRS;
         private System.Windows.Forms.Button buttonDemoFakeDataToPISC;
+        private System.Windows.Forms.Button buttonTRSSendRsp;
+        private System.Windows.Forms.TextBox textBoxTRSRspDelayMs;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button buttonPISCSendRsp;
+        private System.Windows.Forms.TextBox textBoxPISCRspDelayMs;
+        private System.Windows.Forms.Timer timerTRSRspDelay;
+        private System.Windows.Forms.Timer timerPISCRspDelay;
+        private System.Windows.Forms.Label labelTRSWait;
+        private System.Windows.Forms.Label labelPISCWait;
     }
 }
 
