@@ -60,7 +60,7 @@ namespace RS485Monitor
         private void GTRS_TRSIFRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
             DumpReceivedPacket(Role.TRS);
-            panelTRS.Enabled = false;
+            //panelTRS.Enabled = false;
             labelTRSWait.Visible = true;
             timerTRSRspDelay.Enabled = true; // Send response after delay time.
         }
@@ -103,7 +103,7 @@ namespace RS485Monitor
         private void GPISC_ReportISStatus(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
             DumpReceivedPacket(Role.PISC);
-            panelPISC.Enabled = false;
+            //panelPISC.Enabled = false;
             labelPISCWait.Visible = true;
             timerPISCRspDelay.Enabled = true;            
         }
