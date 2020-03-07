@@ -195,7 +195,7 @@
             this.textBoxTRSRspDelayMs.Name = "textBoxTRSRspDelayMs";
             this.textBoxTRSRspDelayMs.Size = new System.Drawing.Size(127, 27);
             this.textBoxTRSRspDelayMs.TabIndex = 10;
-            this.textBoxTRSRspDelayMs.Text = "1000";
+            this.textBoxTRSRspDelayMs.Text = "400";
             this.textBoxTRSRspDelayMs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxTRSRspDelayMs.TextChanged += new System.EventHandler(this.textBoxTRSRspDelayMs_TextChanged);
             // 
@@ -490,7 +490,7 @@
             this.textBoxPISCRspDelayMs.Name = "textBoxPISCRspDelayMs";
             this.textBoxPISCRspDelayMs.Size = new System.Drawing.Size(125, 27);
             this.textBoxPISCRspDelayMs.TabIndex = 11;
-            this.textBoxPISCRspDelayMs.Text = "1000";
+            this.textBoxPISCRspDelayMs.Text = "400";
             this.textBoxPISCRspDelayMs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxPISCRspDelayMs.TextChanged += new System.EventHandler(this.textBoxPISCRspDelayMs_TextChanged);
             // 
