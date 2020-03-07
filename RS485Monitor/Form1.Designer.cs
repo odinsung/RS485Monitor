@@ -33,6 +33,7 @@
             this.buttonTRSOpen = new System.Windows.Forms.Button();
             this.buttonTRSClose = new System.Windows.Forms.Button();
             this.panelTRS = new System.Windows.Forms.Panel();
+            this.labelTRSWait = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.textBoxTRSRspDelayMs = new System.Windows.Forms.TextBox();
             this.buttonTRSSendRsp = new System.Windows.Forms.Button();
@@ -55,6 +56,7 @@
             this.labelTRS = new System.Windows.Forms.Label();
             this.labelPISC = new System.Windows.Forms.Label();
             this.panelPISC = new System.Windows.Forms.Panel();
+            this.labelPISCWait = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.buttonPISCSendRsp = new System.Windows.Forms.Button();
             this.textBoxPISCRspDelayMs = new System.Windows.Forms.TextBox();
@@ -99,8 +101,6 @@
             this.buttonDemoFakeDataToPISC = new System.Windows.Forms.Button();
             this.timerTRSRspDelay = new System.Windows.Forms.Timer(this.components);
             this.timerPISCRspDelay = new System.Windows.Forms.Timer(this.components);
-            this.labelTRSWait = new System.Windows.Forms.Label();
-            this.labelPISCWait = new System.Windows.Forms.Label();
             this.panelTRS.SuspendLayout();
             this.panelPISC.SuspendLayout();
             this.groupBoxFakeDataTargetSel.SuspendLayout();
@@ -167,6 +167,16 @@
             this.panelTRS.Name = "panelTRS";
             this.panelTRS.Size = new System.Drawing.Size(648, 823);
             this.panelTRS.TabIndex = 2;
+            // 
+            // labelTRSWait
+            // 
+            this.labelTRSWait.AutoSize = true;
+            this.labelTRSWait.Font = new System.Drawing.Font("新細明體", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelTRSWait.Location = new System.Drawing.Point(184, 412);
+            this.labelTRSWait.Name = "labelTRSWait";
+            this.labelTRSWait.Size = new System.Drawing.Size(225, 35);
+            this.labelTRSWait.TabIndex = 12;
+            this.labelTRSWait.Text = "請等待延遲…";
             // 
             // label19
             // 
@@ -441,6 +451,16 @@
             this.panelPISC.Name = "panelPISC";
             this.panelPISC.Size = new System.Drawing.Size(657, 823);
             this.panelPISC.TabIndex = 2;
+            // 
+            // labelPISCWait
+            // 
+            this.labelPISCWait.AutoSize = true;
+            this.labelPISCWait.Font = new System.Drawing.Font("新細明體", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.labelPISCWait.Location = new System.Drawing.Point(235, 477);
+            this.labelPISCWait.Name = "labelPISCWait";
+            this.labelPISCWait.Size = new System.Drawing.Size(225, 35);
+            this.labelPISCWait.TabIndex = 14;
+            this.labelPISCWait.Text = "請等待延遲…";
             // 
             // label20
             // 
@@ -900,30 +920,11 @@
             this.timerPISCRspDelay.Interval = 1000;
             this.timerPISCRspDelay.Tick += new System.EventHandler(this.timerPISCRspDelay_Tick);
             // 
-            // labelTRSWait
-            // 
-            this.labelTRSWait.AutoSize = true;
-            this.labelTRSWait.Font = new System.Drawing.Font("新細明體", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelTRSWait.Location = new System.Drawing.Point(184, 412);
-            this.labelTRSWait.Name = "labelTRSWait";
-            this.labelTRSWait.Size = new System.Drawing.Size(225, 35);
-            this.labelTRSWait.TabIndex = 12;
-            this.labelTRSWait.Text = "請等待延遲…";
-            // 
-            // labelPISCWait
-            // 
-            this.labelPISCWait.AutoSize = true;
-            this.labelPISCWait.Font = new System.Drawing.Font("新細明體", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelPISCWait.Location = new System.Drawing.Point(235, 477);
-            this.labelPISCWait.Name = "labelPISCWait";
-            this.labelPISCWait.Size = new System.Drawing.Size(225, 35);
-            this.labelPISCWait.TabIndex = 14;
-            this.labelPISCWait.Text = "請等待延遲…";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1360, 1014);
             this.Controls.Add(this.buttonDemoFakeDataToPISC);
             this.Controls.Add(this.buttonDemoFakeDataToTRS);

@@ -61,8 +61,19 @@ namespace RS485Monitor
         {
             DumpReceivedPacket(Role.TRS);
             //panelTRS.Enabled = false;
-            labelTRSWait.Visible = true;
-            timerTRSRspDelay.Enabled = true; // Send response after delay time.
+            try
+            {
+                labelTRSWait.Invoke(new EventHandler(
+                    delegate
+                    {
+                        labelTRSWait.Visible = true;
+                        timerTRSRspDelay.Enabled = true; // Send response after delay time.
+                    }));
+            }catch(InvalidOperationException ex)
+            {
+
+            }            
+            //timerTRSRspDelay.Enabled = true; // Send response after delay time.
         }
         private void buttonTRSSendRsp_Click(object sender, EventArgs e) // TRS 主動傳送回覆封包 (Response)
         {
@@ -104,8 +115,18 @@ namespace RS485Monitor
         {
             DumpReceivedPacket(Role.PISC);
             //panelPISC.Enabled = false;
-            labelPISCWait.Visible = true;
-            timerPISCRspDelay.Enabled = true;            
+            try
+            {
+                labelPISCWait.Invoke(new EventHandler(
+                    delegate
+                    {
+                        labelPISCWait.Visible = true;
+                        timerPISCRspDelay.Enabled = true;
+                    }));
+            }catch(InvalidOperationException ex)
+            {
+
+            }
         }
         private void buttonPISCSendRsp_Click(object sender, EventArgs e) // PISC 主動傳送回覆封包 (Response)
         {
@@ -184,8 +205,18 @@ namespace RS485Monitor
         {
             TextBox tb = role == Role.TRS ? textBoxTRSMsg : textBoxPISCMsg;
             DateTime t = System.DateTime.Now;
-            tb.Text += "[" + t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "]  " + 
-                       str + Environment.NewLine;
+            try
+            {
+                tb.Invoke(new EventHandler(
+                    delegate
+                    {
+                        tb.Text += "[" + t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "]  " +
+                                str + Environment.NewLine;
+                    }));
+            }catch(InvalidOperationException e)
+            {
+
+            }            
         }
         private void Msg(String prefixString, Byte[] pkt, int length, Role role) // 顯示封包內容
         {
@@ -216,8 +247,18 @@ namespace RS485Monitor
                         break;
                 }
             }
-            tb.Text += "[" + t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "]  " +
-                       str + Environment.NewLine;
+            try
+            {
+                tb.Invoke(new EventHandler(
+                    delegate
+                    {
+                        tb.Text += "[" + t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "]  " +
+                                str + Environment.NewLine;
+                    }));
+            }catch(InvalidOperationException e)
+            {
+
+            }            
         }
         
         private void ComPortItemInit() // 序列埠相關物件初始化
