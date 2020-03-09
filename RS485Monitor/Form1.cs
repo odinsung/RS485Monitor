@@ -55,6 +55,9 @@ namespace RS485Monitor
 
             labelTRSWait.Visible = false;
             labelPISCWait.Visible = false;
+
+            buttonTRSClose.Enabled = false;
+            buttonPISCClose.Enabled = false;
         }        
 
         private void GTRS_TRSIFRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
@@ -69,12 +72,9 @@ namespace RS485Monitor
                         labelTRSWait.Visible = true;
                         timerTRSRspDelay.Enabled = true; // Send response after delay time.
                     }));
-            }catch(InvalidOperationException ex)
-            {
-
-            }            
-            //timerTRSRspDelay.Enabled = true; // Send response after delay time.
-        }
+            }
+            catch (InvalidOperationException) { }
+         }
         private void buttonTRSSendRsp_Click(object sender, EventArgs e) // TRS 主動傳送回覆封包 (Response)
         {
             TRS_SendResponse();
@@ -123,10 +123,8 @@ namespace RS485Monitor
                         labelPISCWait.Visible = true;
                         timerPISCRspDelay.Enabled = true;
                     }));
-            }catch(InvalidOperationException ex)
-            {
-
             }
+            catch (InvalidOperationException) { }
         }
         private void buttonPISCSendRsp_Click(object sender, EventArgs e) // PISC 主動傳送回覆封包 (Response)
         {
@@ -213,10 +211,8 @@ namespace RS485Monitor
                         tb.Text += "[" + t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "]  " +
                                 str + Environment.NewLine;
                     }));
-            }catch(InvalidOperationException e)
-            {
-
-            }            
+            }
+            catch (InvalidOperationException) { }
         }
         private void Msg(String prefixString, Byte[] pkt, int length, Role role) // 顯示封包內容
         {
@@ -255,10 +251,8 @@ namespace RS485Monitor
                         tb.Text += "[" + t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "]  " +
                                 str + Environment.NewLine;
                     }));
-            }catch(InvalidOperationException e)
-            {
-
-            }            
+            }
+            catch (InvalidOperationException) { }
         }
         
         private void ComPortItemInit() // 序列埠相關物件初始化
@@ -297,6 +291,16 @@ namespace RS485Monitor
             if ((r == Role.TRS? gTRS.Open(portName) : gPISC.Open(portName)))
             {
                 Msg("開啟成功!", r);
+                if (r == Role.TRS)
+                {
+                    buttonTRSOpen.Enabled = false;
+                    buttonTRSClose.Enabled = true;
+                }
+                else
+                {
+                    buttonPISCOpen.Enabled = false;
+                    buttonPISCClose.Enabled = true;
+                }
             }
         }
 
@@ -304,8 +308,18 @@ namespace RS485Monitor
         {
             Button btn = (Button)sender;
             Role r = btn == buttonTRSClose ? Role.TRS : Role.PISC;
-            if (r == Role.TRS) { gTRS.Close();  }
-            else { gPISC.Close();  }
+            if (r == Role.TRS) 
+            {
+                gTRS.Close();
+                buttonTRSOpen.Enabled = true;
+                buttonTRSClose.Enabled = false;
+            }
+            else
+            {
+                gPISC.Close();
+                buttonPISCOpen.Enabled = true;
+                buttonPISCClose.Enabled = false;
+            }
             Msg("關閉成功", r);
         }
 
