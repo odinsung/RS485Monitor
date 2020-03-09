@@ -42,6 +42,13 @@ namespace RS485Monitor.Class
         {
             ReceivedDataHandler(fakeData, length);
         }
+        public void GetRawBuf(ref Byte[] buf, ref int len) 
+        {
+            Array.Copy(RawBuf, 0, buf, 0, RawPtr);
+            len = RawPtr;
+            RawPtr = 0;
+            Array.Clear(RawBuf, 0, 256);
+        }
         private void ReceivedDataHandler(Byte[] rxData, int length) // 接收資料解析 (Received Data Parsing)
         {
             Byte c = 0;
@@ -384,6 +391,7 @@ namespace RS485Monitor.Class
             int devErrCnt = 0;
             int[] peiSta = new int[4];
             String str = String.Empty;
+            if (AppData.Length < 2)                                              { ThrowErrorEvent("Message Length Error");             return; }
             if (AppData.Substring(0, 2) != "40")                                 { ThrowErrorEvent("Message Type Error");               return; }
             if (!int.TryParse(AppData.Substring(2, 2), out vol))                 { ThrowErrorEvent("Audio Volume Parsing Error");       return; }
             if (!int.TryParse(AppData.Substring(4, 2), out emgCnt))              { ThrowErrorEvent("Calling PEH Parsing Error");        return; }

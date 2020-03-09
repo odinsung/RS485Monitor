@@ -109,8 +109,54 @@ namespace RS485Monitor
         private void GTRS_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 TRS 發出的錯誤訊息之事件處理
         {
             Msg(e.ErrorMessage, Role.TRS);
+            DumpRawBuf(Role.TRS);
         }
-
+        private void DumpRawBuf(Role r)
+        {
+            int len = 0;
+            Byte[] buf = new byte[256];
+            if (r == Role.TRS)
+            {
+                gTRS.GetRawBuf(ref buf, ref len);
+            }
+            else
+            {
+                gPISC.GetRawBuf(ref buf, ref len);
+            }
+            ShowRaw(buf, len, r);
+        }
+        private void ShowRaw(Byte[] buf, int len, Role r)
+        {
+            string str = "{ ";
+            for(int i=0; i<len; i++)
+            {
+                str += buf[i].ToString("X2") + " ";
+            }
+            str += "}" + Environment.NewLine;
+            if (r == Role.TRS)
+            {
+                try
+                {
+                    textBoxPiscRxRaw.Invoke(new EventHandler(
+                        delegate
+                        {
+                            textBoxTrsRxRaw.Text += str;
+                        }));
+                }
+                catch (InvalidOperationException) { }
+            }
+            else
+            {
+                try
+                {
+                    textBoxPiscRxRaw.Invoke(new EventHandler(
+                        delegate
+                        {
+                            textBoxPiscRxRaw.Text += str;
+                        }));
+                }catch (InvalidOperationException) { }                
+            }
+        }
         private void GPISC_ReportISStatus(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
             DumpReceivedPacket(Role.PISC);
@@ -187,6 +233,7 @@ namespace RS485Monitor
         private void GPISC_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 PISC 發出的錯誤訊息之事件處理
         {
             Msg(e.ErrorMessage, Role.PISC);
+            DumpRawBuf(Role.PISC);
         }
 
         private void DumpReceivedPacket(Role r) // 將收到的封包內容顯示在訊息窗中
@@ -521,6 +568,14 @@ namespace RS485Monitor
             }
         }
 
-        
+        private void buttonClrPiscRaw_Click(object sender, EventArgs e)
+        {
+            textBoxPiscRxRaw.Clear();
+        }
+
+        private void buttonClrTrsRaw_Click(object sender, EventArgs e)
+        {
+            textBoxTrsRxRaw.Clear();
+        }
     }
 }

@@ -101,6 +101,10 @@
             this.buttonDemoFakeDataToPISC = new System.Windows.Forms.Button();
             this.timerTRSRspDelay = new System.Windows.Forms.Timer(this.components);
             this.timerPISCRspDelay = new System.Windows.Forms.Timer(this.components);
+            this.textBoxPiscRxRaw = new System.Windows.Forms.TextBox();
+            this.textBoxTrsRxRaw = new System.Windows.Forms.TextBox();
+            this.buttonClrPiscRaw = new System.Windows.Forms.Button();
+            this.buttonClrTrsRaw = new System.Windows.Forms.Button();
             this.panelTRS.SuspendLayout();
             this.panelPISC.SuspendLayout();
             this.groupBoxFakeDataTargetSel.SuspendLayout();
@@ -920,12 +924,60 @@
             this.timerPISCRspDelay.Interval = 1000;
             this.timerPISCRspDelay.Tick += new System.EventHandler(this.timerPISCRspDelay_Tick);
             // 
+            // textBoxPiscRxRaw
+            // 
+            this.textBoxPiscRxRaw.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxPiscRxRaw.Location = new System.Drawing.Point(1343, 62);
+            this.textBoxPiscRxRaw.Multiline = true;
+            this.textBoxPiscRxRaw.Name = "textBoxPiscRxRaw";
+            this.textBoxPiscRxRaw.ReadOnly = true;
+            this.textBoxPiscRxRaw.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxPiscRxRaw.Size = new System.Drawing.Size(400, 438);
+            this.textBoxPiscRxRaw.TabIndex = 9;
+            this.textBoxPiscRxRaw.TextChanged += new System.EventHandler(this.textBoxMsg_TextChanged);
+            // 
+            // textBoxTrsRxRaw
+            // 
+            this.textBoxTrsRxRaw.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTrsRxRaw.Location = new System.Drawing.Point(1343, 558);
+            this.textBoxTrsRxRaw.Multiline = true;
+            this.textBoxTrsRxRaw.Name = "textBoxTrsRxRaw";
+            this.textBoxTrsRxRaw.ReadOnly = true;
+            this.textBoxTrsRxRaw.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxTrsRxRaw.Size = new System.Drawing.Size(400, 444);
+            this.textBoxTrsRxRaw.TabIndex = 10;
+            this.textBoxTrsRxRaw.TextChanged += new System.EventHandler(this.textBoxMsg_TextChanged);
+            // 
+            // buttonClrPiscRaw
+            // 
+            this.buttonClrPiscRaw.Location = new System.Drawing.Point(1345, 25);
+            this.buttonClrPiscRaw.Name = "buttonClrPiscRaw";
+            this.buttonClrPiscRaw.Size = new System.Drawing.Size(86, 22);
+            this.buttonClrPiscRaw.TabIndex = 11;
+            this.buttonClrPiscRaw.Text = "clear pisc raw";
+            this.buttonClrPiscRaw.UseVisualStyleBackColor = true;
+            this.buttonClrPiscRaw.Click += new System.EventHandler(this.buttonClrPiscRaw_Click);
+            // 
+            // buttonClrTrsRaw
+            // 
+            this.buttonClrTrsRaw.Location = new System.Drawing.Point(1343, 530);
+            this.buttonClrTrsRaw.Name = "buttonClrTrsRaw";
+            this.buttonClrTrsRaw.Size = new System.Drawing.Size(86, 22);
+            this.buttonClrTrsRaw.TabIndex = 12;
+            this.buttonClrTrsRaw.Text = "clear trs raw";
+            this.buttonClrTrsRaw.UseVisualStyleBackColor = true;
+            this.buttonClrTrsRaw.Click += new System.EventHandler(this.buttonClrTrsRaw_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1360, 1014);
+            this.ClientSize = new System.Drawing.Size(1764, 1014);
+            this.Controls.Add(this.buttonClrTrsRaw);
+            this.Controls.Add(this.buttonClrPiscRaw);
+            this.Controls.Add(this.textBoxTrsRxRaw);
+            this.Controls.Add(this.textBoxPiscRxRaw);
             this.Controls.Add(this.buttonDemoFakeDataToPISC);
             this.Controls.Add(this.buttonDemoFakeDataToTRS);
             this.Controls.Add(this.groupBoxFakeDataTargetSel);
@@ -1023,6 +1075,10 @@
         private System.Windows.Forms.Timer timerPISCRspDelay;
         private System.Windows.Forms.Label labelTRSWait;
         private System.Windows.Forms.Label labelPISCWait;
+        private System.Windows.Forms.TextBox textBoxPiscRxRaw;
+        private System.Windows.Forms.TextBox textBoxTrsRxRaw;
+        private System.Windows.Forms.Button buttonClrPiscRaw;
+        private System.Windows.Forms.Button buttonClrTrsRaw;
     }
 }
 
