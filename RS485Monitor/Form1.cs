@@ -29,14 +29,14 @@ namespace RS485Monitor
             ComPortItemInit(); // 掃描可用的序列埠，初始化下拉式選單等序列埠相關物件
 
             // 註冊 TRS 事件處理函式
-            gTRS.TRSIFRequest += GTRS_TRSIFRequest;
-            gTRS.ErrorOccur += GTRS_ErrorOccur;
-            gTRS.DataSent += GTRS_DataSent;
+            gTRS.Evt_TrsifRequest    += TRS_EventHandler_TrsifRequest;  // 事件: 收到來自 TRSIF 的 Request
+            gTRS.Evt_ErrorOccur      += TRS_EventHandler_ErrorOccur;    // 事件: 發生錯誤  (參數: 錯誤訊息)
+            gTRS.Evt_DataSent        += TRS_EventHandler_DataSent;      // 事件: 資料已送出 (參數: 送出的資料 byte array & array length)
 
             // 註冊 PISC 事件處理函式
-            gPISC.ReportISStatus += GPISC_ReportISStatus;
-            gPISC.ErrorOccur += GPISC_ErrorOccur;
-            gPISC.DataSent += GPISC_DataSent;
+            gPISC.Evt_ReportIsStatus += PISC_EventHandler_ReportIsStatus;
+            gPISC.Evt_ErrorOccur     += PISC_EventHandler_ErrorOccur;
+            gPISC.Evt_DataSent       += PISC_EventHandler_DataSent;
 
             ComboBox_SetAudioVolume_Init();
             labelDateTimeNow.Text = System.DateTime.Now.ToString();
@@ -60,7 +60,7 @@ namespace RS485Monitor
             buttonPISCClose.Enabled = false;
         }        
 
-        private void GTRS_TRSIFRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
+        private void TRS_EventHandler_TrsifRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
             DumpReceivedPacket(Role.TRS);
             //panelTRS.Enabled = false;
@@ -69,6 +69,7 @@ namespace RS485Monitor
                 labelTRSWait.Invoke(new EventHandler(
                     delegate
                     {
+                        TRS_ShowTrsifRequest();
                         labelTRSWait.Visible = true;
                         timerTRSRspDelay.Enabled = true; // Send response after delay time.
                     }));
@@ -86,7 +87,7 @@ namespace RS485Monitor
             panelTRS.Enabled = true;
             timerTRSRspDelay.Enabled = false;
         }
-        private void TRS_SendResponse()
+        private void TRS_ShowTrsifRequest() // 將 TRSIF Request 內的資訊顯示在 UI 上
         {
             bool trsifCallPickUpStatus = false;
             int emergencyDeviceCount = 0;
@@ -95,18 +96,20 @@ namespace RS485Monitor
             emergencyDeviceCount = gTRS.GetEmergencyDeviceCount();
             textBoxTRSEmgDevCnt.Text = emergencyDeviceCount.ToString("D2");
             listBoxTRSAlmDev.Items.Clear();
-            for(int i=0; i<emergencyDeviceCount; i++)
+            for (int i = 0; i < emergencyDeviceCount; i++)
             {
                 listBoxTRSAlmDev.Items.Add(gTRS.GetAlarmDevice(i));
             }
-            // 傳送 Response
+        }
+        private void TRS_SendResponse() // 傳送 Response
+        {
             gTRS.SendResponse(radioButtonTRSCallPickUpStatus_Call.Checked, System.DateTime.Now);
         }
-        private void GTRS_DataSent(object sender, PICom.DataSentEventArgs e) // 收到來自 TRS 送出資料的事件，將送出的封包內容 Dump 出來
+        private void TRS_EventHandler_DataSent(object sender, PICom.DataSentEventArgs e) // 收到來自 TRS 送出資料的事件，將送出的封包內容 Dump 出來
         {
             Msg("送出封包: ", e.DataSent, e.DataSentLen, Role.TRS);
         }
-        private void GTRS_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 TRS 發出的錯誤訊息之事件處理
+        private void TRS_EventHandler_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 TRS 發出的錯誤訊息之事件處理
         {
             Msg(e.ErrorMessage, Role.TRS);
             DumpRawBuf(Role.TRS);
@@ -157,7 +160,7 @@ namespace RS485Monitor
                 }catch (InvalidOperationException) { }                
             }
         }
-        private void GPISC_ReportISStatus(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
+        private void PISC_EventHandler_ReportIsStatus(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
             DumpReceivedPacket(Role.PISC);
             //panelPISC.Enabled = false;
@@ -166,6 +169,7 @@ namespace RS485Monitor
                 labelPISCWait.Invoke(new EventHandler(
                     delegate
                     {
+                        PISC_ShowReportIsStatus();
                         labelPISCWait.Visible = true;
                         timerPISCRspDelay.Enabled = true;
                     }));
@@ -183,7 +187,7 @@ namespace RS485Monitor
             panelPISC.Enabled = true;
             timerPISCRspDelay.Enabled = false;
         }
-        private void PISC_SendResponse()
+        private void PISC_ShowReportIsStatus()
         {
             int audioVolume = 0;
             int emergencyDeviceCount = 0;
@@ -217,6 +221,9 @@ namespace RS485Monitor
             {
                 listBoxPEHStatus.Items.Add(gPISC.GetPEHStatus(i));
             }
+        }
+        private void PISC_SendResponse()
+        {
             // 傳送 Response
             if (SetAudioVolume < 1 || SetAudioVolume > 16)
             {
@@ -226,11 +233,11 @@ namespace RS485Monitor
             SetAudioVolume = -1; // 送給 TRSIF 之後，就清為 -1
         }
         
-        private void GPISC_DataSent(object sender, PICom.DataSentEventArgs e) // 收到來自 PISC 送出資料的事件，將送出的封包內容 Dump 出來
+        private void PISC_EventHandler_DataSent(object sender, PICom.DataSentEventArgs e) // 收到來自 PISC 送出資料的事件，將送出的封包內容 Dump 出來
         {
             Msg("送出封包: ", e.DataSent, e.DataSentLen, Role.PISC);
         }
-        private void GPISC_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 PISC 發出的錯誤訊息之事件處理
+        private void PISC_EventHandler_ErrorOccur(object sender, PICom.ErrorEventArgs e) // 收到 PISC 發出的錯誤訊息之事件處理
         {
             Msg(e.ErrorMessage, Role.PISC);
             DumpRawBuf(Role.PISC);

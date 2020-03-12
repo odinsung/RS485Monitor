@@ -155,12 +155,12 @@ namespace RS485Monitor.Class
             buf[4 + data.Length] = 0x10;
             buf[5 + data.Length] = 0x03;
             buf[6 + data.Length] = bcc;
-            ThrowDataSentEvent(buf, 6 + data.Length);
+            ThrowDataSentEvent(buf, 7 + data.Length);
             if (Port.IsOpen)
             {
                 Port.DiscardOutBuffer();
                 Port.DiscardInBuffer();
-                Port.Write(buf, 0, 6 + data.Length);
+                Port.Write(buf, 0, 7 + data.Length);
                 // Flush RawBuf[]
                 RawPtr = 0;
                 Array.Clear(RawBuf, 0, 256);
@@ -223,13 +223,13 @@ namespace RS485Monitor.Class
                 DataSentLen = length;
             }
         }
-        public event EventHandler<ErrorEventArgs> ErrorOccur; // 事件[發生錯誤]:宣告
+        public event EventHandler<ErrorEventArgs> Evt_ErrorOccur; // 事件[發生錯誤]:宣告
         public event EventHandler<EventArgs> ReceiveDone; // 事件[接收完成]:宣告
-        public event EventHandler<DataSentEventArgs> DataSent; // 事件[送出資料]:宣告
+        public event EventHandler<DataSentEventArgs> Evt_DataSent; // 事件[送出資料]:宣告
         protected virtual void ThrowErrorEvent(String errmsg) // 事件[發生錯誤]:丟出事件的函式
         {
             ErrorEventArgs e = new ErrorEventArgs(errmsg);
-            ErrorOccur?.Invoke(this, e);
+            Evt_ErrorOccur?.Invoke(this, e);
         }
         protected virtual void ThrowReceiveDoneEvent() // 事件[接收完成]:丟出事件的函式
         {
@@ -239,7 +239,7 @@ namespace RS485Monitor.Class
         protected virtual void ThrowDataSentEvent(Byte[] data, int length) // 事件[送出資料]:丟出事件的函式
         {
             DataSentEventArgs e = new DataSentEventArgs(data, length);
-            DataSent?.Invoke(this, e);
+            Evt_DataSent?.Invoke(this, e);
         }
         #endregion
     }
@@ -320,11 +320,11 @@ namespace RS485Monitor.Class
             }
         }
 
-        public event EventHandler<EventArgs> TRSIFRequest;
+        public event EventHandler<EventArgs> Evt_TrsifRequest;
         protected virtual void ThrowTRSIFRequestEvent()
         {
             EventArgs e = new EventArgs();
-            TRSIFRequest?.Invoke(this, e);
+            Evt_TrsifRequest?.Invoke(this, e);
         }
     }
 
@@ -427,11 +427,11 @@ namespace RS485Monitor.Class
             ThrowReportISStatusEvent();
         }
 
-        public event EventHandler<EventArgs> ReportISStatus;
+        public event EventHandler<EventArgs> Evt_ReportIsStatus;
         protected virtual void ThrowReportISStatusEvent()
         {
             EventArgs e = new EventArgs();
-            ReportISStatus?.Invoke(this, e);
+            Evt_ReportIsStatus?.Invoke(this, e);
         }
     }
 
