@@ -31,6 +31,11 @@ namespace RS485Monitor.Class
             if (Port.BytesToRead > 0)
             {
                 length = Port.BytesToRead;
+
+                //data[0] = (Byte)Port.ReadByte();
+                //ReceivedDataHandler(data, 1);
+
+
                 for(int i=0; i<length; i++)
                 {
                     data[i] = (Byte)Port.ReadByte();
@@ -74,6 +79,9 @@ namespace RS485Monitor.Class
                             RxState = 2;
                             BCC = 0;
                             AppDataPtr = 0;
+                        }else if (c == 0x10)
+                        {
+                            // Do nothing
                         }
                         else
                         {
@@ -108,6 +116,9 @@ namespace RS485Monitor.Class
                         if (c == 0x03)
                         {
                             RxState = 4;
+                            //AppData = System.Text.Encoding.ASCII.GetString(AppDataBuf, 0, AppDataPtr);
+                            //ThrowReceiveDoneEvent();
+                            //RxState = 0;
                         }
                         else
                         {
@@ -120,12 +131,21 @@ namespace RS485Monitor.Class
                         {
                             AppData = System.Text.Encoding.ASCII.GetString(AppDataBuf, 0, AppDataPtr);
                             ThrowReceiveDoneEvent();
+                            RxState = 0;
+                        }
+                        else if (c == 0x10) // workaround: sometimes BCC is missed
+                        {
+                            AppData = System.Text.Encoding.ASCII.GetString(AppDataBuf, 0, AppDataPtr);
+                            ThrowReceiveDoneEvent();
+                            RxState = 1;
+                            ThrowErrorEvent("BCC Missed");
                         }
                         else
                         {
                             ThrowErrorEvent("BCC Error (0x" + BCC.ToString("X2") + "/0x" + c.ToString("X2") + ")");
+                            RxState = 0;
                         }
-                        RxState = 0;
+                        //RxState = 0;
                         break;
                     default:
                         RxState = 0; // Reset state
@@ -391,40 +411,46 @@ namespace RS485Monitor.Class
             int devErrCnt = 0;
             int[] peiSta = new int[4];
             String str = String.Empty;
-            if (AppData.Length < 2)                                              { ThrowErrorEvent("Message Length Error");             return; }
-            if (AppData.Substring(0, 2) != "40")                                 { ThrowErrorEvent("Message Type Error");               return; }
-            if (!int.TryParse(AppData.Substring(2, 2), out vol))                 { ThrowErrorEvent("Audio Volume Parsing Error");       return; }
-            if (!int.TryParse(AppData.Substring(4, 2), out emgCnt))              { ThrowErrorEvent("Calling PEH Parsing Error");        return; }
-            if (emgCnt > 20)                                                     { ThrowErrorEvent("Calling PEH Count Error");          return; }
-            if (!int.TryParse(AppData.Substring(10+emgCnt*6, 2), out devErrCnt)) { ThrowErrorEvent("Device Error Count Parsing Error"); return; }
-            if (devErrCnt > 65)                                                  { ThrowErrorEvent("Device Error Count Error");         return; }
-            if (AppData.Length != (12 + 6 * emgCnt + 6 * devErrCnt))             { ThrowErrorEvent("App Data Length Error");            return; }
-            str = AppData.Substring(6 + 6 * emgCnt, 4);
-            for(int i=0; i<4; i++)
+            try
             {
-                if (!int.TryParse(AppData.Substring(6 + 6 * emgCnt + i, 1), out peiSta[i]))
+                if (AppData.Length < 2) { ThrowErrorEvent("Message Length Error"); return; }
+                if (AppData.Substring(0, 2) != "40") { ThrowErrorEvent("Message Type Error"); return; }
+                if (!int.TryParse(AppData.Substring(2, 2), out vol)) { ThrowErrorEvent("Audio Volume Parsing Error"); return; }
+                if (!int.TryParse(AppData.Substring(4, 2), out emgCnt)) { ThrowErrorEvent("Calling PEH Parsing Error"); return; }
+                if (emgCnt > 20) { ThrowErrorEvent("Calling PEH Count Error"); return; }
+                if (!int.TryParse(AppData.Substring(10 + emgCnt * 6, 2), out devErrCnt)) { ThrowErrorEvent("Device Error Count Parsing Error"); return; }
+                if (devErrCnt > 65) { ThrowErrorEvent("Device Error Count Error"); return; }
+                if (AppData.Length != (12 + 6 * emgCnt + 6 * devErrCnt)) { ThrowErrorEvent("App Data Length Error"); return; }
+                str = AppData.Substring(6 + 6 * emgCnt, 4);
+                for (int i = 0; i < 4; i++)
                 {
-                    ThrowErrorEvent("PEI Status Error");
-                    return;
+                    if (!int.TryParse(AppData.Substring(6 + 6 * emgCnt + i, 1), out peiSta[i]))
+                    {
+                        ThrowErrorEvent("PEI Status Error");
+                        return;
+                    }
                 }
-            }
-            AudioVolume = vol; //----------------------------------------------------- (1) Audio Volume
-            EmergencyDeviceCount = emgCnt; //----------------------------------------- (2) Calling PEH Count
-            AlarmDevice.Clear(); //--------------------------------------------------- (3) Calling PEH
-            str = AppData.Substring(6, emgCnt * 6);
-            for(int i=0; i<EmergencyDeviceCount; i++)
+                AudioVolume = vol; //----------------------------------------------------- (1) Audio Volume
+                EmergencyDeviceCount = emgCnt; //----------------------------------------- (2) Calling PEH Count
+                AlarmDevice.Clear(); //--------------------------------------------------- (3) Calling PEH
+                str = AppData.Substring(6, emgCnt * 6);
+                for (int i = 0; i < EmergencyDeviceCount; i++)
+                {
+                    AlarmDevice.Add(str.Substring(i * 6, 6));
+                }
+                Array.Copy(peiSta, PEIStatus, 4); //-------------------------------------- (4) PEI Status
+                DeviceErrorCount = devErrCnt; //------------------------------------------ (5) Device Error Count
+                PEHStatus.Clear(); //----------------------------------------------------- (6) PEH Status
+                str = AppData.Substring(12 + 6 * emgCnt, devErrCnt * 6);
+                for (int i = 0; i < devErrCnt; i++)
+                {
+                    PEHStatus.Add(str.Substring(i * 6, 6));
+                }
+                ThrowReportISStatusEvent();
+            }catch(Exception ex)
             {
-                AlarmDevice.Add(str.Substring(i * 6, 6));
+                ThrowErrorEvent(ex.Message);
             }
-            Array.Copy(peiSta, PEIStatus, 4); //-------------------------------------- (4) PEI Status
-            DeviceErrorCount = devErrCnt; //------------------------------------------ (5) Device Error Count
-            PEHStatus.Clear(); //----------------------------------------------------- (6) PEH Status
-            str = AppData.Substring(12 + 6 * emgCnt, devErrCnt * 6);
-            for(int i=0; i<devErrCnt; i++)
-            {
-                PEHStatus.Add(str.Substring(i * 6, 6));
-            }
-            ThrowReportISStatusEvent();
         }
 
         public event EventHandler<EventArgs> Evt_ReportIsStatus;
