@@ -37,6 +37,7 @@ namespace RS485Monitor
             gPISC.Evt_ReportIsStatus += PISC_EventHandler_ReportIsStatus;
             gPISC.Evt_ErrorOccur     += PISC_EventHandler_ErrorOccur;
             gPISC.Evt_DataSent       += PISC_EventHandler_DataSent;
+            gPISC.Evt_RspIpMacTable  += PISC_EventHandler_RspIpMacTable;
 
             ComboBox_SetAudioVolume_Init();
             labelDateTimeNow.Text = System.DateTime.Now.ToString();
@@ -58,7 +59,7 @@ namespace RS485Monitor
 
             buttonTRSClose.Enabled = false;
             buttonPISCClose.Enabled = false;
-        }        
+        }
 
         private void TRS_EventHandler_TrsifRequest(object sender, EventArgs e) // 收到 TRSIF 發出的 Request 之事件處理
         {
@@ -176,6 +177,12 @@ namespace RS485Monitor
             }
             catch (InvalidOperationException) { }
         }
+        private void PISC_EventHandler_RspIpMacTable(object sender, EventArgs e) // 收到 TRSIF 回覆的 IP-MAC 表
+        {
+            DumpReceivedPacket(Role.PISC);
+            PISC_ShowRspIpMacTable();
+        }
+
         private void buttonPISCSendRsp_Click(object sender, EventArgs e) // PISC 主動傳送回覆封包 (Response)
         {
             PISC_SendResponse();
@@ -222,10 +229,25 @@ namespace RS485Monitor
                 listBoxPEHStatus.Items.Add(gPISC.GetPEHStatus(i));
             }
         }
+        private void PISC_ShowRspIpMacTable()
+        {
+            int ipMacCnt = 0;
+            ipMacCnt = gPISC.GetIpMacCount();
+            comboBoxIpMac.Items.Clear();
+            for(int i=0; i<ipMacCnt; i++)
+            {
+                comboBoxIpMac.Items.Add(gPISC.GetIpMac(i));
+            }
+            if (ipMacCnt > 0)
+            {
+                comboBoxIpMac.SelectedIndex = 0;
+            }
+            comboBoxIpMac.Focus();
+        }
         private void PISC_SendResponse()
         {
             // 傳送 Response
-            if (SetAudioVolume < 1 || SetAudioVolume > 16)
+            if (SetAudioVolume < 0 || SetAudioVolume > 10)
             {
                 SetAudioVolume = -1; // 不改變音量
             }
@@ -330,11 +352,11 @@ namespace RS485Monitor
         private void ComboBox_SetAudioVolume_Init() // 設定音量下拉式選單初始化
         {
             comboBoxSetAudioVolume.Items.Clear();
-            for(int i=1; i<= 16; i++)
+            for(int i=1; i<= 10; i++)
             {
                 comboBoxSetAudioVolume.Items.Add(i.ToString("D2"));
             }
-            comboBoxSetAudioVolume.SelectedIndex = 15;
+            comboBoxSetAudioVolume.SelectedIndex = 9;
         }
 
         private void buttonOpen_Click(object sender, EventArgs e) // 開啟 Com Port
@@ -531,7 +553,11 @@ namespace RS485Monitor
         {
             textBoxFakeAppData.Text = "401202C01D03C03D05102001C10D06";
         }
-
+        private void buttonDemoFakeIpMacTableToPISC_Click(object sender, EventArgs e) // 測試資料 IP-MAC 表格: TO PISC
+        {
+            //textBoxFakeAppData.Text = "34313031 43304138 30313637 41414242 43434444 45303032";
+            textBoxFakeAppData.Text = "4101C0A80167AABBCCDDE002";
+        }
         private void textBoxMsg_TextChanged(object sender, EventArgs e) // 讓訊息窗的游標位置始終保持在最後面
         {
             TextBox msg = (TextBox)sender;
@@ -584,5 +610,13 @@ namespace RS485Monitor
         {
             textBoxTrsRxRaw.Clear();
         }
+
+        private void buttonAskIpMac_Click(object sender, EventArgs e) // Ask IP-MAC
+        {
+            //comboBoxIpMac.Items.Clear();
+            gPISC.SendAskIpMacTable();
+        }
+
+        
     }
 }

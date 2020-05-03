@@ -12,11 +12,11 @@ namespace RS485Monitor.Class
         private SerialPort Port = new SerialPort();
         private int RxState = 0;
         private Byte BCC = 0;
-        private Byte[] AppDataBuf = new Byte[256];
+        private Byte[] AppDataBuf = new Byte[2048];
         private int AppDataPtr = 0;
         private bool AppDataOverflow = false;
         protected String AppData = String.Empty;
-        public Byte[] RawBuf = new Byte[256];
+        public Byte[] RawBuf = new Byte[2048];
         public int RawPtr = 0;
 
         public PICom() // 建構子
@@ -26,7 +26,7 @@ namespace RS485Monitor.Class
 
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e) // 接收資料的事件處理
         {
-            Byte[] data = new Byte[256];
+            Byte[] data = new Byte[2048];
             int length = 0;
             if (Port.BytesToRead > 0)
             {
@@ -52,7 +52,7 @@ namespace RS485Monitor.Class
             Array.Copy(RawBuf, 0, buf, 0, RawPtr);
             len = RawPtr;
             RawPtr = 0;
-            Array.Clear(RawBuf, 0, 256);
+            Array.Clear(RawBuf, 0, 2048);
         }
         private void ReceivedDataHandler(Byte[] rxData, int length) // 接收資料解析 (Received Data Parsing)
         {
@@ -101,7 +101,7 @@ namespace RS485Monitor.Class
                         }
                         else
                         {
-                            if (AppDataPtr < 256)
+                            if (AppDataPtr < 2048)
                             {
                                 AppDataBuf[AppDataPtr++] = c;
                             }
@@ -157,7 +157,7 @@ namespace RS485Monitor.Class
         protected void Port_SendPacket(String messageType, String data) // 送出回應封包
         {
             Byte bcc = 0;
-            Byte[] buf = new Byte[256];
+            Byte[] buf = new Byte[2048];
             if (messageType.Length != 2)
             {
                 ThrowErrorEvent("Sending fails. Message Type Error");
@@ -183,7 +183,7 @@ namespace RS485Monitor.Class
                 Port.Write(buf, 0, 7 + data.Length);
                 // Flush RawBuf[]
                 RawPtr = 0;
-                Array.Clear(RawBuf, 0, 256);
+                Array.Clear(RawBuf, 0, 2048);
             }
             else
             {
@@ -357,6 +357,9 @@ namespace RS485Monitor.Class
         private int DeviceErrorCount = 0;
         private List<String> PEHStatus = new List<String>();
 
+        private int IpMacCnt = 0;
+        private List<String> IpMacTable = new List<String>();
+
         public PISC()
         {
             // PICom 丟出的 ReceiveDone 事件，觸發處理函式 PISC_ReceiveDone()
@@ -398,11 +401,32 @@ namespace RS485Monitor.Class
             return peh;
         }
 
+        public int GetIpMacCount()
+        {
+            return IpMacCnt;
+        }
+        public String GetIpMac(int index)
+        {
+            String ipmac = String.Empty;
+            if (index < IpMacCnt)
+            {
+                ipmac = IpMacTable[index];
+            }
+            return ipmac;
+        }
+
+
         public void SendResponse(int setAudioVolume)
         {
-            String data = setAudioVolume >= 1 && setAudioVolume <= 16 ? setAudioVolume.ToString("D2") : "FF";
+            String data = setAudioVolume >= 0 && setAudioVolume <= 10 ? setAudioVolume.ToString("D2") : "FF";
             Port_SendPacket("C0", data);
         }
+
+        public void SendAskIpMacTable()
+        {
+            Port_SendPacket("C1", "");
+        }
+
 
         private void PISC_ReceiveDone(object sender, EventArgs e)
         {
@@ -411,43 +435,107 @@ namespace RS485Monitor.Class
             int devErrCnt = 0;
             int[] peiSta = new int[4];
             String str = String.Empty;
+
+            int ipMacCnt = 0;
+
             try
             {
-                if (AppData.Length < 2) { ThrowErrorEvent("Message Length Error"); return; }
-                if (AppData.Substring(0, 2) != "40") { ThrowErrorEvent("Message Type Error"); return; }
-                if (!int.TryParse(AppData.Substring(2, 2), out vol)) { ThrowErrorEvent("Audio Volume Parsing Error"); return; }
-                if (!int.TryParse(AppData.Substring(4, 2), out emgCnt)) { ThrowErrorEvent("Calling PEH Parsing Error"); return; }
-                if (emgCnt > 20) { ThrowErrorEvent("Calling PEH Count Error"); return; }
-                if (!int.TryParse(AppData.Substring(10 + emgCnt * 6, 2), out devErrCnt)) { ThrowErrorEvent("Device Error Count Parsing Error"); return; }
-                if (devErrCnt > 65) { ThrowErrorEvent("Device Error Count Error"); return; }
-                if (AppData.Length != (12 + 6 * emgCnt + 6 * devErrCnt)) { ThrowErrorEvent("App Data Length Error"); return; }
-                str = AppData.Substring(6 + 6 * emgCnt, 4);
-                for (int i = 0; i < 4; i++)
+                if (AppData.Length < 2) 
+                { 
+                    ThrowErrorEvent("Message Length Error"); 
+                    return;
+                }
+                str = AppData.Substring(0, 2);
+                if (str == "40") // Report IS Status
                 {
-                    if (!int.TryParse(AppData.Substring(6 + 6 * emgCnt + i, 1), out peiSta[i]))
+                    if (!int.TryParse(AppData.Substring(2, 2), out vol))
                     {
-                        ThrowErrorEvent("PEI Status Error");
+                        ThrowErrorEvent("Audio Volumn Parsing Error");
                         return;
                     }
+                    if (!int.TryParse(AppData.Substring(4, 2), out emgCnt)) 
+                    { 
+                        ThrowErrorEvent("Calling PEH Parsing Error"); 
+                        return; 
+                    }
+                    if (emgCnt > 20) 
+                    { 
+                        ThrowErrorEvent("Calling PEH Count Error");
+                        return;
+                    }
+                    if (!int.TryParse(AppData.Substring(10 + emgCnt * 6, 2), out devErrCnt))
+                    { 
+                        ThrowErrorEvent("Device Error Count Parsing Error");
+                        return;
+                    }
+                    if (devErrCnt > 65)
+                    { 
+                        ThrowErrorEvent("Device Error Count Error");
+                        return;
+                    }
+                    if (AppData.Length != (12 + 6 * emgCnt + 6 * devErrCnt))
+                    { 
+                        ThrowErrorEvent("App Data Length Error");
+                        return;
+                    }
+                    str = AppData.Substring(6 + 6 * emgCnt, 4);
+                    for (int i = 0; i < 4; i++)
+                    {
+                        if (!int.TryParse(AppData.Substring(6 + 6 * emgCnt + i, 1), out peiSta[i]))
+                        {
+                            ThrowErrorEvent("PEI Status Error");
+                            return;
+                        }
+                    }
+                    AudioVolume = vol; //----------------------------------------------------- (1) Audio Volume
+                    EmergencyDeviceCount = emgCnt; //----------------------------------------- (2) Calling PEH Count
+                    AlarmDevice.Clear(); //--------------------------------------------------- (3) Calling PEH
+                    str = AppData.Substring(6, emgCnt * 6);
+                    for (int i = 0; i < EmergencyDeviceCount; i++)
+                    {
+                        AlarmDevice.Add(str.Substring(i * 6, 6));
+                    }
+                    Array.Copy(peiSta, PEIStatus, 4); //-------------------------------------- (4) PEI Status
+                    DeviceErrorCount = devErrCnt; //------------------------------------------ (5) Device Error Count
+                    PEHStatus.Clear(); //----------------------------------------------------- (6) PEH Status
+                    str = AppData.Substring(12 + 6 * emgCnt, devErrCnt * 6);
+                    for (int i = 0; i < devErrCnt; i++)
+                    {
+                        PEHStatus.Add(str.Substring(i * 6, 6));
+                    }
+                    ThrowReportISStatusEvent();
                 }
-                AudioVolume = vol; //----------------------------------------------------- (1) Audio Volume
-                EmergencyDeviceCount = emgCnt; //----------------------------------------- (2) Calling PEH Count
-                AlarmDevice.Clear(); //--------------------------------------------------- (3) Calling PEH
-                str = AppData.Substring(6, emgCnt * 6);
-                for (int i = 0; i < EmergencyDeviceCount; i++)
+                else if (str == "41") // Response IP-MAC Table
                 {
-                    AlarmDevice.Add(str.Substring(i * 6, 6));
+                    if (!int.TryParse(AppData.Substring(2, 2), out ipMacCnt))
+                    {
+                        ThrowErrorEvent("IP-MAC Count Parsing Error");
+                        return;
+                    }
+                    if (ipMacCnt > 99)
+                    {
+                        ThrowErrorEvent("IP-MAC Count Error");
+                        return;
+                    }
+                    if (AppData.Length != (4 + 20 * ipMacCnt))
+                    {
+                        ThrowErrorEvent("App Data Length Error");
+                        return;
+                    }
+                    IpMacCnt = ipMacCnt;
+                    str = AppData.Substring(4, 20 * ipMacCnt);
+                    for (int i = 0; i < IpMacCnt; i++)
+                    {
+                        IpMacTable.Add(str.Substring(i * 20, 20));
+                    }
+                    ThrowResponseIpMacTableEvent();
                 }
-                Array.Copy(peiSta, PEIStatus, 4); //-------------------------------------- (4) PEI Status
-                DeviceErrorCount = devErrCnt; //------------------------------------------ (5) Device Error Count
-                PEHStatus.Clear(); //----------------------------------------------------- (6) PEH Status
-                str = AppData.Substring(12 + 6 * emgCnt, devErrCnt * 6);
-                for (int i = 0; i < devErrCnt; i++)
+                else
                 {
-                    PEHStatus.Add(str.Substring(i * 6, 6));
-                }
-                ThrowReportISStatusEvent();
-            }catch(Exception ex)
+                    ThrowErrorEvent("Message Type Error");
+                }                
+            }
+            catch(Exception ex)
             {
                 ThrowErrorEvent(ex.Message);
             }
@@ -459,6 +547,15 @@ namespace RS485Monitor.Class
             EventArgs e = new EventArgs();
             Evt_ReportIsStatus?.Invoke(this, e);
         }
+
+        public event EventHandler<EventArgs> Evt_RspIpMacTable;
+
+        protected virtual void ThrowResponseIpMacTableEvent()
+        {
+            EventArgs e = new EventArgs();
+            Evt_RspIpMacTable?.Invoke(this, e);
+        }
+
     }
 
     

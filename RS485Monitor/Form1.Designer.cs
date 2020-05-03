@@ -56,6 +56,8 @@
             this.labelTRS = new System.Windows.Forms.Label();
             this.labelPISC = new System.Windows.Forms.Label();
             this.panelPISC = new System.Windows.Forms.Panel();
+            this.comboBoxIpMac = new System.Windows.Forms.ComboBox();
+            this.buttonAskIpMac = new System.Windows.Forms.Button();
             this.labelPISCWait = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.buttonPISCSendRsp = new System.Windows.Forms.Button();
@@ -105,6 +107,7 @@
             this.textBoxTrsRxRaw = new System.Windows.Forms.TextBox();
             this.buttonClrPiscRaw = new System.Windows.Forms.Button();
             this.buttonClrTrsRaw = new System.Windows.Forms.Button();
+            this.buttonDemoFakeIpMacTableToPISC = new System.Windows.Forms.Button();
             this.panelTRS.SuspendLayout();
             this.panelPISC.SuspendLayout();
             this.groupBoxFakeDataTargetSel.SuspendLayout();
@@ -199,7 +202,7 @@
             this.textBoxTRSRspDelayMs.Name = "textBoxTRSRspDelayMs";
             this.textBoxTRSRspDelayMs.Size = new System.Drawing.Size(127, 27);
             this.textBoxTRSRspDelayMs.TabIndex = 10;
-            this.textBoxTRSRspDelayMs.Text = "400";
+            this.textBoxTRSRspDelayMs.Text = "200";
             this.textBoxTRSRspDelayMs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxTRSRspDelayMs.TextChanged += new System.EventHandler(this.textBoxTRSRspDelayMs_TextChanged);
             // 
@@ -417,6 +420,8 @@
             // panelPISC
             // 
             this.panelPISC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPISC.Controls.Add(this.comboBoxIpMac);
+            this.panelPISC.Controls.Add(this.buttonAskIpMac);
             this.panelPISC.Controls.Add(this.labelPISCWait);
             this.panelPISC.Controls.Add(this.label20);
             this.panelPISC.Controls.Add(this.buttonPISCSendRsp);
@@ -456,11 +461,32 @@
             this.panelPISC.Size = new System.Drawing.Size(657, 823);
             this.panelPISC.TabIndex = 2;
             // 
+            // comboBoxIpMac
+            // 
+            this.comboBoxIpMac.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxIpMac.FormattingEnabled = true;
+            this.comboBoxIpMac.Location = new System.Drawing.Point(17, 484);
+            this.comboBoxIpMac.Name = "comboBoxIpMac";
+            this.comboBoxIpMac.Size = new System.Drawing.Size(470, 27);
+            this.comboBoxIpMac.TabIndex = 16;
+            // 
+            // buttonAskIpMac
+            // 
+            this.buttonAskIpMac.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.buttonAskIpMac.ForeColor = System.Drawing.Color.Blue;
+            this.buttonAskIpMac.Location = new System.Drawing.Point(498, 479);
+            this.buttonAskIpMac.Name = "buttonAskIpMac";
+            this.buttonAskIpMac.Size = new System.Drawing.Size(139, 33);
+            this.buttonAskIpMac.TabIndex = 15;
+            this.buttonAskIpMac.Text = "Ask IP-MAC";
+            this.buttonAskIpMac.UseVisualStyleBackColor = true;
+            this.buttonAskIpMac.Click += new System.EventHandler(this.buttonAskIpMac_Click);
+            // 
             // labelPISCWait
             // 
             this.labelPISCWait.AutoSize = true;
             this.labelPISCWait.Font = new System.Drawing.Font("新細明體", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelPISCWait.Location = new System.Drawing.Point(235, 477);
+            this.labelPISCWait.Location = new System.Drawing.Point(235, 418);
             this.labelPISCWait.Name = "labelPISCWait";
             this.labelPISCWait.Size = new System.Drawing.Size(225, 35);
             this.labelPISCWait.TabIndex = 14;
@@ -494,7 +520,7 @@
             this.textBoxPISCRspDelayMs.Name = "textBoxPISCRspDelayMs";
             this.textBoxPISCRspDelayMs.Size = new System.Drawing.Size(125, 27);
             this.textBoxPISCRspDelayMs.TabIndex = 11;
-            this.textBoxPISCRspDelayMs.Text = "400";
+            this.textBoxPISCRspDelayMs.Text = "200";
             this.textBoxPISCRspDelayMs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBoxPISCRspDelayMs.TextChanged += new System.EventHandler(this.textBoxPISCRspDelayMs_TextChanged);
             // 
@@ -968,12 +994,23 @@
             this.buttonClrTrsRaw.UseVisualStyleBackColor = true;
             this.buttonClrTrsRaw.Click += new System.EventHandler(this.buttonClrTrsRaw_Click);
             // 
+            // buttonDemoFakeIpMacTableToPISC
+            // 
+            this.buttonDemoFakeIpMacTableToPISC.Location = new System.Drawing.Point(464, 950);
+            this.buttonDemoFakeIpMacTableToPISC.Name = "buttonDemoFakeIpMacTableToPISC";
+            this.buttonDemoFakeIpMacTableToPISC.Size = new System.Drawing.Size(229, 38);
+            this.buttonDemoFakeIpMacTableToPISC.TabIndex = 13;
+            this.buttonDemoFakeIpMacTableToPISC.Text = "產生測試IP-MAC資料(to PISC)";
+            this.buttonDemoFakeIpMacTableToPISC.UseVisualStyleBackColor = true;
+            this.buttonDemoFakeIpMacTableToPISC.Click += new System.EventHandler(this.buttonDemoFakeIpMacTableToPISC_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1764, 1014);
+            this.Controls.Add(this.buttonDemoFakeIpMacTableToPISC);
             this.Controls.Add(this.buttonClrTrsRaw);
             this.Controls.Add(this.buttonClrPiscRaw);
             this.Controls.Add(this.textBoxTrsRxRaw);
@@ -1079,6 +1116,9 @@
         private System.Windows.Forms.TextBox textBoxTrsRxRaw;
         private System.Windows.Forms.Button buttonClrPiscRaw;
         private System.Windows.Forms.Button buttonClrTrsRaw;
+        private System.Windows.Forms.ComboBox comboBoxIpMac;
+        private System.Windows.Forms.Button buttonAskIpMac;
+        private System.Windows.Forms.Button buttonDemoFakeIpMacTableToPISC;
     }
 }
 
