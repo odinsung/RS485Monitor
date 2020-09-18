@@ -328,6 +328,7 @@
             this.label9.Size = new System.Drawing.Size(169, 46);
             this.label9.TabIndex = 3;
             this.label9.Text = "(若Alarm Device清單為空白或者已有通話正在進行中，無法選擇「無線電接聽中」)";
+            this.label9.Visible = false;
             // 
             // label2
             // 
