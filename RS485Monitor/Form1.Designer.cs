@@ -108,6 +108,8 @@
             this.buttonClrPiscRaw = new System.Windows.Forms.Button();
             this.buttonClrTrsRaw = new System.Windows.Forms.Button();
             this.buttonDemoFakeIpMacTableToPISC = new System.Windows.Forms.Button();
+            this.buttonDemoFake99IpMacTableToPISC = new System.Windows.Forms.Button();
+            this.buttonDemoFake65IpMacTableToPISC = new System.Windows.Forms.Button();
             this.panelTRS.SuspendLayout();
             this.panelPISC.SuspendLayout();
             this.groupBoxFakeDataTargetSel.SuspendLayout();
@@ -1005,12 +1007,34 @@
             this.buttonDemoFakeIpMacTableToPISC.UseVisualStyleBackColor = true;
             this.buttonDemoFakeIpMacTableToPISC.Click += new System.EventHandler(this.buttonDemoFakeIpMacTableToPISC_Click);
             // 
+            // buttonDemoFake99IpMacTableToPISC
+            // 
+            this.buttonDemoFake99IpMacTableToPISC.Location = new System.Drawing.Point(699, 950);
+            this.buttonDemoFake99IpMacTableToPISC.Name = "buttonDemoFake99IpMacTableToPISC";
+            this.buttonDemoFake99IpMacTableToPISC.Size = new System.Drawing.Size(229, 38);
+            this.buttonDemoFake99IpMacTableToPISC.TabIndex = 13;
+            this.buttonDemoFake99IpMacTableToPISC.Text = "產生99筆測試IP-MAC資料(to PISC)";
+            this.buttonDemoFake99IpMacTableToPISC.UseVisualStyleBackColor = true;
+            this.buttonDemoFake99IpMacTableToPISC.Click += new System.EventHandler(this.buttonDemoFake99IpMacTableToPISC_Click);
+            // 
+            // buttonDemoFake65IpMacTableToPISC
+            // 
+            this.buttonDemoFake65IpMacTableToPISC.Location = new System.Drawing.Point(934, 950);
+            this.buttonDemoFake65IpMacTableToPISC.Name = "buttonDemoFake65IpMacTableToPISC";
+            this.buttonDemoFake65IpMacTableToPISC.Size = new System.Drawing.Size(229, 38);
+            this.buttonDemoFake65IpMacTableToPISC.TabIndex = 14;
+            this.buttonDemoFake65IpMacTableToPISC.Text = "產生65筆測試IP-MAC資料(to PISC)";
+            this.buttonDemoFake65IpMacTableToPISC.UseVisualStyleBackColor = true;
+            this.buttonDemoFake65IpMacTableToPISC.Click += new System.EventHandler(this.buttonDemoFake65IpMacTableToPISC_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1764, 1014);
+            this.Controls.Add(this.buttonDemoFake65IpMacTableToPISC);
+            this.Controls.Add(this.buttonDemoFake99IpMacTableToPISC);
             this.Controls.Add(this.buttonDemoFakeIpMacTableToPISC);
             this.Controls.Add(this.buttonClrTrsRaw);
             this.Controls.Add(this.buttonClrPiscRaw);
@@ -1120,6 +1144,8 @@
         private System.Windows.Forms.ComboBox comboBoxIpMac;
         private System.Windows.Forms.Button buttonAskIpMac;
         private System.Windows.Forms.Button buttonDemoFakeIpMacTableToPISC;
+        private System.Windows.Forms.Button buttonDemoFake99IpMacTableToPISC;
+        private System.Windows.Forms.Button buttonDemoFake65IpMacTableToPISC;
     }
 }
 

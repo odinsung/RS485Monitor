@@ -12,11 +12,11 @@ namespace RS485Monitor.Class
         private SerialPort Port = new SerialPort();
         private int RxState = 0;
         private Byte BCC = 0;
-        private Byte[] AppDataBuf = new Byte[2048];
+        private Byte[] AppDataBuf = new Byte[4096];
         private int AppDataPtr = 0;
         private bool AppDataOverflow = false;
         protected String AppData = String.Empty;
-        public Byte[] RawBuf = new Byte[2048];
+        public Byte[] RawBuf = new Byte[4096];
         public int RawPtr = 0;
 
         public PICom() // 建構子
@@ -26,7 +26,7 @@ namespace RS485Monitor.Class
 
         private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e) // 接收資料的事件處理
         {
-            Byte[] data = new Byte[2048];
+            Byte[] data = new Byte[4096];
             int length = 0;
             if (Port.BytesToRead > 0)
             {
@@ -52,7 +52,7 @@ namespace RS485Monitor.Class
             Array.Copy(RawBuf, 0, buf, 0, RawPtr);
             len = RawPtr;
             RawPtr = 0;
-            Array.Clear(RawBuf, 0, 2048);
+            Array.Clear(RawBuf, 0, len);
         }
         private void ReceivedDataHandler(Byte[] rxData, int length) // 接收資料解析 (Received Data Parsing)
         {
@@ -101,7 +101,7 @@ namespace RS485Monitor.Class
                         }
                         else
                         {
-                            if (AppDataPtr < 2048)
+                            if (AppDataPtr < 4096)
                             {
                                 AppDataBuf[AppDataPtr++] = c;
                             }
@@ -157,7 +157,7 @@ namespace RS485Monitor.Class
         protected void Port_SendPacket(String messageType, String data) // 送出回應封包
         {
             Byte bcc = 0;
-            Byte[] buf = new Byte[2048];
+            Byte[] buf = new Byte[4096];
             if (messageType.Length != 2)
             {
                 ThrowErrorEvent("Sending fails. Message Type Error");
@@ -183,7 +183,7 @@ namespace RS485Monitor.Class
                 Port.Write(buf, 0, 7 + data.Length);
                 // Flush RawBuf[]
                 RawPtr = 0;
-                Array.Clear(RawBuf, 0, 2048);
+                Array.Clear(RawBuf, 0, 4096);
             }
             else
             {

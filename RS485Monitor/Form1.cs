@@ -118,7 +118,7 @@ namespace RS485Monitor
         private void DumpRawBuf(Role r)
         {
             int len = 0;
-            Byte[] buf = new byte[256];
+            Byte[] buf = new byte[4096];
             if (r == Role.TRS)
             {
                 gTRS.GetRawBuf(ref buf, ref len);
@@ -127,16 +127,21 @@ namespace RS485Monitor
             {
                 gPISC.GetRawBuf(ref buf, ref len);
             }
-            ShowRaw(buf, len, r);
+            if (len != 0)
+            {
+                ShowRaw(buf, len, r);
+            }
         }
         private void ShowRaw(Byte[] buf, int len, Role r)
         {
-            string str = "{ ";
-            for(int i=0; i<len; i++)
+            string str = "[";
+            DateTime t = System.DateTime.Now;
+            str += t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "." + t.Millisecond.ToString("D3") + "]" + Environment.NewLine;
+            for (int i=0; i<len; i++)
             {
                 str += buf[i].ToString("X2") + " ";
             }
-            str += "}" + Environment.NewLine;
+            str += Environment.NewLine;
             if (r == Role.TRS)
             {
                 try
@@ -236,7 +241,7 @@ namespace RS485Monitor
             comboBoxIpMac.Items.Clear();
             for(int i=0; i<ipMacCnt; i++)
             {
-                comboBoxIpMac.Items.Add(gPISC.GetIpMac(i));
+                comboBoxIpMac.Items.Add((i+1).ToString("D2") + ": " + gPISC.GetIpMac(i));
             }
             if (ipMacCnt > 0)
             {
@@ -270,6 +275,7 @@ namespace RS485Monitor
             Byte[] pkt = r == Role.TRS ? gTRS.RawBuf : gPISC.RawBuf;
             int length = r == Role.TRS ? gTRS.RawPtr : gPISC.RawPtr;
             Msg("收到封包: ", pkt, length, r);
+            DumpRawBuf(r); // 不論收到封包格式是否正確，都把 Raw data dump 出來
             // Reset Raw Buffer Pointer
             if (r == Role.TRS) { gTRS.RawPtr = 0; }
             else { gPISC.RawPtr = 0; }
@@ -485,15 +491,16 @@ namespace RS485Monitor
 
         private void buttonFakeData_Click(object sender, EventArgs e) // 模擬 TRSIF 資料傳入
         {
-            Byte[] pkt = new Byte[256];
+            Byte[] pkt = new Byte[4096];
             Byte bcc = 0;
             int length = 0;
             int ptr = 0;
             String str = textBoxFakeAppData.Text;
             length = str.Length;
-            if (length > 256)
+            Role r = radioButtonFakeDataToTRS.Checked ? Role.TRS : Role.PISC;
+            if (length > 4096)
             {
-                Msg("資料長度太長！", Role.TRS);
+                Msg("資料長度太長！", r);
             }
             else if (length != 0)
             {
@@ -558,6 +565,35 @@ namespace RS485Monitor
             //textBoxFakeAppData.Text = "34313031 43304138 30313637 41414242 43434444 45303032";
             textBoxFakeAppData.Text = "4101C0A80167AABBCCDDE002";
         }
+        private void buttonDemoFake99IpMacTableToPISC_Click(object sender, EventArgs e) // 測試資料 99 筆 IP-MAC 表格: TO PISC
+        {
+            int i = 0;
+            Byte idx = 0x01;
+            String s = "C0A80600AABBCCDDEE00";
+            String x = "4199";
+            for (i=0; i<99; i++)
+            {
+                s = "C0A806" + idx.ToString("X2") + "AABBCCDDEE" + idx.ToString("X2");
+                x += s;
+                idx++;
+            }
+            textBoxFakeAppData.Text = x;
+        }
+        private void buttonDemoFake65IpMacTableToPISC_Click(object sender, EventArgs e) // 測試資料 65 筆 IP-MAC 表格: TO PISC
+        {
+            int i = 0;
+            Byte idx = 0x01;
+            String s = "C0A80600AABBCCDDEE00";
+            String x = "4165";
+            for (i = 0; i < 65; i++)
+            {
+                s = "C0A806" + idx.ToString("X2") + "AABBCCDDEE" + idx.ToString("X2");
+                x += s;
+                idx++;
+            }
+            textBoxFakeAppData.Text = x;
+        }
+
         private void textBoxMsg_TextChanged(object sender, EventArgs e) // 讓訊息窗的游標位置始終保持在最後面
         {
             TextBox msg = (TextBox)sender;
