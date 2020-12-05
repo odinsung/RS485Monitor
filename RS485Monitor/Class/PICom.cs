@@ -360,6 +360,12 @@ namespace RS485Monitor.Class
         private int IpMacCnt = 0;
         private List<String> IpMacTable = new List<String>();
 
+        private const int AlarmDeviceStrLen = 7; // Length of string of each Alarm Device.
+        private const int PEHStatusStrLen = 6; // Length of string of each PEH Status.
+        private const int EmergencyDeviceCountMax = 20; // Maximum number of Emergency Device Count.
+        private const int DeviceErrorCountMax = 65; // Maximum number of Device Error Count.
+
+
         public PISC()
         {
             // PICom 丟出的 ReceiveDone 事件，觸發處理函式 PISC_ReceiveDone()
@@ -458,30 +464,30 @@ namespace RS485Monitor.Class
                         ThrowErrorEvent("Calling PEH Parsing Error"); 
                         return; 
                     }
-                    if (emgCnt > 20) 
+                    if (emgCnt > EmergencyDeviceCountMax) 
                     { 
                         ThrowErrorEvent("Calling PEH Count Error");
                         return;
                     }
-                    if (!int.TryParse(AppData.Substring(10 + emgCnt * 6, 2), out devErrCnt))
+                    if (!int.TryParse(AppData.Substring(10 + emgCnt * AlarmDeviceStrLen, 2), out devErrCnt))
                     { 
                         ThrowErrorEvent("Device Error Count Parsing Error");
                         return;
                     }
-                    if (devErrCnt > 65)
+                    if (devErrCnt > DeviceErrorCountMax)
                     { 
                         ThrowErrorEvent("Device Error Count Error");
                         return;
                     }
-                    if (AppData.Length != (12 + 6 * emgCnt + 6 * devErrCnt))
+                    if (AppData.Length != (12 + AlarmDeviceStrLen * emgCnt + PEHStatusStrLen * devErrCnt))
                     { 
                         ThrowErrorEvent("App Data Length Error");
                         return;
                     }
-                    str = AppData.Substring(6 + 6 * emgCnt, 4);
+                    str = AppData.Substring(6 + AlarmDeviceStrLen * emgCnt, 4);
                     for (int i = 0; i < 4; i++)
                     {
-                        if (!int.TryParse(AppData.Substring(6 + 6 * emgCnt + i, 1), out peiSta[i]))
+                        if (!int.TryParse(AppData.Substring(6 + AlarmDeviceStrLen * emgCnt + i, 1), out peiSta[i]))
                         {
                             ThrowErrorEvent("PEI Status Error");
                             return;
@@ -490,18 +496,18 @@ namespace RS485Monitor.Class
                     AudioVolume = vol; //----------------------------------------------------- (1) Audio Volume
                     EmergencyDeviceCount = emgCnt; //----------------------------------------- (2) Calling PEH Count
                     AlarmDevice.Clear(); //--------------------------------------------------- (3) Calling PEH
-                    str = AppData.Substring(6, emgCnt * 6);
+                    str = AppData.Substring(6, emgCnt * AlarmDeviceStrLen);
                     for (int i = 0; i < EmergencyDeviceCount; i++)
                     {
-                        AlarmDevice.Add(str.Substring(i * 6, 6));
+                        AlarmDevice.Add(str.Substring(i * AlarmDeviceStrLen, AlarmDeviceStrLen));
                     }
                     Array.Copy(peiSta, PEIStatus, 4); //-------------------------------------- (4) PEI Status
                     DeviceErrorCount = devErrCnt; //------------------------------------------ (5) Device Error Count
                     PEHStatus.Clear(); //----------------------------------------------------- (6) PEH Status
-                    str = AppData.Substring(12 + 6 * emgCnt, devErrCnt * 6);
+                    str = AppData.Substring(12 + emgCnt * AlarmDeviceStrLen, devErrCnt * PEHStatusStrLen);
                     for (int i = 0; i < devErrCnt; i++)
                     {
-                        PEHStatus.Add(str.Substring(i * 6, 6));
+                        PEHStatus.Add(str.Substring(i * PEHStatusStrLen, PEHStatusStrLen));
                     }
                     ThrowReportISStatusEvent();
                 }

@@ -858,7 +858,6 @@
             // 
             // textBoxFakeAppData
             // 
-            this.textBoxFakeAppData.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBoxFakeAppData.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxFakeAppData.Location = new System.Drawing.Point(307, 895);
             this.textBoxFakeAppData.Name = "textBoxFakeAppData";
@@ -1051,7 +1050,7 @@
             this.Controls.Add(this.panelPISC);
             this.Controls.Add(this.panelTRS);
             this.Name = "Form1";
-            this.Text = "CEMU600 - TRS & PISC RS485 Monitor - Baudrate = 19200, n, 8, 1";
+            this.Text = "EMU3000 - TRS & PISC RS485 Monitor - Baudrate = 19200, n, 8, 1";
             this.panelTRS.ResumeLayout(false);
             this.panelTRS.PerformLayout();
             this.panelPISC.ResumeLayout(false);
