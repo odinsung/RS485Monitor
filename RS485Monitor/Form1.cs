@@ -558,7 +558,7 @@ namespace RS485Monitor
 
         private void buttonDemoFakeDataToPISC_Click(object sender, EventArgs e) // 測試資料: TO PISC
         {
-            textBoxFakeAppData.Text = "401202C01D03C03D05102001C10D06";
+            textBoxFakeAppData.Text = "400902C01D03wC03D05c102001C10D06";
         }
         private void buttonDemoFakeIpMacTableToPISC_Click(object sender, EventArgs e) // 測試資料 IP-MAC 表格: TO PISC
         {
