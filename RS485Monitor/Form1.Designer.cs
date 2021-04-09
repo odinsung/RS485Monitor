@@ -110,6 +110,31 @@
             this.buttonDemoFakeIpMacTableToPISC = new System.Windows.Forms.Button();
             this.buttonDemoFake99IpMacTableToPISC = new System.Windows.Forms.Button();
             this.buttonDemoFake65IpMacTableToPISC = new System.Windows.Forms.Button();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textBoxHubSta0 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta1 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta2 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta3 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta4 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta5 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.textBoxHubSta6 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta7 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta9 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta8 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta10 = new System.Windows.Forms.TextBox();
+            this.textBoxHubSta11 = new System.Windows.Forms.TextBox();
             this.panelTRS.SuspendLayout();
             this.panelPISC.SuspendLayout();
             this.groupBoxFakeDataTargetSel.SuspendLayout();
@@ -423,6 +448,31 @@
             // panelPISC
             // 
             this.panelPISC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPISC.Controls.Add(this.textBoxHubSta11);
+            this.panelPISC.Controls.Add(this.textBoxHubSta5);
+            this.panelPISC.Controls.Add(this.textBoxHubSta10);
+            this.panelPISC.Controls.Add(this.textBoxHubSta4);
+            this.panelPISC.Controls.Add(this.textBoxHubSta8);
+            this.panelPISC.Controls.Add(this.textBoxHubSta2);
+            this.panelPISC.Controls.Add(this.textBoxHubSta9);
+            this.panelPISC.Controls.Add(this.textBoxHubSta3);
+            this.panelPISC.Controls.Add(this.textBoxHubSta7);
+            this.panelPISC.Controls.Add(this.textBoxHubSta1);
+            this.panelPISC.Controls.Add(this.textBoxHubSta6);
+            this.panelPISC.Controls.Add(this.label33);
+            this.panelPISC.Controls.Add(this.textBoxHubSta0);
+            this.panelPISC.Controls.Add(this.label32);
+            this.panelPISC.Controls.Add(this.label27);
+            this.panelPISC.Controls.Add(this.label31);
+            this.panelPISC.Controls.Add(this.label26);
+            this.panelPISC.Controls.Add(this.label30);
+            this.panelPISC.Controls.Add(this.label24);
+            this.panelPISC.Controls.Add(this.label29);
+            this.panelPISC.Controls.Add(this.label25);
+            this.panelPISC.Controls.Add(this.label28);
+            this.panelPISC.Controls.Add(this.label23);
+            this.panelPISC.Controls.Add(this.label22);
+            this.panelPISC.Controls.Add(this.label21);
             this.panelPISC.Controls.Add(this.comboBoxIpMac);
             this.panelPISC.Controls.Add(this.buttonAskIpMac);
             this.panelPISC.Controls.Add(this.labelPISCWait);
@@ -468,7 +518,7 @@
             // 
             this.comboBoxIpMac.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxIpMac.FormattingEnabled = true;
-            this.comboBoxIpMac.Location = new System.Drawing.Point(17, 484);
+            this.comboBoxIpMac.Location = new System.Drawing.Point(16, 529);
             this.comboBoxIpMac.Name = "comboBoxIpMac";
             this.comboBoxIpMac.Size = new System.Drawing.Size(470, 27);
             this.comboBoxIpMac.TabIndex = 16;
@@ -477,7 +527,7 @@
             // 
             this.buttonAskIpMac.Font = new System.Drawing.Font("新細明體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.buttonAskIpMac.ForeColor = System.Drawing.Color.Blue;
-            this.buttonAskIpMac.Location = new System.Drawing.Point(498, 479);
+            this.buttonAskIpMac.Location = new System.Drawing.Point(497, 524);
             this.buttonAskIpMac.Name = "buttonAskIpMac";
             this.buttonAskIpMac.Size = new System.Drawing.Size(139, 33);
             this.buttonAskIpMac.TabIndex = 15;
@@ -489,7 +539,7 @@
             // 
             this.labelPISCWait.AutoSize = true;
             this.labelPISCWait.Font = new System.Drawing.Font("新細明體", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.labelPISCWait.Location = new System.Drawing.Point(235, 418);
+            this.labelPISCWait.Location = new System.Drawing.Point(241, 483);
             this.labelPISCWait.Name = "labelPISCWait";
             this.labelPISCWait.Size = new System.Drawing.Size(225, 35);
             this.labelPISCWait.TabIndex = 14;
@@ -508,9 +558,9 @@
             // buttonPISCSendRsp
             // 
             this.buttonPISCSendRsp.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.buttonPISCSendRsp.Location = new System.Drawing.Point(13, 546);
+            this.buttonPISCSendRsp.Location = new System.Drawing.Point(13, 571);
             this.buttonPISCSendRsp.Name = "buttonPISCSendRsp";
-            this.buttonPISCSendRsp.Size = new System.Drawing.Size(198, 71);
+            this.buttonPISCSendRsp.Size = new System.Drawing.Size(198, 46);
             this.buttonPISCSendRsp.TabIndex = 12;
             this.buttonPISCSendRsp.Text = "主動傳送Response";
             this.buttonPISCSendRsp.UseVisualStyleBackColor = true;
@@ -541,16 +591,16 @@
             // 
             this.comboBoxSetAudioVolume.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxSetAudioVolume.FormattingEnabled = true;
-            this.comboBoxSetAudioVolume.Location = new System.Drawing.Point(185, 421);
+            this.comboBoxSetAudioVolume.Location = new System.Drawing.Point(163, 489);
             this.comboBoxSetAudioVolume.Name = "comboBoxSetAudioVolume";
-            this.comboBoxSetAudioVolume.Size = new System.Drawing.Size(101, 32);
+            this.comboBoxSetAudioVolume.Size = new System.Drawing.Size(75, 32);
             this.comboBoxSetAudioVolume.TabIndex = 8;
             this.comboBoxSetAudioVolume.SelectedIndexChanged += new System.EventHandler(this.comboBoxSetAudioVolume_SelectedIndexChanged);
             // 
             // buttonPISCDebugClrPEHSta
             // 
             this.buttonPISCDebugClrPEHSta.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.buttonPISCDebugClrPEHSta.Location = new System.Drawing.Point(498, 357);
+            this.buttonPISCDebugClrPEHSta.Location = new System.Drawing.Point(446, 294);
             this.buttonPISCDebugClrPEHSta.Name = "buttonPISCDebugClrPEHSta";
             this.buttonPISCDebugClrPEHSta.Size = new System.Drawing.Size(142, 32);
             this.buttonPISCDebugClrPEHSta.TabIndex = 7;
@@ -561,7 +611,7 @@
             // buttonPISCDebugAddPEHSta
             // 
             this.buttonPISCDebugAddPEHSta.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.buttonPISCDebugAddPEHSta.Location = new System.Drawing.Point(497, 319);
+            this.buttonPISCDebugAddPEHSta.Location = new System.Drawing.Point(446, 256);
             this.buttonPISCDebugAddPEHSta.Name = "buttonPISCDebugAddPEHSta";
             this.buttonPISCDebugAddPEHSta.Size = new System.Drawing.Size(142, 32);
             this.buttonPISCDebugAddPEHSta.TabIndex = 7;
@@ -571,9 +621,9 @@
             // 
             // buttonPISCDebugClrAlmDev
             // 
-            this.buttonPISCDebugClrAlmDev.Location = new System.Drawing.Point(498, 163);
+            this.buttonPISCDebugClrAlmDev.Location = new System.Drawing.Point(3, 166);
             this.buttonPISCDebugClrAlmDev.Name = "buttonPISCDebugClrAlmDev";
-            this.buttonPISCDebugClrAlmDev.Size = new System.Drawing.Size(141, 34);
+            this.buttonPISCDebugClrAlmDev.Size = new System.Drawing.Size(121, 34);
             this.buttonPISCDebugClrAlmDev.TabIndex = 6;
             this.buttonPISCDebugClrAlmDev.Text = "Debug: Clear Alarm Dev";
             this.buttonPISCDebugClrAlmDev.UseVisualStyleBackColor = true;
@@ -581,9 +631,9 @@
             // 
             // buttonPISCDebugAddAlmDev
             // 
-            this.buttonPISCDebugAddAlmDev.Location = new System.Drawing.Point(499, 120);
+            this.buttonPISCDebugAddAlmDev.Location = new System.Drawing.Point(3, 123);
             this.buttonPISCDebugAddAlmDev.Name = "buttonPISCDebugAddAlmDev";
-            this.buttonPISCDebugAddAlmDev.Size = new System.Drawing.Size(141, 37);
+            this.buttonPISCDebugAddAlmDev.Size = new System.Drawing.Size(121, 37);
             this.buttonPISCDebugAddAlmDev.TabIndex = 6;
             this.buttonPISCDebugAddAlmDev.Text = "Debug: Add Alarm Dev";
             this.buttonPISCDebugAddAlmDev.UseVisualStyleBackColor = true;
@@ -595,7 +645,7 @@
             this.listBoxPEHStatus.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxPEHStatus.FormattingEnabled = true;
             this.listBoxPEHStatus.ItemHeight = 22;
-            this.listBoxPEHStatus.Location = new System.Drawing.Point(185, 319);
+            this.listBoxPEHStatus.Location = new System.Drawing.Point(135, 254);
             this.listBoxPEHStatus.Name = "listBoxPEHStatus";
             this.listBoxPEHStatus.Size = new System.Drawing.Size(302, 90);
             this.listBoxPEHStatus.TabIndex = 5;
@@ -606,7 +656,7 @@
             this.listBoxPISCAlmDev.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxPISCAlmDev.FormattingEnabled = true;
             this.listBoxPISCAlmDev.ItemHeight = 22;
-            this.listBoxPISCAlmDev.Location = new System.Drawing.Point(185, 120);
+            this.listBoxPISCAlmDev.Location = new System.Drawing.Point(135, 101);
             this.listBoxPISCAlmDev.Name = "listBoxPISCAlmDev";
             this.listBoxPISCAlmDev.Size = new System.Drawing.Size(302, 90);
             this.listBoxPISCAlmDev.TabIndex = 5;
@@ -615,10 +665,10 @@
             // 
             this.textBoxDevErrCnt.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxDevErrCnt.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxDevErrCnt.Location = new System.Drawing.Point(185, 284);
+            this.textBoxDevErrCnt.Location = new System.Drawing.Point(171, 214);
             this.textBoxDevErrCnt.Name = "textBoxDevErrCnt";
             this.textBoxDevErrCnt.ReadOnly = true;
-            this.textBoxDevErrCnt.Size = new System.Drawing.Size(302, 23);
+            this.textBoxDevErrCnt.Size = new System.Drawing.Size(90, 23);
             this.textBoxDevErrCnt.TabIndex = 4;
             this.textBoxDevErrCnt.Text = "00";
             this.textBoxDevErrCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -627,10 +677,10 @@
             // 
             this.textBoxPISCEmgDevCnt.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxPISCEmgDevCnt.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxPISCEmgDevCnt.Location = new System.Drawing.Point(185, 91);
+            this.textBoxPISCEmgDevCnt.Location = new System.Drawing.Point(544, 62);
             this.textBoxPISCEmgDevCnt.Name = "textBoxPISCEmgDevCnt";
             this.textBoxPISCEmgDevCnt.ReadOnly = true;
-            this.textBoxPISCEmgDevCnt.Size = new System.Drawing.Size(302, 23);
+            this.textBoxPISCEmgDevCnt.Size = new System.Drawing.Size(63, 23);
             this.textBoxPISCEmgDevCnt.TabIndex = 4;
             this.textBoxPISCEmgDevCnt.Text = "00";
             this.textBoxPISCEmgDevCnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -639,10 +689,10 @@
             // 
             this.textBoxPEIStatus3.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxPEIStatus3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxPEIStatus3.Location = new System.Drawing.Point(536, 242);
+            this.textBoxPEIStatus3.Location = new System.Drawing.Point(541, 204);
             this.textBoxPEIStatus3.Name = "textBoxPEIStatus3";
             this.textBoxPEIStatus3.ReadOnly = true;
-            this.textBoxPEIStatus3.Size = new System.Drawing.Size(101, 27);
+            this.textBoxPEIStatus3.Size = new System.Drawing.Size(83, 27);
             this.textBoxPEIStatus3.TabIndex = 4;
             this.textBoxPEIStatus3.Text = "Online";
             this.textBoxPEIStatus3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -651,10 +701,10 @@
             // 
             this.textBoxPEIStatus2.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxPEIStatus2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxPEIStatus2.Location = new System.Drawing.Point(419, 242);
+            this.textBoxPEIStatus2.Location = new System.Drawing.Point(458, 204);
             this.textBoxPEIStatus2.Name = "textBoxPEIStatus2";
             this.textBoxPEIStatus2.ReadOnly = true;
-            this.textBoxPEIStatus2.Size = new System.Drawing.Size(101, 27);
+            this.textBoxPEIStatus2.Size = new System.Drawing.Size(77, 27);
             this.textBoxPEIStatus2.TabIndex = 4;
             this.textBoxPEIStatus2.Text = "Online";
             this.textBoxPEIStatus2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -663,10 +713,10 @@
             // 
             this.textBoxPEIStatus1.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxPEIStatus1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxPEIStatus1.Location = new System.Drawing.Point(302, 242);
+            this.textBoxPEIStatus1.Location = new System.Drawing.Point(541, 151);
             this.textBoxPEIStatus1.Name = "textBoxPEIStatus1";
             this.textBoxPEIStatus1.ReadOnly = true;
-            this.textBoxPEIStatus1.Size = new System.Drawing.Size(101, 27);
+            this.textBoxPEIStatus1.Size = new System.Drawing.Size(83, 27);
             this.textBoxPEIStatus1.TabIndex = 4;
             this.textBoxPEIStatus1.Text = "Online";
             this.textBoxPEIStatus1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -675,10 +725,10 @@
             // 
             this.textBoxPEIStatus0.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxPEIStatus0.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxPEIStatus0.Location = new System.Drawing.Point(185, 242);
+            this.textBoxPEIStatus0.Location = new System.Drawing.Point(458, 151);
             this.textBoxPEIStatus0.Name = "textBoxPEIStatus0";
             this.textBoxPEIStatus0.ReadOnly = true;
-            this.textBoxPEIStatus0.Size = new System.Drawing.Size(101, 27);
+            this.textBoxPEIStatus0.Size = new System.Drawing.Size(77, 27);
             this.textBoxPEIStatus0.TabIndex = 4;
             this.textBoxPEIStatus0.Text = "Online";
             this.textBoxPEIStatus0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -687,10 +737,10 @@
             // 
             this.textBoxAudioVolume.BackColor = System.Drawing.SystemColors.Window;
             this.textBoxAudioVolume.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxAudioVolume.Location = new System.Drawing.Point(185, 62);
+            this.textBoxAudioVolume.Location = new System.Drawing.Point(135, 65);
             this.textBoxAudioVolume.Name = "textBoxAudioVolume";
             this.textBoxAudioVolume.ReadOnly = true;
-            this.textBoxAudioVolume.Size = new System.Drawing.Size(302, 23);
+            this.textBoxAudioVolume.Size = new System.Drawing.Size(87, 23);
             this.textBoxAudioVolume.TabIndex = 4;
             this.textBoxAudioVolume.Text = "16";
             this.textBoxAudioVolume.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -723,7 +773,7 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label17.ForeColor = System.Drawing.Color.Blue;
-            this.label17.Location = new System.Drawing.Point(12, 428);
+            this.label17.Location = new System.Drawing.Point(12, 496);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(145, 19);
             this.label17.TabIndex = 3;
@@ -743,7 +793,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label16.Location = new System.Drawing.Point(11, 350);
+            this.label16.Location = new System.Drawing.Point(13, 254);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(92, 19);
             this.label16.TabIndex = 3;
@@ -753,7 +803,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label10.Location = new System.Drawing.Point(12, 243);
+            this.label10.Location = new System.Drawing.Point(491, 101);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(85, 19);
             this.label10.TabIndex = 3;
@@ -763,7 +813,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label5.Location = new System.Drawing.Point(11, 151);
+            this.label5.Location = new System.Drawing.Point(13, 101);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(111, 19);
             this.label5.TabIndex = 3;
@@ -784,7 +834,7 @@
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label14.Location = new System.Drawing.Point(561, 223);
+            this.label14.Location = new System.Drawing.Point(538, 184);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(46, 16);
             this.label14.TabIndex = 3;
@@ -794,7 +844,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label13.Location = new System.Drawing.Point(449, 223);
+            this.label13.Location = new System.Drawing.Point(458, 184);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(38, 16);
             this.label13.TabIndex = 3;
@@ -804,7 +854,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label12.Location = new System.Drawing.Point(329, 223);
+            this.label12.Location = new System.Drawing.Point(538, 132);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(38, 16);
             this.label12.TabIndex = 3;
@@ -814,7 +864,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label11.Location = new System.Drawing.Point(215, 223);
+            this.label11.Location = new System.Drawing.Point(458, 135);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(38, 16);
             this.label11.TabIndex = 3;
@@ -824,7 +874,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label15.Location = new System.Drawing.Point(13, 284);
+            this.label15.Location = new System.Drawing.Point(13, 212);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(152, 19);
             this.label15.TabIndex = 3;
@@ -833,10 +883,10 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(10, 94);
+            this.label4.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label4.Location = new System.Drawing.Point(342, 62);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(169, 16);
+            this.label4.Size = new System.Drawing.Size(196, 19);
             this.label4.TabIndex = 3;
             this.label4.Text = "Emergency Device Count";
             // 
@@ -1026,6 +1076,280 @@
             this.buttonDemoFake65IpMacTableToPISC.UseVisualStyleBackColor = true;
             this.buttonDemoFake65IpMacTableToPISC.Click += new System.EventHandler(this.buttonDemoFake65IpMacTableToPISC_Click);
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label21.Location = new System.Drawing.Point(13, 384);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(96, 19);
+            this.label21.TabIndex = 17;
+            this.label21.Text = "HUB Status";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label22.Location = new System.Drawing.Point(132, 365);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(38, 16);
+            this.label22.TabIndex = 18;
+            this.label22.Text = "Car1";
+            // 
+            // textBoxHubSta0
+            // 
+            this.textBoxHubSta0.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta0.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta0.Location = new System.Drawing.Point(134, 384);
+            this.textBoxHubSta0.Name = "textBoxHubSta0";
+            this.textBoxHubSta0.ReadOnly = true;
+            this.textBoxHubSta0.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta0.TabIndex = 19;
+            this.textBoxHubSta0.Text = "Online";
+            this.textBoxHubSta0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta1
+            // 
+            this.textBoxHubSta1.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta1.Location = new System.Drawing.Point(220, 384);
+            this.textBoxHubSta1.Name = "textBoxHubSta1";
+            this.textBoxHubSta1.ReadOnly = true;
+            this.textBoxHubSta1.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta1.TabIndex = 19;
+            this.textBoxHubSta1.Text = "Online";
+            this.textBoxHubSta1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta2
+            // 
+            this.textBoxHubSta2.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta2.Location = new System.Drawing.Point(304, 384);
+            this.textBoxHubSta2.Name = "textBoxHubSta2";
+            this.textBoxHubSta2.ReadOnly = true;
+            this.textBoxHubSta2.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta2.TabIndex = 19;
+            this.textBoxHubSta2.Text = "Online";
+            this.textBoxHubSta2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta3
+            // 
+            this.textBoxHubSta3.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta3.Location = new System.Drawing.Point(389, 384);
+            this.textBoxHubSta3.Name = "textBoxHubSta3";
+            this.textBoxHubSta3.ReadOnly = true;
+            this.textBoxHubSta3.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta3.TabIndex = 19;
+            this.textBoxHubSta3.Text = "Online";
+            this.textBoxHubSta3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta4
+            // 
+            this.textBoxHubSta4.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta4.Location = new System.Drawing.Point(475, 384);
+            this.textBoxHubSta4.Name = "textBoxHubSta4";
+            this.textBoxHubSta4.ReadOnly = true;
+            this.textBoxHubSta4.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta4.TabIndex = 19;
+            this.textBoxHubSta4.Text = "Online";
+            this.textBoxHubSta4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta5
+            // 
+            this.textBoxHubSta5.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta5.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta5.Location = new System.Drawing.Point(559, 384);
+            this.textBoxHubSta5.Name = "textBoxHubSta5";
+            this.textBoxHubSta5.ReadOnly = true;
+            this.textBoxHubSta5.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta5.TabIndex = 19;
+            this.textBoxHubSta5.Text = "Online";
+            this.textBoxHubSta5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label23.Location = new System.Drawing.Point(217, 365);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(38, 16);
+            this.label23.TabIndex = 18;
+            this.label23.Text = "Car2";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label24.Location = new System.Drawing.Point(301, 365);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(38, 16);
+            this.label24.TabIndex = 18;
+            this.label24.Text = "Car3";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label25.Location = new System.Drawing.Point(389, 365);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(38, 16);
+            this.label25.TabIndex = 18;
+            this.label25.Text = "Car4";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label26.Location = new System.Drawing.Point(474, 365);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(38, 16);
+            this.label26.TabIndex = 18;
+            this.label26.Text = "Car5";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label27.Location = new System.Drawing.Point(558, 365);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(38, 16);
+            this.label27.TabIndex = 18;
+            this.label27.Text = "Car6";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label28.Location = new System.Drawing.Point(133, 420);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(38, 16);
+            this.label28.TabIndex = 18;
+            this.label28.Text = "Car7";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label29.Location = new System.Drawing.Point(218, 420);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(38, 16);
+            this.label29.TabIndex = 18;
+            this.label29.Text = "Car8";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label30.Location = new System.Drawing.Point(390, 420);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(46, 16);
+            this.label30.TabIndex = 18;
+            this.label30.Text = "Car10";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label31.Location = new System.Drawing.Point(302, 420);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(38, 16);
+            this.label31.TabIndex = 18;
+            this.label31.Text = "Car9";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label32.Location = new System.Drawing.Point(475, 420);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(46, 16);
+            this.label32.TabIndex = 18;
+            this.label32.Text = "Car11";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label33.Location = new System.Drawing.Point(559, 420);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(46, 16);
+            this.label33.TabIndex = 18;
+            this.label33.Text = "Car12";
+            // 
+            // textBoxHubSta6
+            // 
+            this.textBoxHubSta6.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta6.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta6.Location = new System.Drawing.Point(135, 439);
+            this.textBoxHubSta6.Name = "textBoxHubSta6";
+            this.textBoxHubSta6.ReadOnly = true;
+            this.textBoxHubSta6.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta6.TabIndex = 19;
+            this.textBoxHubSta6.Text = "Online";
+            this.textBoxHubSta6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta7
+            // 
+            this.textBoxHubSta7.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta7.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta7.Location = new System.Drawing.Point(221, 439);
+            this.textBoxHubSta7.Name = "textBoxHubSta7";
+            this.textBoxHubSta7.ReadOnly = true;
+            this.textBoxHubSta7.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta7.TabIndex = 19;
+            this.textBoxHubSta7.Text = "Online";
+            this.textBoxHubSta7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta9
+            // 
+            this.textBoxHubSta9.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta9.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta9.Location = new System.Drawing.Point(390, 439);
+            this.textBoxHubSta9.Name = "textBoxHubSta9";
+            this.textBoxHubSta9.ReadOnly = true;
+            this.textBoxHubSta9.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta9.TabIndex = 19;
+            this.textBoxHubSta9.Text = "Online";
+            this.textBoxHubSta9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta8
+            // 
+            this.textBoxHubSta8.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta8.Location = new System.Drawing.Point(305, 439);
+            this.textBoxHubSta8.Name = "textBoxHubSta8";
+            this.textBoxHubSta8.ReadOnly = true;
+            this.textBoxHubSta8.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta8.TabIndex = 19;
+            this.textBoxHubSta8.Text = "Online";
+            this.textBoxHubSta8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta10
+            // 
+            this.textBoxHubSta10.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta10.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta10.Location = new System.Drawing.Point(476, 439);
+            this.textBoxHubSta10.Name = "textBoxHubSta10";
+            this.textBoxHubSta10.ReadOnly = true;
+            this.textBoxHubSta10.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta10.TabIndex = 19;
+            this.textBoxHubSta10.Text = "Online";
+            this.textBoxHubSta10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBoxHubSta11
+            // 
+            this.textBoxHubSta11.BackColor = System.Drawing.SystemColors.Window;
+            this.textBoxHubSta11.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxHubSta11.Location = new System.Drawing.Point(560, 439);
+            this.textBoxHubSta11.Name = "textBoxHubSta11";
+            this.textBoxHubSta11.ReadOnly = true;
+            this.textBoxHubSta11.Size = new System.Drawing.Size(77, 27);
+            this.textBoxHubSta11.TabIndex = 19;
+            this.textBoxHubSta11.Text = "Online";
+            this.textBoxHubSta11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1145,6 +1469,31 @@
         private System.Windows.Forms.Button buttonDemoFakeIpMacTableToPISC;
         private System.Windows.Forms.Button buttonDemoFake99IpMacTableToPISC;
         private System.Windows.Forms.Button buttonDemoFake65IpMacTableToPISC;
+        private System.Windows.Forms.TextBox textBoxHubSta11;
+        private System.Windows.Forms.TextBox textBoxHubSta5;
+        private System.Windows.Forms.TextBox textBoxHubSta10;
+        private System.Windows.Forms.TextBox textBoxHubSta4;
+        private System.Windows.Forms.TextBox textBoxHubSta8;
+        private System.Windows.Forms.TextBox textBoxHubSta2;
+        private System.Windows.Forms.TextBox textBoxHubSta9;
+        private System.Windows.Forms.TextBox textBoxHubSta3;
+        private System.Windows.Forms.TextBox textBoxHubSta7;
+        private System.Windows.Forms.TextBox textBoxHubSta1;
+        private System.Windows.Forms.TextBox textBoxHubSta6;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.TextBox textBoxHubSta0;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label21;
     }
 }
 

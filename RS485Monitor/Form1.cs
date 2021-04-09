@@ -149,6 +149,10 @@ namespace RS485Monitor
                     textBoxPiscRxRaw.Invoke(new EventHandler(
                         delegate
                         {
+                            if (textBoxTrsRxRaw.TextLength > 10000)
+                            {
+                                textBoxTrsRxRaw.Clear();
+                            }
                             textBoxTrsRxRaw.Text += str;
                         }));
                 }
@@ -161,6 +165,10 @@ namespace RS485Monitor
                     textBoxPiscRxRaw.Invoke(new EventHandler(
                         delegate
                         {
+                            if (textBoxPiscRxRaw.TextLength > 10000)
+                            {
+                                textBoxPiscRxRaw.Clear();
+                            }
                             textBoxPiscRxRaw.Text += str;
                         }));
                 }catch (InvalidOperationException) { }                
@@ -204,6 +212,7 @@ namespace RS485Monitor
             int audioVolume = 0;
             int emergencyDeviceCount = 0;
             int[] peiStatus = new int[4];
+            int[] hubStatus = new int[12];
             int deviceErrorCount = 0;
 
             // 取得 Request 中的各個參數
@@ -214,6 +223,10 @@ namespace RS485Monitor
                 peiStatus[i] = gPISC.GetPEIStatus(i);
             }
             deviceErrorCount = gPISC.GetDeviceErrorCount();
+            for(int i=0;i<12; i++)
+            {
+                hubStatus[i] = gPISC.GetHUBStatus(i);
+            }
 
             // 顯示在 UI 上
             textBoxAudioVolume.Text = audioVolume.ToString("D2");
@@ -227,12 +240,40 @@ namespace RS485Monitor
             textBoxPEIStatus1.Text = PEIStatusName(peiStatus[1]);
             textBoxPEIStatus2.Text = PEIStatusName(peiStatus[2]);
             textBoxPEIStatus3.Text = PEIStatusName(peiStatus[3]);
+            textBoxPEIStatus0.BackColor = PEIStatusColor(peiStatus[0]);
+            textBoxPEIStatus1.BackColor = PEIStatusColor(peiStatus[1]);
+            textBoxPEIStatus2.BackColor = PEIStatusColor(peiStatus[2]);
+            textBoxPEIStatus3.BackColor = PEIStatusColor(peiStatus[3]);
             textBoxDevErrCnt.Text = deviceErrorCount.ToString("D2");
             listBoxPEHStatus.Items.Clear();
             for (int i = 0; i < deviceErrorCount; i++)
             {
                 listBoxPEHStatus.Items.Add(gPISC.GetPEHStatus(i));
             }
+            textBoxHubSta0.Text = HUBStatusName(hubStatus[0]);
+            textBoxHubSta1.Text = HUBStatusName(hubStatus[1]);
+            textBoxHubSta2.Text = HUBStatusName(hubStatus[2]);
+            textBoxHubSta3.Text = HUBStatusName(hubStatus[3]);
+            textBoxHubSta4.Text = HUBStatusName(hubStatus[4]);
+            textBoxHubSta5.Text = HUBStatusName(hubStatus[5]);
+            textBoxHubSta6.Text = HUBStatusName(hubStatus[6]);
+            textBoxHubSta7.Text = HUBStatusName(hubStatus[7]);
+            textBoxHubSta8.Text = HUBStatusName(hubStatus[8]);
+            textBoxHubSta9.Text = HUBStatusName(hubStatus[9]);
+            textBoxHubSta10.Text = HUBStatusName(hubStatus[10]);
+            textBoxHubSta11.Text = HUBStatusName(hubStatus[11]);
+            textBoxHubSta0.BackColor = HUBStatusColor(hubStatus[0]);
+            textBoxHubSta1.BackColor = HUBStatusColor(hubStatus[1]);
+            textBoxHubSta2.BackColor = HUBStatusColor(hubStatus[2]);
+            textBoxHubSta3.BackColor = HUBStatusColor(hubStatus[3]);
+            textBoxHubSta4.BackColor = HUBStatusColor(hubStatus[4]);
+            textBoxHubSta5.BackColor = HUBStatusColor(hubStatus[5]);
+            textBoxHubSta6.BackColor = HUBStatusColor(hubStatus[6]);
+            textBoxHubSta7.BackColor = HUBStatusColor(hubStatus[7]);
+            textBoxHubSta8.BackColor = HUBStatusColor(hubStatus[8]);
+            textBoxHubSta9.BackColor = HUBStatusColor(hubStatus[9]);
+            textBoxHubSta10.BackColor = HUBStatusColor(hubStatus[10]);
+            textBoxHubSta11.BackColor = HUBStatusColor(hubStatus[11]);
         }
         private void PISC_ShowRspIpMacTable()
         {
@@ -330,6 +371,10 @@ namespace RS485Monitor
                 tb.Invoke(new EventHandler(
                     delegate
                     {
+                        if (tb.TextLength > 6000)
+                        {
+                            tb.Clear();
+                        }
                         tb.Text += "[" + t.Hour.ToString("D2") + ":" + t.Minute.ToString("D2") + ":" + t.Second.ToString("D2") + "]  " +
                                 str + Environment.NewLine;
                     }));
@@ -539,6 +584,43 @@ namespace RS485Monitor
             return str;
         }
 
+        private Color PEIStatusColor(int peiStaCode)
+        {
+            Color cl = Color.White;
+            switch (peiStaCode)
+            {
+                case 0: cl = Color.White; break;
+                case 1: cl = Color.Pink; break;
+                case 2: cl = Color.Purple; break;
+                default: cl = Color.Gray; break;
+            }
+            return cl;
+        }
+
+
+        private String HUBStatusName(int hubStaCode)
+        {
+            String str = String.Empty;
+            switch (hubStaCode)
+            {
+                case 0: str = "Online"; break;
+                case 1: str = "Timeout"; break;
+                default: str = "Unknown"; break;
+            }
+            return str;
+        }
+
+        private Color HUBStatusColor(int hubStaCode)
+        {
+            Color cl = Color.White;
+            switch (hubStaCode)
+            {
+                case 0: cl = Color.White; break;
+                case 1: cl = Color.Pink; break;
+                default: cl = Color.Gray; break;
+            }
+            return cl;
+        }
         private void buttonClrMsg_Click(object sender, EventArgs e) // 清除訊息窗
         {
             if (((Button)sender).Name == "buttonClrTRSMsg")

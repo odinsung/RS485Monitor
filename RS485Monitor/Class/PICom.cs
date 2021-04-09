@@ -350,12 +350,13 @@ namespace RS485Monitor.Class
 
     public class PISC : PICom
     {
-        private int AudioVolume = 0;
-        private int EmergencyDeviceCount = 0;
-        private List<String> AlarmDevice = new List<String>();
-        private int[] PEIStatus = new int[4];
-        private int DeviceErrorCount = 0;
-        private List<String> PEHStatus = new List<String>();
+        private int AudioVolume = 0; // 子機音量
+        private int EmergencyDeviceCount = 0; // 呼叫子機數量
+        private List<String> AlarmDevice = new List<String>(); // 呼叫子機名稱
+        private int[] PEIStatus = new int[4]; // 主機(PEI/PEIH)狀態
+        private int DeviceErrorCount = 0; // 斷線子機數量
+        private List<String> PEHStatus = new List<String>(); // 斷線子機名稱
+        private int[] HUBStatus = new int[12]; // HUB狀態(0:online, 1:timeout)
 
         private int IpMacCnt = 0;
         private List<String> IpMacTable = new List<String>();
@@ -392,6 +393,10 @@ namespace RS485Monitor.Class
         public int GetPEIStatus(int index)
         {
             return index < 4 ? PEIStatus[index] : -1;
+        }
+        public int GetHUBStatus(int index)
+        {
+            return index < 12 ? HUBStatus[index] : -1;
         }
         public int GetDeviceErrorCount()
         {
@@ -440,6 +445,7 @@ namespace RS485Monitor.Class
             int emgCnt = 0;
             int devErrCnt = 0;
             int[] peiSta = new int[4];
+            int[] hubSta = new int[12];
             String str = String.Empty;
 
             int ipMacCnt = 0;
@@ -479,9 +485,13 @@ namespace RS485Monitor.Class
                         ThrowErrorEvent("Device Error Count Error");
                         return;
                     }
-                    if (AppData.Length != (12 + AlarmDeviceStrLen * emgCnt + PEHStatusStrLen * devErrCnt))
-                    { 
-                        ThrowErrorEvent("App Data Length Error");
+                    if (AppData.Length != (24 + AlarmDeviceStrLen * emgCnt + PEHStatusStrLen * devErrCnt))
+                    {
+                        //ThrowErrorEvent("App Data Length Error");
+                        int l = 24 + AlarmDeviceStrLen * emgCnt + PEHStatusStrLen * devErrCnt;
+                        string s = "AppDataLen=" + AppData.Length.ToString() + ", should be " + l.ToString() +
+                            ", emgCnt=" + emgCnt.ToString() + ", devErrCnt=" + devErrCnt.ToString();
+                        ThrowErrorEvent(s);
                         return;
                     }
                     str = AppData.Substring(6 + AlarmDeviceStrLen * emgCnt, 4);
@@ -490,6 +500,14 @@ namespace RS485Monitor.Class
                         if (!int.TryParse(AppData.Substring(6 + AlarmDeviceStrLen * emgCnt + i, 1), out peiSta[i]))
                         {
                             ThrowErrorEvent("PEI Status Error");
+                            return;
+                        }
+                    }
+                    for(int i = 0; i < 12; i++)
+                    {
+                        if (!int.TryParse(AppData.Substring(12+AlarmDeviceStrLen*emgCnt+PEHStatusStrLen*devErrCnt+i, 1), out hubSta[i]))
+                        {
+                            ThrowErrorEvent("HUB Status Error");
                             return;
                         }
                     }
@@ -509,6 +527,7 @@ namespace RS485Monitor.Class
                     {
                         PEHStatus.Add(str.Substring(i * PEHStatusStrLen, PEHStatusStrLen));
                     }
+                    Array.Copy(hubSta, HUBStatus, 12); //------------------------------------- (7) HUB Status
                     ThrowReportISStatusEvent();
                 }
                 else if (str == "41") // Response IP-MAC Table
